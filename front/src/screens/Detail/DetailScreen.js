@@ -2,9 +2,14 @@ import React from "react";
 import { Link, useParams } from "react-router-dom";
 import { Button, Box } from "@mui/material";
 import Stack from "@mui/material/Stack";
+import { useSelector } from "react-redux";
 
 function DetailScreen() {
   const params = useParams();
+  const memberList = useSelector((state) => state.member);
+  const memberInfo = memberList.filter(
+    (member) => member.id === Number(params.id)
+  )[0];
 
   const Item = ({ label, content }) => {
     return (
@@ -60,16 +65,16 @@ function DetailScreen() {
         <h3>직원 정보: {params.id}</h3>
       </div>
       <Box sx={{ width: "100%" }}>
-        <Item label={"이름"} content={"김세연"} />
-        <Item label={"핸드폰"} content={"010-9270-1210"} />
-        <Item label={"생년월일"} content={"19961202"} />
-        <Item label={"부서"} content={"부서"} />
-        <Item label={"직급"} content={"직급"} />
-        <Item label={"직책"} content={"직책"} />
-        <Item label={"메일주소"} content={"syk767@naver.com"} />
-        <Item label={"사무실번호"} content={"1234"} />
-        <Item label={"팩스번호"} content={"6789"} />
-        <Item label={"담당업무"} content={"업무"} />
+        <Item label={"이름"} content={memberInfo.name} />
+        <Item label={"핸드폰"} content={memberInfo.phone} />
+        <Item label={"생년월일"} content={memberInfo.birth} />
+        <Item label={"부서"} content={memberInfo.team} />
+        <Item label={"직급"} content={memberInfo.rank} />
+        <Item label={"직책"} content={memberInfo.position} />
+        <Item label={"메일주소"} content={memberInfo.email} />
+        <Item label={"사무실번호"} content={memberInfo.officeNum} />
+        <Item label={"팩스번호"} content={memberInfo.faxNum} />
+        <Item label={"담당업무"} content={memberInfo.task} />
       </Box>
       <div style={{ display: "flex", justifyContent: "space-between" }}>
         <Link to={"/"} style={{ textDecoration: "none" }}>
