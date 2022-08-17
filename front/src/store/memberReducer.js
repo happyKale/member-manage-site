@@ -59,17 +59,19 @@ export const memberSlice = createSlice({
   name: "memeber",
   initialState,
   reducers: {
-    load: (state, action) => {
-      return state;
-    },
+    load: (state, action) => {},
     add: (state, action) => {
-      return state.push(action.payload);
+      state.push(action.payload);
     },
-    remove: (state, action) => {
-      return state;
-    },
+    remove: (state, action) => {},
     modify: (state, action) => {
-      return state;
+      let num = 0;
+      state.map((member, idx) => {
+        if (member.id === action.payload.id) {
+          num = idx;
+        }
+      });
+      state[num] = action.payload;
     },
   },
 });
