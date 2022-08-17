@@ -8,52 +8,13 @@ function HomeScreen() {
   const navigate = useNavigate();
   const memberList = useSelector((state) => state.member);
 
-  const rows = [
-    {
-      id: 1,
-      col1: "DX팀",
-      col2: "부장",
-      col3: "팀장",
-      col4: "직원1",
-      col5: "02-2125-6530",
-      col6: "010-1234-5678",
-    },
-    {
-      id: 2,
-      col1: "DX팀",
-      col2: "대리",
-      col3: "팀원",
-      col4: "직원2",
-      col5: "02-2125-6547",
-      col6: "010-1234-5678",
-    },
-    {
-      id: 3,
-      col1: "DX팀",
-      col2: "사원",
-      col3: "팀원",
-      col4: "직원3",
-      col5: "02-2125-6548",
-      col6: "010-1234-5678",
-    },
-    {
-      id: 4,
-      col1: "DX팀",
-      col2: "사원",
-      col3: "팀원",
-      col4: "직원4",
-      col5: "02-2125-6549",
-      col6: "010-1234-5678",
-    },
-  ];
-
   const columns = [
-    { field: "col1", headerName: "부서", width: 150 },
-    { field: "col2", headerName: "직급", width: 150 },
-    { field: "col3", headerName: "직책", width: 150 },
-    { field: "col4", headerName: "사원명", width: 150 },
-    { field: "col5", headerName: "사무실번호", width: 150 },
-    { field: "col6", headerName: "핸드폰", width: 150 },
+    { field: "team", headerName: "부서", width: 150 },
+    { field: "rank", headerName: "직급", width: 150 },
+    { field: "position", headerName: "직책", width: 150 },
+    { field: "name", headerName: "사원명", width: 150 },
+    { field: "officeNum", headerName: "사무실번호", width: 150 },
+    { field: "phone", headerName: "핸드폰", width: 150 },
   ];
 
   const handleRowClick = (e) => {
@@ -101,7 +62,7 @@ function HomeScreen() {
           checkboxSelection
           disableSelectionOnClick
           pageSize={10}
-          rows={rows}
+          rows={memberList}
           columns={columns}
           onRowClick={handleRowClick}
           rowsPerPageOptions={[10]}
