@@ -6,7 +6,7 @@ const initialState = [
     name: "직원1",
     phone: "010-1234-5678",
     birth: "1980-01-01",
-    team: "DX팀",
+    team: "DX",
     position: "팀장", // 직책
     rank: "부장", // 직급
     email: "123@naver.com",
@@ -19,7 +19,7 @@ const initialState = [
     name: "직원2",
     phone: "010-1234-5678",
     birth: "1995-01-01",
-    team: "DX팀",
+    team: "DX",
     position: "팀원", // 직책
     rank: "대리", // 직급
     email: "456@naver.com",
@@ -32,7 +32,7 @@ const initialState = [
     name: "직원3",
     phone: "010-1234-5678",
     birth: "1997-01-01",
-    team: "DX팀",
+    team: "DX",
     position: "팀원", // 직책
     rank: "사원", // 직급
     email: "789@naver.com",
@@ -45,7 +45,7 @@ const initialState = [
     name: "직원4",
     phone: "010-1234-5678",
     birth: "1996-01-01",
-    team: "DX팀",
+    team: "DX",
     position: "팀원", // 직책
     rank: "사원", // 직급
     email: "555@naver.com",
