@@ -1,24 +1,44 @@
-import React from "react";
-import { useSelector } from "react-redux";
+import React, { useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
 import { Link, useNavigate } from "react-router-dom";
 import { Button } from "@mui/material";
 import { DataGrid } from "@mui/x-data-grid";
+import { modify } from "../../store/modalReducer";
+
+const COLUMNS = [
+  { field: "team", headerName: "부서", width: 150 },
+  { field: "rank", headerName: "직급", width: 150 },
+  { field: "position", headerName: "직책", width: 150 },
+  { field: "name", headerName: "사원명", width: 150 },
+  { field: "officeNum", headerName: "사무실번호", width: 150 },
+  { field: "phone", headerName: "핸드폰", width: 150 },
+];
 
 function HomeScreen() {
   const navigate = useNavigate();
+  const dispatch = useDispatch();
+
   const memberList = useSelector((state) => state.member);
+  const [selectedMemberId, setSelectedMemberId] = useState([]);
 
-  const columns = [
-    { field: "team", headerName: "부서", width: 150 },
-    { field: "rank", headerName: "직급", width: 150 },
-    { field: "position", headerName: "직책", width: 150 },
-    { field: "name", headerName: "사원명", width: 150 },
-    { field: "officeNum", headerName: "사무실번호", width: 150 },
-    { field: "phone", headerName: "핸드폰", width: 150 },
-  ];
-
+  const handleSelect = (e) => {
+    setSelectedMemberId(e);
+  };
   const handleRowClick = (e) => {
     navigate(`/detail/${e.id}`);
+  };
+  const handleRemove = () => {
+    if (selectedMemberId.length === 0) {
+      alert("삭제할 직원 명단을 선택하세요.");
+    } else {
+      dispatch(
+        modify({
+          type: "remove",
+          openStatus: true,
+          selectedMemberId: selectedMemberId,
+        })
+      );
+    }
   };
 
   return (
@@ -53,6 +73,7 @@ function HomeScreen() {
             backgroundColor: "red",
             color: "white",
           }}
+          onClick={handleRemove}
         >
           삭제
         </Button>
@@ -63,7 +84,8 @@ function HomeScreen() {
           disableSelectionOnClick
           pageSize={10}
           rows={memberList}
-          columns={columns}
+          columns={COLUMNS}
+          onSelectionModelChange={handleSelect}
           onRowClick={handleRowClick}
           rowsPerPageOptions={[10]}
         />
