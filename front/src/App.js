@@ -3,7 +3,7 @@ import { Container } from "@mui/system";
 import React, { useState } from "react";
 import { useSelector } from "react-redux";
 import { Route, Routes } from "react-router-dom";
-import { Footer, Header, RemoveModal } from "./components";
+import { ConfirmModal, Footer, Header, RemoveModal } from "./components";
 import { HomeScreen, DetailScreen, AddScreen, ModifyScreen } from "./screens";
 
 function App() {
@@ -15,6 +15,8 @@ function App() {
       <Container>
         {modalInfo.type == "remove" && modalInfo.openStatus ? (
           <RemoveModal />
+        ) : modalInfo.type === "confirm" && modalInfo.openStatus ? (
+          <ConfirmModal />
         ) : (
           ""
         )}
