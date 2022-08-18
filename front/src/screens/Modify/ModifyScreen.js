@@ -12,6 +12,7 @@ const MARGINBOTTOM = "30px";
 function ModifyScreen() {
   const params = useParams();
   const dispatch = useDispatch();
+
   const memberList = useSelector((state) => state.member);
   const memberInfo = memberList.filter(
     (member) => member.id === Number(params.id)
@@ -40,7 +41,7 @@ function ModifyScreen() {
 
   const handleSubmit = () => {
     if (Object.values(requiredInputCheck).includes(false)) {
-      alert("필수 입력값을 입력해야 함!");
+      alert("필수 값을 모두 입력하세요.");
     } else {
       dispatch(modify(inputMemberInfo));
     }
