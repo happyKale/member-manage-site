@@ -62,8 +62,14 @@ export const memberSlice = createSlice({
     load: (state, action) => {},
     add: (state, action) => {
       state.push(action.payload);
+      return state;
     },
-    remove: (state, action) => {},
+    remove: (state, action) => {
+      state = state.filter(
+        (member) => !action.payload.selectedMemberId.includes(member.id)
+      );
+      return state;
+    },
     modify: (state, action) => {
       let num = 0;
       state.map((member, idx) => {
@@ -72,6 +78,7 @@ export const memberSlice = createSlice({
         }
       });
       state[num] = action.payload;
+      return state;
     },
   },
 });
