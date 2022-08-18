@@ -6,17 +6,17 @@ import { remove } from "../../store/memberReducer";
 
 function RemoveModal() {
   const dispatch = useDispatch();
-  const selectedId = useSelector((state) => state.modal);
+  const selectedId = useSelector((state) => state.modal.selectedMemberId);
   const [open, setOpen] = useState(true);
 
   const handleClose = () => {
     setOpen(false);
-    dispatch(modify({ type: "remove", openStatus: false }));
+    dispatch(modify({ type: "", openStatus: false, selectedMemberId: [] }));
   };
 
-  const handleRemove = () => {
-    dispatch(remove(selectedId));
-    dispatch(modify({ type: "remove", openStatus: false }));
+  const handleRemove = async () => {
+    await dispatch(remove({ selectedMemberId: selectedId }));
+    dispatch(modify({ type: "", openStatus: false, selectedMemberId: [] }));
   };
 
   return (
