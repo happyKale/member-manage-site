@@ -1,14 +1,23 @@
+import { Modal } from "@mui/material";
 import { Container } from "@mui/system";
-import React from "react";
+import React, { useState } from "react";
+import { useSelector } from "react-redux";
 import { Route, Routes } from "react-router-dom";
-import { Footer, Header } from "./components";
+import { Footer, Header, RemoveModal } from "./components";
 import { HomeScreen, DetailScreen, AddScreen, ModifyScreen } from "./screens";
 
 function App() {
+  const modalInfo = useSelector((state) => state.modal);
+
   return (
     <div className="App">
       <Header />
       <Container>
+        {modalInfo.type == "remove" && modalInfo.openStatus ? (
+          <RemoveModal />
+        ) : (
+          ""
+        )}
         <Routes>
           <Route path="/" element={<HomeScreen />} />
           <Route path="detail">
