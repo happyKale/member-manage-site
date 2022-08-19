@@ -4,53 +4,53 @@ import { Button, Box } from "@mui/material";
 import Stack from "@mui/material/Stack";
 import { useSelector } from "react-redux";
 
+const Item = ({ label, content }) => {
+  return (
+    <Stack
+      direction="row"
+      spacing={2}
+      style={{
+        border: "1px solid lightgrey",
+        height: "50px",
+        marginBottom: "10px",
+        borderRadius: "4px",
+      }}
+    >
+      <span
+        style={{
+          backgroundColor: "lightgrey",
+          display: "inline-block",
+          width: "25%",
+          borderTopLeftRadius: "4px",
+          borderBottomLeftRadius: "4px",
+          lineHeight: "45px",
+          paddingLeft: "15px",
+        }}
+      >
+        {label}
+      </span>
+      <span
+        style={{
+          display: "inline-block",
+          width: "75%",
+          borderTopRightRadius: "4px",
+          borderBottomRightRadius: "4px",
+          lineHeight: "45px",
+          paddingLeft: "15px",
+        }}
+      >
+        {content}
+      </span>
+    </Stack>
+  );
+};
+
 function DetailScreen() {
   const params = useParams();
   const memberList = useSelector((state) => state.member);
   const memberInfo = memberList.filter(
     (member) => member.id === Number(params.id)
   )[0];
-
-  const Item = ({ label, content }) => {
-    return (
-      <Stack
-        direction="row"
-        spacing={2}
-        style={{
-          border: "1px solid lightgrey",
-          height: "50px",
-          marginBottom: "10px",
-          borderRadius: "4px",
-        }}
-      >
-        <span
-          style={{
-            backgroundColor: "lightgrey",
-            display: "inline-block",
-            width: "25%",
-            borderTopLeftRadius: "4px",
-            borderBottomLeftRadius: "4px",
-            lineHeight: "45px",
-            paddingLeft: "15px",
-          }}
-        >
-          {label}
-        </span>
-        <span
-          style={{
-            display: "inline-block",
-            width: "75%",
-            borderTopRightRadius: "4px",
-            borderBottomRightRadius: "4px",
-            lineHeight: "45px",
-            paddingLeft: "15px",
-          }}
-        >
-          {content}
-        </span>
-      </Stack>
-    );
-  };
 
   return (
     <div
