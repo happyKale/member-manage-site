@@ -2,7 +2,8 @@ import React from "react";
 import { Link, useParams } from "react-router-dom";
 import { Button, Box } from "@mui/material";
 import Stack from "@mui/material/Stack";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
+import { modify } from "../../store/modalReducer";
 
 const Item = ({ label, content }) => {
   return (
@@ -47,10 +48,21 @@ const Item = ({ label, content }) => {
 
 function DetailScreen() {
   const params = useParams();
+  const dispatch = useDispatch();
   const memberList = useSelector((state) => state.member);
   const memberInfo = memberList.filter(
     (member) => member.id === Number(params.id)
   )[0];
+
+  const handleRemove = () => {
+    dispatch(
+      modify({
+        type: "remove",
+        openStatus: true,
+        selectedMemberId: [Number(params.id)],
+      })
+    );
+  };
 
   return (
     <div
@@ -113,6 +125,7 @@ function DetailScreen() {
               backgroundColor: "red",
               color: "white",
             }}
+            onClick={handleRemove}
           >
             삭제
           </Button>
