@@ -3,9 +3,13 @@ import { Box, Button, Modal } from "@mui/material";
 import { useDispatch, useSelector } from "react-redux";
 import { modify } from "../../store/modalReducer";
 import { remove } from "../../store/memberReducer";
+import { useLocation, useNavigate } from "react-router-dom";
 
 function RemoveModal() {
+  const navigate = useNavigate();
+  const location = useLocation();
   const dispatch = useDispatch();
+  const type = location.pathname.split("/")[1];
   const selectedId = useSelector((state) => state.modal.selectedMemberId);
   const [open, setOpen] = useState(true);
 
@@ -15,8 +19,11 @@ function RemoveModal() {
   };
 
   const handleRemove = async () => {
+    handleClose();
+    if (type === "detail") {
+      navigate("/");
+    }
     await dispatch(remove({ selectedMemberId: selectedId }));
-    dispatch(modify({ type: "", openStatus: false, selectedMemberId: [] }));
   };
 
   return (
