@@ -16,9 +16,7 @@ function ConfirmModal() {
     await dispatch(
       modify({ type: "", openStatus: false, selectedMemberId: [] })
     );
-    if (type === "add") {
-      navigate(`/`);
-    }
+    navigate(`/`);
   };
 
   const handleConfirm = () => {
@@ -26,8 +24,12 @@ function ConfirmModal() {
     navigate(`/`);
   };
 
-  const handleStay = () => {
-    const memberId = location.path.split("/").pop();
+  const handleStay = async () => {
+    const memberId = location.pathname.split("/").pop();
+    setOpen(false);
+    await dispatch(
+      modify({ type: "", openStatus: false, selectedMemberId: [] })
+    );
     navigate(`/detail/${memberId}`);
   };
 
