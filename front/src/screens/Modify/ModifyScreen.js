@@ -2,7 +2,8 @@ import React, { useState } from "react";
 import { Link, useParams } from "react-router-dom";
 import { Button, TextField, Select, MenuItem } from "@mui/material";
 import { useDispatch, useSelector } from "react-redux";
-import { modify } from "../../store/memberReducer";
+import { modify as memberModify } from "../../store/memberReducer";
+import { modify as modalModify } from "../../store/modalReducer";
 
 const TEAMLIST = ["DA", "DE", "DK", "DP", "DX"];
 const RANKLIST = ["사원", "대리", "과장", "차장", "부장"]; //직급
@@ -39,11 +40,12 @@ function ModifyScreen() {
     }
   };
 
-  const handleSubmit = () => {
+  const handleSubmit = async () => {
     if (Object.values(requiredInputCheck).includes(false)) {
       alert("필수 값을 모두 입력하세요.");
     } else {
-      dispatch(modify(inputMemberInfo));
+      await dispatch(memberModify(inputMemberInfo));
+      dispatch(modalModify({ type: "confirm", openStatus: true }));
     }
   };
 
