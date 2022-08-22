@@ -1,11 +1,12 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { Link, useParams } from "react-router-dom";
 import { Button, TextField, Select, MenuItem } from "@mui/material";
 import { useDispatch, useSelector } from "react-redux";
-import { modify as memberModify } from "../../store/memberReducer";
+import { load, modify as memberModify } from "../../store/memberReducer";
 import { modify as modalModify } from "../../store/modalReducer";
+import { memberRepository } from "../../repositories/member-repository";
 
-const TEAMLIST = ["DA", "DE", "DK", "DP", "DX"];
+const TEAMLIST = ["DA팀", "DE팀", "DK팀", "DP팀", "DX팀"];
 const RANKLIST = ["사원", "대리", "과장", "차장", "부장"]; //직급
 const POSITIONLIST = ["팀원", "팀장"]; //직책
 const MARGINBOTTOM = "30px";
@@ -14,10 +15,8 @@ function ModifyScreen() {
   const params = useParams();
   const dispatch = useDispatch();
 
-  const memberList = useSelector((state) => state.member);
-  const memberInfo = memberList.filter(
-    (member) => member.id === Number(params.id)
-  )[0];
+  const memberInfo = useSelector((state) => state.member.selectedMemberInfo);
+
   const [inputMemberInfo, setInputMemberInfo] = useState(memberInfo);
   const [requiredInputCheck, setRequiredInputCheck] = useState({
     name: memberInfo["name"] ? true : false,
@@ -25,6 +24,16 @@ function ModifyScreen() {
     rank: memberInfo["rank"] ? true : false,
     position: memberInfo["position"] ? true : false,
   });
+
+  useEffect(() => {
+    memberRepository.getOne(params.id).then((res) => {
+      dispatch(load({ selectedMemberInfo: res.data }));
+    });
+  }, []);
+
+  useEffect(() => {
+    setInputMemberInfo(memberInfo);
+  }, [memberInfo]);
 
   const handleChange = (e) => {
     setInputMemberInfo({ ...inputMemberInfo, [e.target.name]: e.target.value });
@@ -61,7 +70,6 @@ function ModifyScreen() {
       <div>
         <h3>직원 수정: {params.id}</h3>
       </div>
-
       <div style={{ padding: "30px 0" }}>
         <TextField
           fullWidth
@@ -73,7 +81,7 @@ function ModifyScreen() {
           }
           label={"이름"}
           style={{ marginBottom: MARGINBOTTOM }}
-          value={inputMemberInfo.name}
+          value={inputMemberInfo?.name || ""}
           onChange={handleChange}
         />
         <TextField
@@ -81,7 +89,7 @@ function ModifyScreen() {
           name="phone"
           label={"핸드폰"}
           style={{ marginBottom: MARGINBOTTOM }}
-          value={inputMemberInfo.phone}
+          value={inputMemberInfo?.phone || ""}
           onChange={handleChange}
         />
         <TextField
@@ -89,7 +97,7 @@ function ModifyScreen() {
           name="birth"
           label={"생년월일"}
           style={{ marginBottom: MARGINBOTTOM }}
-          value={inputMemberInfo.birth}
+          value={inputMemberInfo?.birth || ""}
           onChange={handleChange}
         />
         <Select
@@ -99,7 +107,7 @@ function ModifyScreen() {
           label={"부서"}
           style={{ marginBottom: MARGINBOTTOM }}
           defaultValue=""
-          value={inputMemberInfo.team}
+          value={inputMemberInfo?.team || ""}
           onChange={handleChange}
         >
           {TEAMLIST.map((team, idx) => {
@@ -117,7 +125,7 @@ function ModifyScreen() {
           label={"직급"}
           style={{ marginBottom: MARGINBOTTOM }}
           defaultValue=""
-          value={inputMemberInfo.rank}
+          value={inputMemberInfo?.rank || ""}
           onChange={handleChange}
         >
           {RANKLIST.map((rank, idx) => {
@@ -135,7 +143,7 @@ function ModifyScreen() {
           label={"직책"}
           style={{ marginBottom: MARGINBOTTOM }}
           defaultValue=""
-          value={inputMemberInfo.position}
+          value={inputMemberInfo?.position || ""}
           onChange={handleChange}
         >
           {POSITIONLIST.map((position, idx) => {
@@ -151,7 +159,7 @@ function ModifyScreen() {
           name="email"
           label={"메일주소"}
           style={{ marginBottom: MARGINBOTTOM }}
-          value={inputMemberInfo.email}
+          value={inputMemberInfo?.email || ""}
           onChange={handleChange}
         />
         <TextField
@@ -159,7 +167,7 @@ function ModifyScreen() {
           name="officeNum"
           label={"사무실번호"}
           style={{ marginBottom: MARGINBOTTOM }}
-          value={inputMemberInfo.officeNum}
+          value={inputMemberInfo?.officeNum || ""}
           onChange={handleChange}
         />
         <TextField
@@ -167,14 +175,14 @@ function ModifyScreen() {
           name="faxNum"
           label={"팩스번호"}
           style={{ marginBottom: MARGINBOTTOM }}
-          value={inputMemberInfo.faxNum}
+          value={inputMemberInfo?.faxNum || ""}
           onChange={handleChange}
         />
         <TextField
           fullWidth
           name="task"
           label={"담당업무"}
-          value={inputMemberInfo.task}
+          value={inputMemberInfo?.task || ""}
           onChange={handleChange}
         />
       </div>
