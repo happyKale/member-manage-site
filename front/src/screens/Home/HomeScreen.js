@@ -1,9 +1,11 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { Link, useNavigate } from "react-router-dom";
 import { Button } from "@mui/material";
 import { DataGrid } from "@mui/x-data-grid";
 import { modify } from "../../store/modalReducer";
+import { memberRepository } from "../../repositories/member-repository";
+import { load } from "../../store/memberReducer";
 
 const COLUMNS = [
   { field: "team", headerName: "부서", width: 150 },
@@ -18,8 +20,14 @@ function HomeScreen() {
   const navigate = useNavigate();
   const dispatch = useDispatch();
 
-  const memberList = useSelector((state) => state.member);
+  const memberList = useSelector((state) => state.member.memberList);
   const [selectedMemberId, setSelectedMemberId] = useState([]);
+
+  useEffect(() => {
+    memberRepository.getAll().then((res) => {
+      dispatch(load({ memberList: Object.values(res.data) }));
+    });
+  }, []);
 
   const handleSelect = (e) => {
     setSelectedMemberId(e);
