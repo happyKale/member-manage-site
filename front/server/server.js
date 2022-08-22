@@ -16,7 +16,17 @@ app.get("/", (req, res) => {
 app.get("/members", (req, res) => {
   db.query("SELECT * FROM member", (err, data) => {
     if (!err) {
-      res.send({ ...data });
+      res.send(data);
+    } else {
+      res.send(err);
+    }
+  });
+});
+
+app.get(`/members/detail/:id`, (req, res) => {
+  db.query(`SELECT * FROM member WHERE ID = ${req.params.id}`, (err, data) => {
+    if (!err) {
+      res.send(data[0]);
     } else {
       res.send(err);
     }
