@@ -8,12 +8,12 @@ import { memberRepository } from "../../repositories/member-repository";
 import { load } from "../../store/memberReducer";
 
 const COLUMNS = [
-  { field: "team", headerName: "부서", width: 150 },
-  { field: "rank", headerName: "직급", width: 150 },
-  { field: "position", headerName: "직책", width: 150 },
-  { field: "name", headerName: "사원명", width: 150 },
-  { field: "officeNum", headerName: "사무실번호", width: 150 },
-  { field: "phone", headerName: "핸드폰", width: 150 },
+  { field: "team", headerName: "부서", width: 110 },
+  { field: "rank", headerName: "직급", width: 110 },
+  { field: "position", headerName: "직책", width: 110 },
+  { field: "name", headerName: "사원명", width: 110 },
+  { field: "officeNum", headerName: "사무실번호", width: 160 },
+  { field: "phone", headerName: "핸드폰", width: 160 },
 ];
 
 function HomeScreen() {
@@ -55,7 +55,7 @@ function HomeScreen() {
         display: "flex",
         flexDirection: "column",
         height: "100%",
-        padding: "50px 0",
+        padding: "30px 0",
       }}
     >
       <div style={{ display: "flex", justifyContent: "flex-end" }}>
@@ -65,7 +65,7 @@ function HomeScreen() {
             style={{
               width: "80px",
               height: "35px",
-              backgroundColor: "green",
+              backgroundColor: "#1386d2",
               marginRight: "15px",
               color: "white",
             }}
@@ -78,8 +78,10 @@ function HomeScreen() {
           style={{
             width: "80px",
             height: "35px",
-            backgroundColor: "red",
-            color: "white",
+            backgroundColor: "white",
+            color: "gray",
+            border: "1.5px solid #d3d3d3",
+            fontWeight: "bold",
           }}
           onClick={handleRemove}
         >
