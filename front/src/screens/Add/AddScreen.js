@@ -1,18 +1,28 @@
 import React, { useState } from "react";
 import { Link } from "react-router-dom";
-import { Button, TextField, Select, MenuItem } from "@mui/material";
 import { useDispatch, useSelector } from "react-redux";
 import { add } from "../../store/memberReducer";
 import { modify } from "../../store/modalReducer";
+import {
+  Button,
+  TextField,
+  Select,
+  MenuItem,
+  InputLabel,
+  Typography,
+  Stack,
+  Divider,
+} from "@mui/material";
+import ArrowBackIosIcon from "@mui/icons-material/ArrowBackIos";
 
-const TEAMLIST = ["DA", "DE", "DK", "DP", "DX"];
+const TEAMLIST = ["DA팀", "DE팀", "DK팀", "DP팀", "DX팀"];
 const RANKLIST = ["사원", "대리", "과장", "차장", "부장"]; //직급
 const POSITIONLIST = ["팀원", "팀장"]; //직책
 const MARGINBOTTOM = "30px";
 
 function AddScreen() {
   const dispatch = useDispatch();
-  const memberList = useSelector((state) => state.member);
+  const memberList = useSelector((state) => state.member.memberList);
   const lastId = memberList
     .map((member) => {
       return member.id;
@@ -62,6 +72,25 @@ function AddScreen() {
     }
   };
 
+  const InputText = ({ label, required, name, value }) => {
+    return (
+      <>
+        <InputLabel style={{ margin: "0 0 5px 0" }}>
+          {label}
+          {required ? <span style={{ color: "red" }}>*</span> : ""}
+        </InputLabel>
+        <TextField
+          fullWidth
+          required={required}
+          value={value}
+          name={name}
+          style={{ marginBottom: MARGINBOTTOM }}
+          onChange={handleChange}
+        />
+      </>
+    );
+  };
+
   return (
     <div
       style={{
@@ -71,112 +100,151 @@ function AddScreen() {
         padding: "50px 0",
       }}
     >
-      <div>
-        <h3>직원 등록</h3>
-      </div>
-      <div style={{ padding: "30px 0" }}>
-        <TextField
-          fullWidth
-          required
-          value={inputMemberInfo.name}
-          name="name"
-          label={"이름"}
-          style={{ marginBottom: MARGINBOTTOM }}
-          onChange={handleChange}
-        />
-        <TextField
-          fullWidth
-          value={inputMemberInfo.phone}
-          name="phone"
-          label={"핸드폰"}
-          style={{ marginBottom: MARGINBOTTOM }}
-          onChange={handleChange}
-        />
-        <TextField
-          fullWidth
-          value={inputMemberInfo.birth}
-          label={"생년월일"}
-          name="birth"
-          style={{ marginBottom: MARGINBOTTOM }}
-          onChange={handleChange}
-        />
-        <Select
-          fullWidth
-          name="team"
-          value={inputMemberInfo.team}
-          style={{ marginBottom: MARGINBOTTOM }}
-          onChange={handleChange}
-        >
-          {TEAMLIST.map((team, idx) => {
-            return (
-              <MenuItem key={team + idx} value={`${team}`}>
-                {team}
-              </MenuItem>
-            );
-          })}
-        </Select>
-        <Select
-          fullWidth
-          name="rank"
-          value={inputMemberInfo.rank}
-          style={{ marginBottom: MARGINBOTTOM }}
-          onChange={handleChange}
-        >
-          {RANKLIST.map((rank, idx) => {
-            return (
-              <MenuItem key={rank + idx} value={`${rank}`}>
-                {rank}
-              </MenuItem>
-            );
-          })}
-        </Select>
-        <Select
-          fullWidth
-          name="position"
-          value={inputMemberInfo.position}
-          style={{ marginBottom: MARGINBOTTOM }}
-          onChange={handleChange}
-        >
-          {POSITIONLIST.map((position, idx) => {
-            return (
-              <MenuItem key={position + idx} value={`${position}`}>
-                {position}
-              </MenuItem>
-            );
-          })}
-        </Select>
-        <TextField
-          fullWidth
-          name="email"
-          value={inputMemberInfo.email}
-          label={"메일주소"}
-          style={{ marginBottom: MARGINBOTTOM }}
-          onChange={handleChange}
-        />
-        <TextField
-          fullWidth
-          name="officeNum"
-          value={inputMemberInfo.officeNum}
-          label={"사무실번호"}
-          style={{ marginBottom: MARGINBOTTOM }}
-          onChange={handleChange}
-        />
-        <TextField
-          fullWidth
-          name="faxNum"
-          value={inputMemberInfo.faxNum}
-          label={"팩스번호"}
-          style={{ marginBottom: MARGINBOTTOM }}
-          onChange={handleChange}
-        />
-        <TextField
-          fullWidth
-          name="task"
-          value={inputMemberInfo.task}
-          label={"담당업무"}
-          onChange={handleChange}
-        />
-      </div>
+      <Typography style={{ fontSize: "24px", fontWeight: "bold" }}>
+        직원 등록
+      </Typography>
+      <Stack
+        direction={"column"}
+        style={{
+          borderTop: "1px solid #e5e5e5",
+          borderBottom: "1px solid #e5e5e5",
+          margin: "30px 0",
+        }}
+        divider={<Divider orientation="horizontal" flexItem />}
+      >
+        <Stack direction={"row"} margin={"20px 0"}>
+          <Typography
+            style={{
+              width: "35%",
+              fontSize: "18px",
+              fontWeight: "bold",
+              color: "#5b5b5b",
+            }}
+          >
+            필수입력사항
+          </Typography>
+          <Stack style={{ width: "65%" }}>
+            <InputText
+              label={"이름"}
+              required
+              name={"name"}
+              value={inputMemberInfo.name}
+            />
+            <InputLabel style={{ margin: "0 0 5px 0" }}>
+              부서 <span style={{ color: "red" }}>*</span>
+            </InputLabel>
+            <Select
+              fullWidth
+              name="team"
+              value={inputMemberInfo.team}
+              style={{ marginBottom: MARGINBOTTOM }}
+              onChange={handleChange}
+            >
+              {TEAMLIST.map((team, idx) => {
+                return (
+                  <MenuItem key={team + idx} value={`${team}`}>
+                    {team}
+                  </MenuItem>
+                );
+              })}
+            </Select>
+            <InputLabel style={{ margin: "0 0 5px 0" }}>
+              직책 <span style={{ color: "red" }}>*</span>
+            </InputLabel>
+            <Select
+              fullWidth
+              name="position"
+              value={inputMemberInfo.position}
+              style={{ marginBottom: MARGINBOTTOM }}
+              onChange={handleChange}
+            >
+              {POSITIONLIST.map((position, idx) => {
+                return (
+                  <MenuItem key={position + idx} value={`${position}`}>
+                    {position}
+                  </MenuItem>
+                );
+              })}
+            </Select>
+            <InputLabel style={{ margin: "0 0 5px 0" }}>
+              직급 <span style={{ color: "red" }}>*</span>
+            </InputLabel>
+            <Select
+              fullWidth
+              name="rank"
+              value={inputMemberInfo.rank}
+              style={{ marginBottom: MARGINBOTTOM }}
+              onChange={handleChange}
+            >
+              {RANKLIST.map((rank, idx) => {
+                return (
+                  <MenuItem key={rank + idx} value={`${rank}`}>
+                    {rank}
+                  </MenuItem>
+                );
+              })}
+            </Select>
+          </Stack>
+        </Stack>
+        <Stack direction={"row"} margin={"20px 0"}>
+          <Typography
+            style={{
+              width: "35%",
+              fontSize: "18px",
+              fontWeight: "bold",
+              color: "#5b5b5b",
+            }}
+          >
+            연락처
+          </Typography>
+          <Stack style={{ width: "65%" }}>
+            <InputText
+              label={"핸드폰"}
+              name={"phone"}
+              value={inputMemberInfo.phone}
+            />
+            <InputText
+              label={"메일주소"}
+              name={"email"}
+              value={inputMemberInfo.email}
+            />
+            <InputText
+              label={"사무실번호"}
+              name={"officeNum"}
+              value={inputMemberInfo.officeNum}
+            />
+            <InputText
+              label={"팩스번호"}
+              name={"faxNum"}
+              value={inputMemberInfo.faxNum}
+            />
+          </Stack>
+        </Stack>
+        <Stack direction={"row"} margin={"20px 0"}>
+          <Typography
+            style={{
+              width: "35%",
+              fontSize: "18px",
+              fontWeight: "bold",
+              color: "#5b5b5b",
+            }}
+          >
+            기타사항
+          </Typography>
+          <Stack>
+            <InputText
+              label={"생년월일"}
+              name={"birth"}
+              value={inputMemberInfo.birth}
+            />
+            <InputText
+              label={"담당업무"}
+              name={"task"}
+              value={inputMemberInfo.task}
+            />
+          </Stack>
+        </Stack>
+      </Stack>
       <div style={{ display: "flex", justifyContent: "space-between" }}>
         <Link to={"/"} style={{ textDecoration: "none" }}>
           <Button
@@ -184,10 +252,13 @@ function AddScreen() {
             style={{
               width: "80px",
               height: "35px",
-              backgroundColor: "lightgray",
-              color: "white",
+              backgroundColor: "white",
+              color: "gray",
+              border: "1.5px solid #d3d3d3",
+              fontWeight: "bold",
             }}
           >
+            <ArrowBackIosIcon fontSize="14px" />
             목록
           </Button>
         </Link>
@@ -196,7 +267,7 @@ function AddScreen() {
           style={{
             width: "80px",
             height: "35px",
-            backgroundColor: "green",
+            backgroundColor: "#1386d2",
             color: "white",
           }}
           onClick={handleSubmit}
