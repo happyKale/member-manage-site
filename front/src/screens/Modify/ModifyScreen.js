@@ -5,6 +5,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { load, modify as memberModify } from "../../store/memberReducer";
 import { modify as modalModify } from "../../store/modalReducer";
 import { memberRepository } from "../../repositories/member-repository";
+import ArrowBackIosIcon from "@mui/icons-material/ArrowBackIos";
 
 const TEAMLIST = ["DA팀", "DE팀", "DK팀", "DP팀", "DX팀"];
 const RANKLIST = ["사원", "대리", "과장", "차장", "부장"]; //직급
@@ -191,12 +192,15 @@ function ModifyScreen() {
           <Button
             variant="text"
             style={{
-              width: "80px",
+              width: "110px",
               height: "35px",
-              backgroundColor: "lightgray",
-              color: "white",
+              backgroundColor: "white",
+              color: "gray",
+              border: "1.5px solid #d3d3d3",
+              fontWeight: "bold",
             }}
           >
+            <ArrowBackIosIcon fontSize="14px" />
             이전화면
           </Button>
         </Link>
@@ -205,8 +209,9 @@ function ModifyScreen() {
           style={{
             width: "80px",
             height: "35px",
-            backgroundColor: "green",
+            backgroundColor: "#1386d2",
             color: "white",
+            fontWeight: "bold",
           }}
           onClick={handleSubmit}
         >
