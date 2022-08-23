@@ -18,6 +18,7 @@ import {
 } from "@mui/material";
 import ArrowBackIosIcon from "@mui/icons-material/ArrowBackIos";
 
+const TEAMLIST = ["DA팀", "DE팀", "DK팀", "DP팀", "DX팀"];
 const RANKLIST = [
   "인턴",
   "사원",
@@ -199,106 +200,30 @@ function AddScreen() {
                 id="input-team"
                 aria-describedby="input-team-helper-text"
               >
-                <Button
-                  onClick={handleChange}
-                  name="team"
-                  value="DA팀"
-                  style={{
-                    backgroundColor: teamButtonActive.DA팀
-                      ? "#1976d2"
-                      : "white",
-                    color: teamButtonActive.DA팀
-                      ? "white"
-                      : requiredInputCheck.team
-                      ? "#1976d2"
-                      : "rgba(0,0,0,0.6)",
-                    border: requiredInputCheck.team
-                      ? "1px solid #1976d2"
-                      : "1px solid red",
-                  }}
-                >
-                  DA팀
-                </Button>
-                <Button
-                  onClick={handleChange}
-                  name="team"
-                  value="DE팀"
-                  style={{
-                    backgroundColor: teamButtonActive.DE팀
-                      ? "#1976d2"
-                      : "white",
-                    color: teamButtonActive.DE팀
-                      ? "white"
-                      : requiredInputCheck.team
-                      ? "#1976d2"
-                      : "rgba(0,0,0,0.6)",
-                    border: requiredInputCheck.team
-                      ? "1px solid #1976d2"
-                      : "1px solid red",
-                  }}
-                >
-                  DE팀
-                </Button>
-                <Button
-                  onClick={handleChange}
-                  name="team"
-                  value="DK팀"
-                  style={{
-                    backgroundColor: teamButtonActive.DK팀
-                      ? "#1976d2"
-                      : "white",
-                    color: teamButtonActive.DK팀
-                      ? "white"
-                      : requiredInputCheck.team
-                      ? "#1976d2"
-                      : "rgba(0,0,0,0.6)",
-                    border: requiredInputCheck.team
-                      ? "1px solid #1976d2"
-                      : "1px solid red",
-                  }}
-                >
-                  DK팀
-                </Button>
-                <Button
-                  onClick={handleChange}
-                  name="team"
-                  value="DP팀"
-                  style={{
-                    backgroundColor: teamButtonActive.DP팀
-                      ? "#1976d2"
-                      : "white",
-                    color: teamButtonActive.DP팀
-                      ? "white"
-                      : requiredInputCheck.team
-                      ? "#1976d2"
-                      : "rgba(0,0,0,0.6)",
-                    border: requiredInputCheck.team
-                      ? "1px solid #1976d2"
-                      : "1px solid red",
-                  }}
-                >
-                  DP팀
-                </Button>
-                <Button
-                  onClick={handleChange}
-                  name="team"
-                  value="DX팀"
-                  style={{
-                    backgroundColor: teamButtonActive.DX팀
-                      ? "#1976d2"
-                      : "white",
-                    color: teamButtonActive.DX팀
-                      ? "white"
-                      : requiredInputCheck.team
-                      ? "#1976d2"
-                      : "rgba(0,0,0,0.6)",
-                    border: requiredInputCheck.team
-                      ? "1px solid #1976d2"
-                      : "1px solid red",
-                  }}
-                >
-                  DX팀
-                </Button>
+                {TEAMLIST.map((teamName) => {
+                  return (
+                    <Button
+                      onClick={handleChange}
+                      name="team"
+                      value={teamName}
+                      style={{
+                        backgroundColor: teamButtonActive[teamName]
+                          ? "#1976d2"
+                          : "white",
+                        color: teamButtonActive[teamName]
+                          ? "white"
+                          : requiredInputCheck.team
+                          ? "#1976d2"
+                          : "rgba(0,0,0,0.6)",
+                        border: requiredInputCheck.team
+                          ? "1px solid #1976d2"
+                          : "1px solid red",
+                      }}
+                    >
+                      {teamName}
+                    </Button>
+                  );
+                })}
               </ButtonGroup>
               <Box style={{ height: "20px", marginTop: "3px" }}>
                 {!requiredInputCheck.team && (
