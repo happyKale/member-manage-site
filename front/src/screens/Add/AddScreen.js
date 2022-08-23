@@ -23,7 +23,7 @@ const MARGINBOTTOM = "20px";
 function AddScreen() {
   const dispatch = useDispatch();
   const teamList = useSelector((state) => state.inputOption.teamList);
-  const rankList = useSelector((state) => state.inputOption.rankLisk);
+  const rankList = useSelector((state) => state.inputOption.rankList);
   const positionList = useSelector((state) => state.inputOption.positionList);
   const memberList = useSelector((state) => state.member.memberList);
   const lastId = memberList
@@ -144,7 +144,7 @@ function AddScreen() {
           <Stack style={{ width: "65%" }}>
             <Box style={{ marginBottom: `${MARGINBOTTOM}` }}>
               <InputLabel style={{ margin: "0 0 5px 0" }}>
-                이름<span style={{ color: "red" }}>*</span>
+                이름<span style={{ color: "red" }}> *</span>
               </InputLabel>
               <TextField
                 fullWidth
