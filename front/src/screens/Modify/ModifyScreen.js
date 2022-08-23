@@ -19,16 +19,17 @@ function ModifyScreen() {
   const memberInfo = useSelector((state) => state.member.selectedMemberInfo);
 
   const [inputMemberInfo, setInputMemberInfo] = useState(memberInfo);
-  const [requiredInputCheck, setRequiredInputCheck] = useState({
-    name: memberInfo["name"] ? true : false,
-    team: memberInfo["team"] ? true : false,
-    rank: memberInfo["rank"] ? true : false,
-    position: memberInfo["position"] ? true : false,
-  });
+  const [requiredInputCheck, setRequiredInputCheck] = useState({});
 
   useEffect(() => {
     memberRepository.getOne(params.id).then((res) => {
       dispatch(load({ selectedMemberInfo: res.data }));
+      setRequiredInputCheck({
+        name: res.data["name"] ? true : false,
+        team: res.data["team"] ? true : false,
+        rank: res.data["rank"] ? true : false,
+        position: res.data["position"] ? true : false,
+      });
     });
   }, []);
 
