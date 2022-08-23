@@ -23,19 +23,19 @@ export const memberSlice = createSlice({
       return state;
     },
     remove: (state, action) => {
-      state = state.filter(
+      state.memberList = state.memberList.filter(
         (member) => !action.payload.selectedMemberId.includes(member.id)
       );
       return state;
     },
     modify: (state, action) => {
       let num = 0;
-      state.map((member, idx) => {
+      state.memberList.map((member, idx) => {
         if (member.id === action.payload.id) {
           num = idx;
         }
       });
-      state[num] = action.payload;
+      state.memberList[num] = action.payload.data;
       return state;
     },
   },
