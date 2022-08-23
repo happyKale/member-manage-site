@@ -178,12 +178,13 @@ function AddScreen() {
                 id="input-team"
                 aria-describedby="input-team-helper-text"
               >
-                {teamList?.map((teamName) => {
+                {teamList?.map((teamName, idx) => {
                   return (
                     <Button
                       onClick={handleChange}
                       name="team"
                       value={teamName}
+                      key={teamName + idx}
                       style={{
                         backgroundColor: teamButtonActive[teamName]
                           ? "#1976d2"
