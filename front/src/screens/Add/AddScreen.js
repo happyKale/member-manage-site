@@ -5,6 +5,7 @@ import { add } from "../../store/memberReducer";
 import { modify } from "../../store/modalReducer";
 import {
   Button,
+  ButtonGroup,
   TextField,
   Select,
   MenuItem,
@@ -15,7 +16,6 @@ import {
 } from "@mui/material";
 import ArrowBackIosIcon from "@mui/icons-material/ArrowBackIos";
 
-const TEAMLIST = ["DA팀", "DE팀", "DK팀", "DP팀", "DX팀"];
 const RANKLIST = ["사원", "대리", "과장", "차장", "부장"]; //직급
 const POSITIONLIST = ["팀원", "팀장"]; //직책
 const MARGINBOTTOM = "30px";
@@ -133,21 +133,13 @@ function AddScreen() {
             <InputLabel style={{ margin: "0 0 5px 0" }}>
               부서 <span style={{ color: "red" }}>*</span>
             </InputLabel>
-            <Select
-              fullWidth
-              name="team"
-              value={inputMemberInfo.team}
-              style={{ marginBottom: MARGINBOTTOM }}
-              onChange={handleChange}
-            >
-              {TEAMLIST.map((team, idx) => {
-                return (
-                  <MenuItem key={team + idx} value={`${team}`}>
-                    {team}
-                  </MenuItem>
-                );
-              })}
-            </Select>
+            <ButtonGroup style={{ marginBottom: MARGINBOTTOM }}>
+              <Button>DA팀</Button>
+              <Button>DE팀</Button>
+              <Button>DK팀</Button>
+              <Button>DP팀</Button>
+              <Button>DX팀</Button>
+            </ButtonGroup>
             <InputLabel style={{ margin: "0 0 5px 0" }}>
               직책 <span style={{ color: "red" }}>*</span>
             </InputLabel>
