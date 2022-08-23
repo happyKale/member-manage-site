@@ -13,6 +13,8 @@ import {
   Typography,
   Stack,
   Divider,
+  FormHelperText,
+  Box,
 } from "@mui/material";
 import ArrowBackIosIcon from "@mui/icons-material/ArrowBackIos";
 
@@ -40,7 +42,7 @@ const POSITIONLIST = [
   "미래위원회 의장",
 ]; //직책
 
-const MARGINBOTTOM = "30px";
+const MARGINBOTTOM = "20px";
 
 function AddScreen() {
   const dispatch = useDispatch();
@@ -51,6 +53,13 @@ function AddScreen() {
     })
     .sort()
     .pop();
+  const [teamButtonActive, setTeamButtonActive] = useState({
+    DA팀: false,
+    DE팀: false,
+    DK팀: false,
+    DP팀: false,
+    DX팀: false,
+  });
   const [inputMemberInfo, setInputMemberInfo] = useState({
     id: lastId + 1,
     name: "",
@@ -83,6 +92,16 @@ function AddScreen() {
         });
       }
     }
+    if (e.target.name === "team") {
+      const init = {
+        DA팀: false,
+        DE팀: false,
+        DK팀: false,
+        DP팀: false,
+        DX팀: false,
+      };
+      setTeamButtonActive({ ...init, [e.target.value]: true });
+    }
   };
 
   const handleSubmit = async () => {
@@ -92,25 +111,6 @@ function AddScreen() {
       await dispatch(add(inputMemberInfo));
       dispatch(modify({ type: "confirm", openStatus: true }));
     }
-  };
-
-  const InputText = ({ label, required, name, value }) => {
-    return (
-      <>
-        <InputLabel style={{ margin: "0 0 5px 0" }}>
-          {label}
-          {required ? <span style={{ color: "red" }}>*</span> : ""}
-        </InputLabel>
-        <TextField
-          fullWidth
-          required={required}
-          value={value}
-          name={name}
-          style={{ marginBottom: MARGINBOTTOM }}
-          onChange={handleChange}
-        />
-      </>
-    );
   };
 
   return (
@@ -146,58 +146,220 @@ function AddScreen() {
             필수입력사항
           </Typography>
           <Stack style={{ width: "65%" }}>
-            <InputText
-              label={"이름"}
-              required
-              name={"name"}
-              value={inputMemberInfo.name}
-            />
-            <InputLabel style={{ margin: "0 0 5px 0" }}>
-              부서 <span style={{ color: "red" }}>*</span>
-            </InputLabel>
-            <ButtonGroup style={{ marginBottom: MARGINBOTTOM }}>
-              <Button>DA팀</Button>
-              <Button>DE팀</Button>
-              <Button>DK팀</Button>
-              <Button>DP팀</Button>
-              <Button>DX팀</Button>
-            </ButtonGroup>
-            <InputLabel style={{ margin: "0 0 5px 0" }}>
-              직책 <span style={{ color: "red" }}>*</span>
-            </InputLabel>
-            <Select
-              fullWidth
-              name="position"
-              value={inputMemberInfo.position}
-              style={{ marginBottom: MARGINBOTTOM }}
-              onChange={handleChange}
-            >
-              {POSITIONLIST.map((position, idx) => {
-                return (
-                  <MenuItem key={position + idx} value={`${position}`}>
-                    {position}
-                  </MenuItem>
-                );
-              })}
-            </Select>
-            <InputLabel style={{ margin: "0 0 5px 0" }}>
-              직급 <span style={{ color: "red" }}>*</span>
-            </InputLabel>
-            <Select
-              fullWidth
-              name="rank"
-              value={inputMemberInfo.rank}
-              style={{ marginBottom: MARGINBOTTOM }}
-              onChange={handleChange}
-            >
-              {RANKLIST.map((rank, idx) => {
-                return (
-                  <MenuItem key={rank + idx} value={`${rank}`}>
-                    {rank}
-                  </MenuItem>
-                );
-              })}
-            </Select>
+            <Box style={{ marginBottom: `${MARGINBOTTOM}` }}>
+              <InputLabel style={{ margin: "0 0 5px 0" }}>
+                이름<span style={{ color: "red" }}>*</span>
+              </InputLabel>
+              <TextField
+                fullWidth
+                error={requiredInputCheck.name ? false : true}
+                id="input-name"
+                aria-describedby="input-name-helper-text"
+                value={inputMemberInfo.name}
+                name={"name"}
+                onChange={handleChange}
+              />
+              <Box style={{ height: "20px", marginTop: "3px" }}>
+                {!requiredInputCheck.name && (
+                  <FormHelperText
+                    id="input-name-helper-text"
+                    style={{ color: "red", height: "20px" }}
+                  >
+                    이름을 입력하세요.
+                  </FormHelperText>
+                )}
+              </Box>
+            </Box>
+            <Box style={{ marginBottom: `${MARGINBOTTOM}` }}>
+              <InputLabel style={{ margin: "0 0 5px 0" }}>
+                부서 <span style={{ color: "red" }}>*</span>
+              </InputLabel>
+              <ButtonGroup
+                style={{
+                  marginBottom: "3px",
+                  height: "45px",
+                }}
+                id="input-team"
+                aria-describedby="input-team-helper-text"
+              >
+                <Button
+                  onClick={handleChange}
+                  name="team"
+                  value="DA팀"
+                  style={{
+                    backgroundColor: teamButtonActive.DA팀
+                      ? "#1976d2"
+                      : "white",
+                    color: teamButtonActive.DA팀
+                      ? "white"
+                      : requiredInputCheck.team
+                      ? "#1976d2"
+                      : "rgba(0,0,0,0.6)",
+                    border: requiredInputCheck.team
+                      ? "1px solid #1976d2"
+                      : "1px solid red",
+                  }}
+                >
+                  DA팀
+                </Button>
+                <Button
+                  onClick={handleChange}
+                  name="team"
+                  value="DE팀"
+                  style={{
+                    backgroundColor: teamButtonActive.DE팀
+                      ? "#1976d2"
+                      : "white",
+                    color: teamButtonActive.DE팀
+                      ? "white"
+                      : requiredInputCheck.team
+                      ? "#1976d2"
+                      : "rgba(0,0,0,0.6)",
+                    border: requiredInputCheck.team
+                      ? "1px solid #1976d2"
+                      : "1px solid red",
+                  }}
+                >
+                  DE팀
+                </Button>
+                <Button
+                  onClick={handleChange}
+                  name="team"
+                  value="DK팀"
+                  style={{
+                    backgroundColor: teamButtonActive.DK팀
+                      ? "#1976d2"
+                      : "white",
+                    color: teamButtonActive.DK팀
+                      ? "white"
+                      : requiredInputCheck.team
+                      ? "#1976d2"
+                      : "rgba(0,0,0,0.6)",
+                    border: requiredInputCheck.team
+                      ? "1px solid #1976d2"
+                      : "1px solid red",
+                  }}
+                >
+                  DK팀
+                </Button>
+                <Button
+                  onClick={handleChange}
+                  name="team"
+                  value="DP팀"
+                  style={{
+                    backgroundColor: teamButtonActive.DP팀
+                      ? "#1976d2"
+                      : "white",
+                    color: teamButtonActive.DP팀
+                      ? "white"
+                      : requiredInputCheck.team
+                      ? "#1976d2"
+                      : "rgba(0,0,0,0.6)",
+                    border: requiredInputCheck.team
+                      ? "1px solid #1976d2"
+                      : "1px solid red",
+                  }}
+                >
+                  DP팀
+                </Button>
+                <Button
+                  onClick={handleChange}
+                  name="team"
+                  value="DX팀"
+                  style={{
+                    backgroundColor: teamButtonActive.DX팀
+                      ? "#1976d2"
+                      : "white",
+                    color: teamButtonActive.DX팀
+                      ? "white"
+                      : requiredInputCheck.team
+                      ? "#1976d2"
+                      : "rgba(0,0,0,0.6)",
+                    border: requiredInputCheck.team
+                      ? "1px solid #1976d2"
+                      : "1px solid red",
+                  }}
+                >
+                  DX팀
+                </Button>
+              </ButtonGroup>
+              <Box style={{ height: "20px", marginTop: "3px" }}>
+                {!requiredInputCheck.team && (
+                  <FormHelperText
+                    id="input-team-helper-text"
+                    style={{ color: "red", height: "20px" }}
+                  >
+                    부서를 선택하세요.
+                  </FormHelperText>
+                )}
+              </Box>
+            </Box>
+            <Stack direction={"row"} justifyContent={"space-between"}>
+              <Box style={{ width: "46%", marginBottom: `${MARGINBOTTOM}` }}>
+                <InputLabel style={{ margin: "0 0 5px 0" }}>
+                  직책 <span style={{ color: "red" }}>*</span>
+                </InputLabel>
+                <Select
+                  fullWidth
+                  error={requiredInputCheck.position ? false : true}
+                  id="input-position"
+                  name="position"
+                  aria-describedby="input-position-helper-text"
+                  value={inputMemberInfo.position}
+                  onChange={handleChange}
+                >
+                  {POSITIONLIST.map((position, idx) => {
+                    return (
+                      <MenuItem key={position + idx} value={`${position}`}>
+                        {position}
+                      </MenuItem>
+                    );
+                  })}
+                </Select>
+                <Box style={{ height: "20px", marginTop: "3px" }}>
+                  {!requiredInputCheck.position && (
+                    <FormHelperText
+                      id="input-position-helper-text"
+                      style={{ color: "red", height: "20px" }}
+                    >
+                      직책을 선택하세요.
+                    </FormHelperText>
+                  )}
+                </Box>
+              </Box>
+              <Box style={{ width: "46%", marginBottom: `${MARGINBOTTOM}` }}>
+                <InputLabel style={{ margin: "0 0 5px 0" }}>
+                  직급 <span style={{ color: "red" }}>*</span>
+                </InputLabel>
+                <Select
+                  fullWidth
+                  error={requiredInputCheck.rank ? false : true}
+                  id="input-rank"
+                  name="rank"
+                  aria-describedby="input-rank-helper-text"
+                  value={inputMemberInfo.rank}
+                  onChange={handleChange}
+                >
+                  {RANKLIST.map((rank, idx) => {
+                    return (
+                      <MenuItem key={rank + idx} value={`${rank}`}>
+                        {rank}
+                      </MenuItem>
+                    );
+                  })}
+                </Select>
+                <Box style={{ height: "20px", marginTop: "3px" }}>
+                  {!requiredInputCheck.rank && (
+                    <FormHelperText
+                      id="input-rank-helper-text"
+                      style={{ color: "red", height: "20px" }}
+                    >
+                      직급을 선택하세요.
+                    </FormHelperText>
+                  )}
+                </Box>
+              </Box>
+            </Stack>
           </Stack>
         </Stack>
         <Stack direction={"row"} margin={"20px 0"}>
@@ -212,25 +374,37 @@ function AddScreen() {
             연락처
           </Typography>
           <Stack style={{ width: "65%" }}>
-            <InputText
-              label={"핸드폰"}
-              name={"phone"}
+            <InputLabel style={{ margin: "0 0 5px 0" }}>핸드폰</InputLabel>
+            <TextField
+              fullWidth
               value={inputMemberInfo.phone}
+              name={"phone"}
+              style={{ marginBottom: MARGINBOTTOM }}
+              onChange={handleChange}
             />
-            <InputText
-              label={"메일주소"}
-              name={"email"}
+            <InputLabel style={{ margin: "0 0 5px 0" }}>메일주소</InputLabel>
+            <TextField
+              fullWidth
               value={inputMemberInfo.email}
+              name={"email"}
+              style={{ marginBottom: MARGINBOTTOM }}
+              onChange={handleChange}
             />
-            <InputText
-              label={"사무실번호"}
-              name={"officeNum"}
+            <InputLabel style={{ margin: "0 0 5px 0" }}>사무실번호</InputLabel>
+            <TextField
+              fullWidth
               value={inputMemberInfo.officeNum}
+              name={"officeNum"}
+              style={{ marginBottom: MARGINBOTTOM }}
+              onChange={handleChange}
             />
-            <InputText
-              label={"팩스번호"}
-              name={"faxNum"}
+            <InputLabel style={{ margin: "0 0 5px 0" }}>팩스번호</InputLabel>
+            <TextField
+              fullWidth
               value={inputMemberInfo.faxNum}
+              name={"faxNum"}
+              style={{ marginBottom: MARGINBOTTOM }}
+              onChange={handleChange}
             />
           </Stack>
         </Stack>
@@ -245,16 +419,25 @@ function AddScreen() {
           >
             기타사항
           </Typography>
-          <Stack>
-            <InputText
-              label={"생년월일"}
-              name={"birth"}
+          <Stack style={{ width: "65%" }}>
+            <InputLabel style={{ margin: "0 0 5px 0" }}>생년월일</InputLabel>
+            <TextField
+              fullWidth
+              type={"date"}
               value={inputMemberInfo.birth}
+              name={"birth"}
+              style={{ marginBottom: MARGINBOTTOM }}
+              onChange={handleChange}
             />
-            <InputText
-              label={"담당업무"}
-              name={"task"}
+            <InputLabel style={{ margin: "0 0 5px 0" }}>담당업무</InputLabel>
+            <TextField
+              fullWidth
+              multiline
+              rows={5}
               value={inputMemberInfo.task}
+              name={"task"}
+              style={{ marginBottom: MARGINBOTTOM }}
+              onChange={handleChange}
             />
           </Stack>
         </Stack>
