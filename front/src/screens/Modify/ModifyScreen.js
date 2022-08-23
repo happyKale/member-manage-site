@@ -29,18 +29,17 @@ function ModifyScreen() {
   const positionList = useSelector((state) => state.inputOption.positionList);
   const memberInfo = useSelector((state) => state.member.selectedMemberInfo);
   const [inputMemberInfo, setInputMemberInfo] = useState(memberInfo);
-  const [requiredInputCheck, setRequiredInputCheck] = useState({});
+  const [requiredInputCheck, setRequiredInputCheck] = useState({
+    name: true,
+    team: true,
+    rank: true,
+    position: true,
+  });
   const [teamButtonActive, setTeamButtonActive] = useState({});
 
   useEffect(() => {
     memberRepository.getOne(params.id).then((res) => {
       dispatch(load({ selectedMemberInfo: res.data }));
-      setRequiredInputCheck({
-        name: res.data["name"] ? true : false,
-        team: res.data["team"] ? true : false,
-        rank: res.data["rank"] ? true : false,
-        position: res.data["position"] ? true : false,
-      });
       setTeamButtonActive({
         DA팀: false,
         DE팀: false,
