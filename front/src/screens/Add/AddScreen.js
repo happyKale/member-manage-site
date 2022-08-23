@@ -81,18 +81,11 @@ function AddScreen() {
   });
 
   const handleChange = (e) => {
-    setInputMemberInfo({ ...inputMemberInfo, [e.target.name]: e.target.value });
-    if (Object.keys(requiredInputCheck).indexOf(e.target.name) !== -1) {
-      if (e.target.value !== "") {
-        setRequiredInputCheck({ ...requiredInputCheck, [e.target.name]: true });
-      } else {
-        setRequiredInputCheck({
-          ...requiredInputCheck,
-          [e.target.name]: false,
-        });
-      }
-    }
     if (e.target.name === "team") {
+      setInputMemberInfo({
+        ...inputMemberInfo,
+        team: inputMemberInfo["team"] !== "" ? "" : e.target.values,
+      });
       const init = {
         DA팀: false,
         DE팀: false,
@@ -100,7 +93,31 @@ function AddScreen() {
         DP팀: false,
         DX팀: false,
       };
-      setTeamButtonActive({ ...init, [e.target.value]: true });
+      setTeamButtonActive({
+        ...init,
+        [e.target.value]: !teamButtonActive[e.target.value],
+      });
+    } else {
+      setInputMemberInfo({
+        ...inputMemberInfo,
+        [e.target.name]: e.target.value,
+      });
+    }
+    if (Object.keys(requiredInputCheck).indexOf(e.target.name) !== -1) {
+      if (e.target.value !== "") {
+        setRequiredInputCheck({ ...requiredInputCheck, [e.target.name]: true });
+        if (e.target.name === "team") {
+          setRequiredInputCheck({
+            ...requiredInputCheck,
+            team: !requiredInputCheck["team"],
+          });
+        }
+      } else {
+        setRequiredInputCheck({
+          ...requiredInputCheck,
+          [e.target.name]: false,
+        });
+      }
     }
   };
 
