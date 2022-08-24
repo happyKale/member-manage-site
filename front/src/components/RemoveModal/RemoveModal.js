@@ -101,9 +101,29 @@ function RemoveModal() {
       >
         <Button
           onClick={handleRemove}
-          style={{ backgroundColor: "#1386d2", color: "white" }}
+          variant="text"
+          style={{
+            width: "80px",
+            height: "35px",
+            backgroundColor: "#1386d2",
+            color: "white",
+          }}
         >
           삭제하기
+        </Button>
+        <Button
+          onClick={handleClose}
+          variant="text"
+          style={{
+            width: "80px",
+            height: "35px",
+            backgroundColor: "white",
+            color: "gray",
+            border: "1.5px solid #d3d3d3",
+            fontWeight: "bold",
+          }}
+        >
+          취소하기
         </Button>
       </DialogActions>
     </Dialog>
