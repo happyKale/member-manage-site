@@ -57,11 +57,11 @@ function ModifyScreen() {
   }, [memberInfo]);
 
   const handleChange = (e) => {
-    setInputMemberInfo({
-      ...inputMemberInfo,
-      [e.target.name]: e.target.value,
-    });
     if (e.target.name === "team") {
+      setInputMemberInfo({
+        ...inputMemberInfo,
+        team: inputMemberInfo.team == e.target.value ? "" : e.target.value,
+      });
       const init = {
         DA팀: false,
         DE팀: false,
@@ -72,6 +72,11 @@ function ModifyScreen() {
       setTeamButtonActive({
         ...init,
         [e.target.value]: !teamButtonActive[e.target.value],
+      });
+    } else {
+      setInputMemberInfo({
+        ...inputMemberInfo,
+        [e.target.name]: e.target.value,
       });
     }
     if (Object.keys(requiredInputCheck).indexOf(e.target.name) !== -1) {
