@@ -17,6 +17,7 @@ import {
   Box,
 } from "@mui/material";
 import ArrowBackIosIcon from "@mui/icons-material/ArrowBackIos";
+import SquareIcon from "@mui/icons-material/Square";
 
 const MARGINBOTTOM = "20px";
 
@@ -138,9 +139,16 @@ function AddScreen() {
               color: "#5b5b5b",
             }}
           >
+            <SquareIcon
+              style={{
+                fontSize: "12px",
+                marginRight: "5px",
+                paddingBottom: "3px",
+              }}
+            />
             필수입력사항
           </Typography>
-          <Stack style={{ width: "65%" }}>
+          <Stack direction={"column"} style={{ width: "65%" }}>
             <Box style={{ marginBottom: `${MARGINBOTTOM}` }}>
               <InputLabel style={{ margin: "0 0 5px 0" }}>
                 이름<span style={{ color: "red" }}> *</span>
@@ -295,9 +303,16 @@ function AddScreen() {
               color: "#5b5b5b",
             }}
           >
+            <SquareIcon
+              style={{
+                fontSize: "12px",
+                marginRight: "5px",
+                paddingBottom: "3px",
+              }}
+            />
             연락처
           </Typography>
-          <Stack style={{ width: "65%" }}>
+          <Stack direction={"column"} style={{ width: "65%" }}>
             <InputLabel style={{ margin: "0 0 5px 0" }}>핸드폰</InputLabel>
             <TextField
               fullWidth
@@ -341,9 +356,16 @@ function AddScreen() {
               color: "#5b5b5b",
             }}
           >
+            <SquareIcon
+              style={{
+                fontSize: "12px",
+                marginRight: "5px",
+                paddingBottom: "3px",
+              }}
+            />
             기타사항
           </Typography>
-          <Stack style={{ width: "65%" }}>
+          <Stack direction={"column"} style={{ width: "65%" }}>
             <InputLabel style={{ margin: "0 0 5px 0" }}>생년월일</InputLabel>
             <TextField
               fullWidth
