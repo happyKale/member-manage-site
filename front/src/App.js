@@ -24,6 +24,7 @@ function App() {
           backgroundColor: "white",
           margin: "80px auto",
           borderRadius: "15px",
+          minWidth: "600px",
         }}
       >
         <Header />
