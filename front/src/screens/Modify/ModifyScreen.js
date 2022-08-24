@@ -140,7 +140,7 @@ function ModifyScreen() {
           <Stack style={{ width: "65%" }}>
             <Box style={{ marginBottom: `${MARGINBOTTOM}` }}>
               <InputLabel style={{ margin: "0 0 5px 0" }}>
-                이름<span style={{ color: "red" }}>*</span>
+                이름 <span style={{ color: "red" }}>*</span>
               </InputLabel>
               <TextField
                 fullWidth
@@ -298,7 +298,7 @@ function ModifyScreen() {
             <InputLabel style={{ margin: "0 0 5px 0" }}>핸드폰</InputLabel>
             <TextField
               fullWidth
-              value={inputMemberInfo.phone || ""}
+              value={inputMemberInfo?.phone || ""}
               name={"phone"}
               style={{ marginBottom: MARGINBOTTOM }}
               onChange={handleChange}
@@ -306,7 +306,7 @@ function ModifyScreen() {
             <InputLabel style={{ margin: "0 0 5px 0" }}>메일주소</InputLabel>
             <TextField
               fullWidth
-              value={inputMemberInfo.email || ""}
+              value={inputMemberInfo?.email || ""}
               name={"email"}
               style={{ marginBottom: MARGINBOTTOM }}
               onChange={handleChange}
@@ -314,7 +314,7 @@ function ModifyScreen() {
             <InputLabel style={{ margin: "0 0 5px 0" }}>사무실번호</InputLabel>
             <TextField
               fullWidth
-              value={inputMemberInfo.officeNum || ""}
+              value={inputMemberInfo?.officeNum || ""}
               name={"officeNum"}
               style={{ marginBottom: MARGINBOTTOM }}
               onChange={handleChange}
@@ -322,7 +322,7 @@ function ModifyScreen() {
             <InputLabel style={{ margin: "0 0 5px 0" }}>팩스번호</InputLabel>
             <TextField
               fullWidth
-              value={inputMemberInfo.faxNum || ""}
+              value={inputMemberInfo?.faxNum || ""}
               name={"faxNum"}
               style={{ marginBottom: MARGINBOTTOM }}
               onChange={handleChange}
@@ -345,7 +345,7 @@ function ModifyScreen() {
             <TextField
               fullWidth
               type={"date"}
-              value={inputMemberInfo.birth || ""}
+              value={inputMemberInfo?.birth || ""}
               name={"birth"}
               style={{ marginBottom: MARGINBOTTOM }}
               onChange={handleChange}
@@ -355,7 +355,7 @@ function ModifyScreen() {
               fullWidth
               multiline
               rows={5}
-              value={inputMemberInfo.task || ""}
+              value={inputMemberInfo?.task || ""}
               name={"task"}
               style={{ marginBottom: MARGINBOTTOM }}
               onChange={handleChange}
