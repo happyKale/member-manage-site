@@ -29,6 +29,9 @@ function RemoveModal() {
   const type = location.pathname.split("/")[1];
   const selectedId = useSelector((state) => state.modal.selectedMemberId);
   const memberList = useSelector((state) => state.member.memberList);
+  const selectedMemberInfo = useSelector(
+    (state) => state.member.selectedMemberInfo
+  );
   const rows = memberList?.filter((member) => {
     if (selectedId.includes(member.id)) {
       return {
@@ -88,7 +91,7 @@ function RemoveModal() {
           rowHeight={45}
           style={{ height: "250px", width: "460px", margin: "20px auto" }}
           columns={COLUMNS}
-          rows={rows}
+          rows={memberList.length === 0 ? [selectedMemberInfo] : rows}
           pageSize={5}
           rowsPerPageOptions={[5]}
         />
