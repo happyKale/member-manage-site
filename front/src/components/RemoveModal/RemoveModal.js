@@ -56,7 +56,7 @@ function RemoveModal() {
     if (type === "detail") {
       navigate("/");
     }
-    memberRepository.delete({ selectedId: selectedId }).then((res) => {
+    memberRepository.delete(selectedId).then((res) => {
       dispatch(remove({ selectedMemberId: selectedId }));
     });
   };
