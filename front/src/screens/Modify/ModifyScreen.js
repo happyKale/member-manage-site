@@ -96,12 +96,14 @@ function ModifyScreen() {
     }
   };
 
-  const handleSubmit = async () => {
+  const handleSubmit = () => {
     if (Object.values(requiredInputCheck).includes(false)) {
       alert("필수 값을 모두 입력하세요.");
     } else {
-      await dispatch(memberModify(inputMemberInfo));
-      dispatch(modalModify({ type: "confirm", openStatus: true }));
+      memberRepository.update(params.id, inputMemberInfo).then((res) => {
+        dispatch(memberModify(inputMemberInfo));
+        dispatch(modalModify({ type: "confirm", openStatus: true }));
+      });
     }
   };
 
