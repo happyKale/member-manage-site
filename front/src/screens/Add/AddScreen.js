@@ -3,6 +3,7 @@ import { Link } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { add } from "../../store/memberReducer";
 import { modify } from "../../store/modalReducer";
+import { memberRepository } from "../../repositories/member-repository";
 import {
   Button,
   ButtonGroup,
@@ -104,12 +105,14 @@ function AddScreen() {
     }
   };
 
-  const handleSubmit = async () => {
+  const handleSubmit = () => {
     if (Object.values(requiredInputCheck).includes(false)) {
       alert("필수 값을 모두 입력하세요.");
     } else {
-      await dispatch(add(inputMemberInfo));
-      dispatch(modify({ type: "confirm", openStatus: true }));
+      memberRepository.add(inputMemberInfo).then((res) => {
+        dispatch(add(inputMemberInfo));
+        dispatch(modify({ type: "confirm", openStatus: true }));
+      });
     }
   };
 
