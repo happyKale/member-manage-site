@@ -26,12 +26,11 @@ function AddScreen() {
   const rankList = useSelector((state) => state.inputOption.rankList);
   const positionList = useSelector((state) => state.inputOption.positionList);
   const memberList = useSelector((state) => state.member.memberList);
-  const lastId = memberList
-    .map((member) => {
+  const lastId = Math.max(
+    ...memberList.map((member) => {
       return member.id;
     })
-    .sort()
-    .pop();
+  );
   const [teamButtonActive, setTeamButtonActive] = useState({
     DA팀: false,
     DE팀: false,
