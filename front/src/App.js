@@ -17,8 +17,16 @@ function App() {
 
   return (
     <div className="App">
-      <Header />
-      <Container>
+      <Container
+        style={{
+          maxWidth: "1000px",
+          padding: "50px",
+          backgroundColor: "white",
+          margin: "80px auto",
+          borderRadius: "15px",
+        }}
+      >
+        <Header />
         {modalInfo.type == "remove" && modalInfo.openStatus ? (
           <RemoveModal />
         ) : modalInfo.type === "confirm" && modalInfo.openStatus ? (
