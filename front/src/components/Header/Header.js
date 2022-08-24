@@ -2,7 +2,7 @@ import React from "react";
 
 function Header() {
   return (
-    <div style={{ display: "flex", height: "100px" }}>
+    <div style={{ display: "flex", height: "80px" }}>
       <h1
         style={{
           alignItems: "center",
