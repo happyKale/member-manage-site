@@ -23,10 +23,43 @@ app.get("/members", (req, res) => {
   });
 });
 
-app.get(`/members/detail/:id`, (req, res) => {
+app.get(`/member/detail/:id`, (req, res) => {
   db.query(`SELECT * FROM member WHERE ID = ${req.params.id}`, (err, data) => {
     if (!err) {
       res.send(data[0]);
+    } else {
+      res.send(err);
+    }
+  });
+});
+
+app.post("/members", (req, res) => {
+  const sql = "INSERT INTO member SET ?";
+  db.query(sql, req.body, (err, data) => {
+    if (!err) {
+      res.send(data);
+    } else {
+      res.send(err);
+    }
+  });
+});
+
+app.patch("/member/:id", (req, res) => {
+  const sql = "UPDATE member SET ? WHERE id = " + req.params.id;
+  db.query(sql, req.body, (err, data) => {
+    if (!err) {
+      res.send(data);
+    } else {
+      res.send(err);
+    }
+  });
+});
+
+app.delete(`/members/:id`, (req, res) => {
+  const sql = "DELETE FROM member WHERE id = ?";
+  db.query(sql, [req.params.id], (err, data) => {
+    if (!err) {
+      res.send(data);
     } else {
       res.send(err);
     }
