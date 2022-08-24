@@ -4,7 +4,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { modify } from "../../store/modalReducer";
 import { load } from "../../store/memberReducer";
 import { memberRepository } from "../../repositories/member-repository";
-import { Button, Box, Stack, Typography, Divider } from "@mui/material";
+import { Button, Stack, Typography, Divider } from "@mui/material";
 import ArrowBackIosIcon from "@mui/icons-material/ArrowBackIos";
 import SquareIcon from "@mui/icons-material/Square";
 
