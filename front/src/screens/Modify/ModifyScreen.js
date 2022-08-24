@@ -18,6 +18,7 @@ import {
   Box,
 } from "@mui/material";
 import ArrowBackIosIcon from "@mui/icons-material/ArrowBackIos";
+import SquareIcon from "@mui/icons-material/Square";
 
 const MARGINBOTTOM = "30px";
 
@@ -135,6 +136,13 @@ function ModifyScreen() {
               color: "#5b5b5b",
             }}
           >
+            <SquareIcon
+              style={{
+                fontSize: "12px",
+                marginRight: "5px",
+                paddingBottom: "3px",
+              }}
+            />
             필수입력사항
           </Typography>
           <Stack style={{ width: "65%" }}>
@@ -292,6 +300,13 @@ function ModifyScreen() {
               color: "#5b5b5b",
             }}
           >
+            <SquareIcon
+              style={{
+                fontSize: "12px",
+                marginRight: "5px",
+                paddingBottom: "3px",
+              }}
+            />
             연락처
           </Typography>
           <Stack style={{ width: "65%" }}>
@@ -338,6 +353,13 @@ function ModifyScreen() {
               color: "#5b5b5b",
             }}
           >
+            <SquareIcon
+              style={{
+                fontSize: "12px",
+                marginRight: "5px",
+                paddingBottom: "3px",
+              }}
+            />
             기타사항
           </Typography>
           <Stack style={{ width: "65%" }}>
