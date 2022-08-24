@@ -1,8 +1,16 @@
 import React, { useState } from "react";
-import { Box, Button, Modal } from "@mui/material";
 import { useDispatch } from "react-redux";
 import { useLocation, useNavigate } from "react-router-dom";
 import { modify } from "../../store/modalReducer";
+import {
+  Button,
+  Dialog,
+  DialogActions,
+  DialogContent,
+  DialogTitle,
+  Typography,
+} from "@mui/material";
+import CloseIcon from "@mui/icons-material/Close";
 
 function ConfirmModal() {
   const dispatch = useDispatch();
@@ -34,47 +42,70 @@ function ConfirmModal() {
   };
 
   return (
-    <Modal open={open} onClose={handleClose}>
-      <Box
+    <Dialog open={open} onClose={handleClose}>
+      <DialogTitle
+        onClose={handleClose}
         style={{
-          position: "absolute",
-          top: "50%",
-          left: "50%",
-          transform: "translate(-50%, -50%)",
-          width: "400px",
-          height: "400px",
-          backgroundColor: "white",
+          display: "flex",
+          justifyContent: "space-between",
+          borderBottom: "1px solid #e5e5e5",
+          padding: "10px 20px",
+          fontWeight: "bold",
+          color: "gray",
         }}
       >
-        확인 모달
+        {type === "modify" ? "직원 명단 수정 확인" : "직원 명단 등록 확인"}
+        <Button onClick={handleClose}>
+          <CloseIcon />
+        </Button>
+      </DialogTitle>
+      <DialogContent
+        style={{ width: "500px", padding: "20px", margin: "20px 0" }}
+      >
+        <Typography style={{ fontWeight: "bold" }}>
+          {type === "modify"
+            ? "직원 명단이 수정되었습니다."
+            : "직원 명단이 등록되었습니다."}
+        </Typography>
+        <Typography style={{ whiteSpace: "pre-wrap", marginTop: "30px" }}>
+          {type === "modify"
+            ? `홈으로 이동하시겠습니까? 아니면 상세화면에 머무르시겠습니까?`
+            : `홈으로 이동합니다.`}
+        </Typography>
+      </DialogContent>
+      <DialogActions
+        style={{ padding: "10px 20px 10px", borderTop: "1px solid #e5e5e5" }}
+      >
         <Button
+          onClick={handleConfirm}
+          variant="text"
           style={{
-            width: "80px",
+            width: "120px",
             height: "35px",
-            backgroundColor: "green",
-            marginRight: "15px",
+            backgroundColor: "#1386d2",
             color: "white",
           }}
-          onClick={handleConfirm}
         >
-          확인
+          홈으로 이동
         </Button>
         {type === "modify" && (
           <Button
+            variant="text"
             style={{
               width: "80px",
               height: "35px",
-              backgroundColor: "blue",
-              marginRight: "15px",
-              color: "white",
+              backgroundColor: "white",
+              color: "gray",
+              border: "1.5px solid #d3d3d3",
+              fontWeight: "bold",
             }}
             onClick={handleStay}
           >
             머무르기
           </Button>
         )}
-      </Box>
-    </Modal>
+      </DialogActions>
+    </Dialog>
   );
 }
 
