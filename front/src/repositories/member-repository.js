@@ -7,7 +7,7 @@ export const memberRepository = {
     });
   },
   getOne(id) {
-    return API.get(`/members/detail/${id}`).then((res) => {
+    return API.get(`/member/detail/${id}`).then((res) => {
       return res;
     });
   },
@@ -16,8 +16,13 @@ export const memberRepository = {
       return res;
     });
   },
-  delete(id) {
-    return API.delete(`/members?memberId=${id}`).then((res) => {
+  delete(data) {
+    return API.post(`/members/delete`, data).then((res) => {
+      return res;
+    });
+  },
+  update(id, data) {
+    return API.patch(`/member/${id}`, data).then((res) => {
       return res;
     });
   },
