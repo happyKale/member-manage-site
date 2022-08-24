@@ -57,11 +57,11 @@ function ModifyScreen() {
   }, [memberInfo]);
 
   const handleChange = (e) => {
+    setInputMemberInfo({
+      ...inputMemberInfo,
+      [e.target.name]: e.target.value,
+    });
     if (e.target.name === "team") {
-      setInputMemberInfo({
-        ...inputMemberInfo,
-        team: inputMemberInfo["team"] !== "" ? "" : e.target.values,
-      });
       const init = {
         DA팀: false,
         DE팀: false,
@@ -73,19 +73,18 @@ function ModifyScreen() {
         ...init,
         [e.target.value]: !teamButtonActive[e.target.value],
       });
-    } else {
-      setInputMemberInfo({
-        ...inputMemberInfo,
-        [e.target.name]: e.target.value,
-      });
     }
     if (Object.keys(requiredInputCheck).indexOf(e.target.name) !== -1) {
       if (e.target.value !== "") {
-        setRequiredInputCheck({ ...requiredInputCheck, [e.target.name]: true });
         if (e.target.name === "team") {
           setRequiredInputCheck({
             ...requiredInputCheck,
-            team: !requiredInputCheck["team"],
+            team: inputMemberInfo.team == e.target.value ? false : true,
+          });
+        } else {
+          setRequiredInputCheck({
+            ...requiredInputCheck,
+            [e.target.name]: true,
           });
         }
       } else {
