@@ -63,7 +63,7 @@ function AddScreen() {
     if (e.target.name === "team") {
       setInputMemberInfo({
         ...inputMemberInfo,
-        team: inputMemberInfo["team"] !== "" ? "" : e.target.values,
+        team: inputMemberInfo.team == e.target.value ? "" : e.target.value,
       });
       const init = {
         DA팀: false,
@@ -84,11 +84,15 @@ function AddScreen() {
     }
     if (Object.keys(requiredInputCheck).indexOf(e.target.name) !== -1) {
       if (e.target.value !== "") {
-        setRequiredInputCheck({ ...requiredInputCheck, [e.target.name]: true });
         if (e.target.name === "team") {
           setRequiredInputCheck({
             ...requiredInputCheck,
-            team: !requiredInputCheck["team"],
+            team: inputMemberInfo.team == e.target.value ? false : true,
+          });
+        } else {
+          setRequiredInputCheck({
+            ...requiredInputCheck,
+            [e.target.name]: true,
           });
         }
       } else {
