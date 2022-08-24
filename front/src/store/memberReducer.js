@@ -30,12 +30,17 @@ export const memberSlice = createSlice({
     },
     modify: (state, action) => {
       let num = 0;
-      state.memberList.map((member, idx) => {
-        if (member.id === action.payload.id) {
-          num = idx;
-        }
-      });
-      state.memberList[num] = action.payload.data;
+      state.selectedMemberInfo = action.payload;
+      if (state.memberList.length !== 0) {
+        state.memberList.map((member, idx) => {
+          if (member.id === action.payload.id) {
+            num = idx;
+          }
+        });
+        state.memberList[num] = action.payload;
+      } else {
+        state.memberList.push(state.selectedMemberInfo);
+      }
       return state;
     },
   },
