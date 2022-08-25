@@ -29,7 +29,7 @@ function AddScreen() {
   const positionList = useSelector((state) => state.inputOption.positionList);
   const memberList = useSelector((state) => state.member.memberList);
   const lastId = Math.max(
-    ...memberList.map((member) => {
+    ...memberList?.map((member) => {
       return member.id;
     })
   );
@@ -117,15 +117,8 @@ function AddScreen() {
   };
 
   return (
-    <div
-      style={{
-        display: "flex",
-        flexDirection: "column",
-        height: "100%",
-        padding: "50px 0",
-      }}
-    >
-      <Typography style={{ fontSize: "24px", fontWeight: "bold" }}>
+    <Stack direction={"column"} style={{ padding: "50px 0" }}>
+      <Typography style={{ fontSize: "20px", fontWeight: "bold" }}>
         직원 등록
       </Typography>
       <Stack
@@ -168,6 +161,8 @@ function AddScreen() {
                 value={inputMemberInfo.name}
                 name={"name"}
                 onChange={handleChange}
+                placeholder={"홍길동"}
+                inputProps={{ maxLength: 30 }}
               />
               <Box style={{ height: "20px", marginTop: "3px" }}>
                 {!requiredInputCheck.name && (
@@ -327,6 +322,8 @@ function AddScreen() {
               name={"phone"}
               style={{ marginBottom: MARGINBOTTOM }}
               onChange={handleChange}
+              placeholder={"010-1234-5678"}
+              inputProps={{ maxLength: 13 }}
             />
             <InputLabel style={{ margin: "0 0 5px 0" }}>메일주소</InputLabel>
             <TextField
@@ -335,6 +332,8 @@ function AddScreen() {
               name={"email"}
               style={{ marginBottom: MARGINBOTTOM }}
               onChange={handleChange}
+              placeholder={"gdhong@pentasecurity.com"}
+              inputProps={{ maxLength: 50 }}
             />
             <InputLabel style={{ margin: "0 0 5px 0" }}>사무실번호</InputLabel>
             <TextField
@@ -343,6 +342,8 @@ function AddScreen() {
               name={"officeNum"}
               style={{ marginBottom: MARGINBOTTOM }}
               onChange={handleChange}
+              placeholder={"02-2125-0000"}
+              inputProps={{ maxLength: 13 }}
             />
             <InputLabel style={{ margin: "0 0 5px 0" }}>팩스번호</InputLabel>
             <TextField
@@ -351,6 +352,8 @@ function AddScreen() {
               name={"faxNum"}
               style={{ marginBottom: MARGINBOTTOM }}
               onChange={handleChange}
+              placeholder={"02-780-0000"}
+              inputProps={{ maxLength: 13 }}
             />
           </Stack>
         </Stack>
@@ -391,11 +394,12 @@ function AddScreen() {
               name={"task"}
               style={{ marginBottom: MARGINBOTTOM }}
               onChange={handleChange}
+              inputProps={{ maxLength: 200 }}
             />
           </Stack>
         </Stack>
       </Stack>
-      <div style={{ display: "flex", justifyContent: "space-between" }}>
+      <Stack direction={"row"} justifyContent={"space-between"}>
         <Link to={"/"} style={{ textDecoration: "none" }}>
           <Button
             variant="text"
@@ -424,8 +428,8 @@ function AddScreen() {
         >
           등록
         </Button>
-      </div>
-    </div>
+      </Stack>
+    </Stack>
   );
 }
 
