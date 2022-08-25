@@ -431,4 +431,4 @@ function ModifyScreen() {
   );
 }
 
-export { ModifyScreen };
+export default ModifyScreen;

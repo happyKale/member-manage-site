@@ -434,4 +434,4 @@ function AddScreen() {
   );
 }
 
-export { AddScreen };
+export default AddScreen;

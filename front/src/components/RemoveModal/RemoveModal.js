@@ -131,4 +131,4 @@ function RemoveModal() {
   );
 }
 
-export { RemoveModal };
+export default RemoveModal;

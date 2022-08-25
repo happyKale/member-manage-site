@@ -246,4 +246,4 @@ function DetailScreen() {
   );
 }
 
-export { DetailScreen };
+export default DetailScreen;

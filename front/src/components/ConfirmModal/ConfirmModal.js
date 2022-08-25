@@ -110,4 +110,4 @@ function ConfirmModal() {
   );
 }
 
-export { ConfirmModal };
+export default ConfirmModal;
