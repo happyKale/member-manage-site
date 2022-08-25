@@ -2,7 +2,7 @@ import React, { useEffect } from "react";
 import { Link, useParams } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { modify } from "../../store/modalReducer";
-import { load } from "../../store/memberReducer";
+import { load, modifySelectedIdList } from "../../store/memberReducer";
 import { memberRepository } from "../../repositories/member-repository";
 import {
   Button,
@@ -99,9 +99,9 @@ function DetailScreen() {
       modify({
         type: "remove",
         openStatus: true,
-        selectedMemberId: [Number(params.id)],
       })
     );
+    dispatch(modifySelectedIdList([Number(params.id)]));
   };
 
   return (

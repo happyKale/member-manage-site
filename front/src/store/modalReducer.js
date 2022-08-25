@@ -3,7 +3,6 @@ import { createSlice } from "@reduxjs/toolkit";
 const initialState = {
   type: "",
   openStatus: false,
-  selectedMemberId: [],
 };
 
 export const modalSlice = createSlice({

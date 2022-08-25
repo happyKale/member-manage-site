@@ -3,7 +3,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { Link, useNavigate } from "react-router-dom";
 import { modify } from "../../store/modalReducer";
 import { memberRepository } from "../../repositories/member-repository";
-import { load } from "../../store/memberReducer";
+import { load, modifySelectedIdList } from "../../store/memberReducer";
 import { Button, Stack } from "@mui/material";
 import { DataGrid } from "@mui/x-data-grid";
 
@@ -43,9 +43,9 @@ function HomeScreen() {
         modify({
           type: "remove",
           openStatus: true,
-          selectedMemberId: selectedMemberId,
         })
       );
+      dispatch(modifySelectedIdList([...selectedMemberId]));
     }
   };
 

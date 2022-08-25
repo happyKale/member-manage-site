@@ -11,6 +11,7 @@ import {
   Typography,
 } from "@mui/material";
 import CloseIcon from "@mui/icons-material/Close";
+import { modifySelectedIdList } from "../../store/memberReducer";
 
 function ConfirmModal() {
   const dispatch = useDispatch();
@@ -19,11 +20,10 @@ function ConfirmModal() {
   const type = location.pathname.split("/")[1];
   const [open, setOpen] = useState(true);
 
-  const handleClose = async () => {
+  const handleClose = () => {
     setOpen(false);
-    await dispatch(
-      modify({ type: "", openStatus: false, selectedMemberId: [] })
-    );
+    dispatch(modify({ type: "", openStatus: false }));
+    dispatch(modifySelectedIdList([]));
     navigate(`/`);
   };
 
@@ -32,12 +32,11 @@ function ConfirmModal() {
     navigate(`/`);
   };
 
-  const handleStay = async () => {
+  const handleStay = () => {
     const memberId = location.pathname.split("/").pop();
     setOpen(false);
-    await dispatch(
-      modify({ type: "", openStatus: false, selectedMemberId: [] })
-    );
+    dispatch(modify({ type: "", openStatus: false }));
+    dispatch(modifySelectedIdList([]));
     if (type === "add") {
       window.location.reload();
     } else if (type === "modify") {

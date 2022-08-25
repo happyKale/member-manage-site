@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { modify } from "../../store/modalReducer";
-import { remove } from "../../store/memberReducer";
+import { modifySelectedIdList, remove } from "../../store/memberReducer";
 import { useLocation, useNavigate } from "react-router-dom";
 import { memberRepository } from "./../../repositories/member-repository";
 import {
@@ -27,13 +27,13 @@ function RemoveModal() {
   const location = useLocation();
   const dispatch = useDispatch();
   const type = location.pathname.split("/")[1];
-  const selectedId = useSelector((state) => state.modal.selectedMemberId);
+  const selectedIdList = useSelector((state) => state.member.selectedIdList);
   const memberList = useSelector((state) => state.member.memberList);
   const selectedMemberInfo = useSelector(
     (state) => state.member.selectedMemberInfo
   );
   const rows = memberList?.filter((member) => {
-    if (selectedId.includes(member.id)) {
+    if (selectedIdList?.includes(member.id)) {
       return {
         id: member.id,
         name: member.name,
@@ -48,7 +48,8 @@ function RemoveModal() {
 
   const handleClose = () => {
     setOpen(false);
-    dispatch(modify({ type: "", openStatus: false, selectedMemberId: [] }));
+    dispatch(modify({ type: "", openStatus: false }));
+    dispatch(modifySelectedIdList([]));
   };
 
   const handleRemove = () => {
@@ -56,8 +57,8 @@ function RemoveModal() {
     if (type === "detail") {
       navigate("/");
     }
-    memberRepository.delete(selectedId).then((res) => {
-      dispatch(remove({ selectedMemberId: selectedId }));
+    memberRepository.delete(selectedIdList).then((res) => {
+      dispatch(remove({ selectedMemberId: selectedIdList }));
     });
   };
 
@@ -81,7 +82,7 @@ function RemoveModal() {
       </DialogTitle>
       <DialogContent style={{ width: "500px", padding: "20px" }}>
         <Typography style={{ fontWeight: "bold" }}>
-          선택된 직원 명단 개수: {selectedId.length}
+          선택된 직원 명단 개수: {selectedIdList?.length}
         </Typography>
         <Typography style={{ marginTop: "30px" }}>
           아래 직원 명단을 삭제하시겠습니까?

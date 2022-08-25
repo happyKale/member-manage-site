@@ -3,6 +3,7 @@ import { createSlice } from "@reduxjs/toolkit";
 const initialState = {
   memberList: [],
   selectedMemberInfo: {},
+  selectedIdList: [],
 };
 
 export const memberSlice = createSlice({
@@ -43,8 +44,12 @@ export const memberSlice = createSlice({
       }
       return state;
     },
+    modifySelectedIdList: (state, action) => {
+      state.selectedIdList = [...action.payload];
+    },
   },
 });
 
-export const { load, add, remove, modify } = memberSlice.actions;
+export const { load, add, remove, modify, modifySelectedIdList } =
+  memberSlice.actions;
 export default memberSlice.reducer;
