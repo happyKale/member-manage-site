@@ -10,9 +10,6 @@ export const modalSlice = createSlice({
   name: "modal",
   initialState,
   reducers: {
-    load: (state, action) => {
-      return state;
-    },
     modify: (state, action) => {
       Object.keys(action.payload).map((key) => {
         state[`${key}`] = action.payload[`${key}`];
@@ -21,5 +18,5 @@ export const modalSlice = createSlice({
   },
 });
 
-export const { load, modify } = modalSlice.actions;
+export const { modify } = modalSlice.actions;
 export default modalSlice.reducer;
