@@ -113,15 +113,8 @@ function ModifyScreen() {
   };
 
   return (
-    <div
-      style={{
-        display: "flex",
-        flexDirection: "column",
-        height: "100%",
-        padding: "50px 0",
-      }}
-    >
-      <Typography style={{ fontSize: "24px", fontWeight: "bold" }}>
+    <Stack direction={"column"} style={{ padding: "50px 0" }}>
+      <Typography style={{ fontSize: "20px", fontWeight: "bold" }}>
         직원 수정
       </Typography>
       <Stack
@@ -164,6 +157,8 @@ function ModifyScreen() {
                 value={inputMemberInfo?.name || ""}
                 name={"name"}
                 onChange={handleChange}
+                placeholder={"홍길동"}
+                inputProps={{ maxLength: 30 }}
               />
               <Box style={{ height: "20px", marginTop: "3px" }}>
                 {!requiredInputCheck.name && (
@@ -323,6 +318,8 @@ function ModifyScreen() {
               name={"phone"}
               style={{ marginBottom: MARGINBOTTOM }}
               onChange={handleChange}
+              placeholder={"010-1234-5678"}
+              inputProps={{ maxLength: 13 }}
             />
             <InputLabel style={{ margin: "0 0 5px 0" }}>메일주소</InputLabel>
             <TextField
@@ -331,6 +328,8 @@ function ModifyScreen() {
               name={"email"}
               style={{ marginBottom: MARGINBOTTOM }}
               onChange={handleChange}
+              placeholder={"gdhong@pentasecurity.com"}
+              inputProps={{ maxLength: 50 }}
             />
             <InputLabel style={{ margin: "0 0 5px 0" }}>사무실번호</InputLabel>
             <TextField
@@ -339,6 +338,8 @@ function ModifyScreen() {
               name={"officeNum"}
               style={{ marginBottom: MARGINBOTTOM }}
               onChange={handleChange}
+              placeholder={"02-2125-0000"}
+              inputProps={{ maxLength: 13 }}
             />
             <InputLabel style={{ margin: "0 0 5px 0" }}>팩스번호</InputLabel>
             <TextField
@@ -347,6 +348,8 @@ function ModifyScreen() {
               name={"faxNum"}
               style={{ marginBottom: MARGINBOTTOM }}
               onChange={handleChange}
+              placeholder={"02-780-0000"}
+              inputProps={{ maxLength: 13 }}
             />
           </Stack>
         </Stack>
@@ -387,11 +390,12 @@ function ModifyScreen() {
               name={"task"}
               style={{ marginBottom: MARGINBOTTOM }}
               onChange={handleChange}
+              inputProps={{ maxLength: 200 }}
             />
           </Stack>
         </Stack>
       </Stack>
-      <div style={{ display: "flex", justifyContent: "space-between" }}>
+      <Stack direction={"row"} justifyContent={"space-between"}>
         <Link to={`/detail/${params.id}`} style={{ textDecoration: "none" }}>
           <Button
             variant="text"
@@ -421,8 +425,8 @@ function ModifyScreen() {
         >
           저장
         </Button>
-      </div>
-    </div>
+      </Stack>
+    </Stack>
   );
 }
 
