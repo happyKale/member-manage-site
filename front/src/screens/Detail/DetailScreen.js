@@ -4,7 +4,14 @@ import { useDispatch, useSelector } from "react-redux";
 import { modify } from "../../store/modalReducer";
 import { load } from "../../store/memberReducer";
 import { memberRepository } from "../../repositories/member-repository";
-import { Button, Stack, Typography, Divider } from "@mui/material";
+import {
+  Button,
+  Stack,
+  Typography,
+  Divider,
+  TextareaAutosize,
+  Box,
+} from "@mui/material";
 import ArrowBackIosIcon from "@mui/icons-material/ArrowBackIos";
 import SquareIcon from "@mui/icons-material/Square";
 
@@ -15,36 +22,63 @@ const Item = ({ label, content }) => {
       spacing={2}
       style={{
         border: "1px solid #eef2f5",
-        height: "50px",
         marginBottom: "10px",
         borderRadius: "2px",
       }}
     >
-      <span
+      <Box
         style={{
           backgroundColor: "#eef2f5",
           display: "inline-block",
           width: "25%",
           borderTopLeftRadius: "4px",
           borderBottomLeftRadius: "4px",
-          lineHeight: "45px",
-          paddingLeft: "15px",
         }}
       >
-        {label}
-      </span>
-      <span
+        <Typography
+          style={{ lineHeight: "45px", paddingLeft: "15px", fontSize: "14px" }}
+        >
+          {label}
+        </Typography>
+      </Box>
+
+      <Box
         style={{
           display: "inline-block",
           width: "75%",
           borderTopRightRadius: "4px",
           borderBottomRightRadius: "4px",
-          lineHeight: "45px",
-          paddingLeft: "10px",
         }}
       >
-        {content}
-      </span>
+        {label !== "담당업무" ? (
+          <Typography
+            style={{
+              lineHeight: "45px",
+              paddingLeft: "10px",
+              fontSize: "14px",
+            }}
+          >
+            {content}
+          </Typography>
+        ) : (
+          <TextareaAutosize
+            minRows={5}
+            readOnly
+            style={{
+              display: "inline-block",
+              fontSize: "14px",
+              width: "100%",
+              padding: "10px 20px 10px 10px",
+              boxSizing: "border-box",
+              border: "none",
+              resize: "none",
+              outline: "none",
+              lineHeight: "30px",
+            }}
+            value={content ?? ""}
+          />
+        )}
+      </Box>
     </Stack>
   );
 };
@@ -71,15 +105,8 @@ function DetailScreen() {
   };
 
   return (
-    <div
-      style={{
-        display: "flex",
-        flexDirection: "column",
-        height: "100%",
-        padding: "50px 0",
-      }}
-    >
-      <Typography style={{ fontSize: "24px", fontWeight: "bold" }}>
+    <Stack direction={"column"} style={{ padding: "50px 0" }}>
+      <Typography style={{ fontSize: "20px", fontWeight: "bold" }}>
         직원 정보
       </Typography>
       <Stack
@@ -95,14 +122,14 @@ function DetailScreen() {
           <Typography
             style={{
               width: "25%",
-              fontSize: "18px",
+              fontSize: "16px",
               fontWeight: "bold",
               color: "#5b5b5b",
             }}
           >
             <SquareIcon
               style={{
-                fontSize: "12px",
+                fontSize: "10px",
                 marginRight: "5px",
                 paddingBottom: "3px",
               }}
@@ -120,14 +147,14 @@ function DetailScreen() {
           <Typography
             style={{
               width: "25%",
-              fontSize: "18px",
+              fontSize: "16px",
               fontWeight: "bold",
               color: "#5b5b5b",
             }}
           >
             <SquareIcon
               style={{
-                fontSize: "12px",
+                fontSize: "10px",
                 marginRight: "5px",
                 paddingBottom: "3px",
               }}
@@ -145,14 +172,14 @@ function DetailScreen() {
           <Typography
             style={{
               width: "25%",
-              fontSize: "18px",
+              fontSize: "16px",
               fontWeight: "bold",
               color: "#5b5b5b",
             }}
           >
             <SquareIcon
               style={{
-                fontSize: "12px",
+                fontSize: "10px",
                 marginRight: "5px",
                 paddingBottom: "3px",
               }}
@@ -165,7 +192,7 @@ function DetailScreen() {
           </Stack>
         </Stack>
       </Stack>
-      <div style={{ display: "flex", justifyContent: "space-between" }}>
+      <Stack direction={"row"} justifyContent={"space-between"}>
         <Link to={"/"} style={{ textDecoration: "none" }}>
           <Button
             variant="text"
@@ -214,8 +241,8 @@ function DetailScreen() {
             삭제
           </Button>
         </div>
-      </div>
-    </div>
+      </Stack>
+    </Stack>
   );
 }
 
