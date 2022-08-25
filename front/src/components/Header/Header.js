@@ -1,4 +1,5 @@
 import React from "react";
+import { Link } from "react-router-dom";
 
 function Header() {
   return (
@@ -11,7 +12,9 @@ function Header() {
           textAlign: "center",
         }}
       >
-        D'Amo 직원 명단 관리 사이트
+        <Link to={"/"} style={{ textDecoration: "none", color: "black" }}>
+          D'Amo 직원 명단 관리 사이트
+        </Link>
       </h1>
     </div>
   );
