@@ -1,6 +1,4 @@
-import { createSlice } from "@reduxjs/toolkit";
-
-const initialState = {
+export const inputOptionData = {
   teamList: ["DA팀", "DE팀", "DK팀", "DP팀", "DX팀"],
   rankList: [
     "인턴",
@@ -26,11 +24,3 @@ const initialState = {
     "미래위원회 의장",
   ], // 직책
 };
-
-export const inputOptionSlice = createSlice({
-  name: "inputOption",
-  initialState,
-  reducers: {},
-});
-
-export default inputOptionSlice.reducer;

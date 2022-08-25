@@ -4,6 +4,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { add } from "../../store/memberReducer";
 import { modify } from "../../store/modalReducer";
 import { memberRepository } from "../../repositories/member-repository";
+import { inputOptionData } from "../../asset/inputOptionData";
 import {
   Button,
   ButtonGroup,
@@ -24,9 +25,9 @@ const MARGINBOTTOM = "20px";
 
 function AddScreen() {
   const dispatch = useDispatch();
-  const teamList = useSelector((state) => state.inputOption.teamList);
-  const rankList = useSelector((state) => state.inputOption.rankList);
-  const positionList = useSelector((state) => state.inputOption.positionList);
+  const teamList = inputOptionData.teamList;
+  const rankList = inputOptionData.rankList;
+  const positionList = inputOptionData.positionList;
   const memberList = useSelector((state) => state.member.memberList);
   const lastId = Math.max(
     ...memberList?.map((member) => {
