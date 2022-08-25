@@ -1,11 +1,11 @@
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { Link, useNavigate } from "react-router-dom";
-import { Button } from "@mui/material";
-import { DataGrid } from "@mui/x-data-grid";
 import { modify } from "../../store/modalReducer";
 import { memberRepository } from "../../repositories/member-repository";
 import { load } from "../../store/memberReducer";
+import { Button, Stack } from "@mui/material";
+import { DataGrid } from "@mui/x-data-grid";
 
 const COLUMNS = [
   { field: "team", headerName: "부서", width: 110 },
@@ -50,15 +50,8 @@ function HomeScreen() {
   };
 
   return (
-    <div
-      style={{
-        display: "flex",
-        flexDirection: "column",
-        height: "100%",
-        padding: "30px 0",
-      }}
-    >
-      <div style={{ display: "flex", justifyContent: "flex-end" }}>
+    <Stack direction={"column"} style={{ padding: "30px 0" }}>
+      <Stack direction={"row"} justifyContent={"flex-end"}>
         <Link to={"add"} style={{ textDecoration: "none" }}>
           <Button
             variant="text"
@@ -87,8 +80,8 @@ function HomeScreen() {
         >
           삭제
         </Button>
-      </div>
-      <div style={{ flexGrow: 1, height: "500px", margin: "20px 0" }}>
+      </Stack>
+      <div style={{ height: "500px", margin: "20px 0" }}>
         <DataGrid
           checkboxSelection
           disableSelectionOnClick
@@ -98,9 +91,15 @@ function HomeScreen() {
           onSelectionModelChange={handleSelect}
           onRowClick={handleRowClick}
           rowsPerPageOptions={[10]}
+          sx={{
+            "& .MuiDataGrid-cell:hover": {
+              cursor: "pointer",
+            },
+          }}
+          style={{ height: "500px", margin: "20px 0" }}
         />
       </div>
-    </div>
+    </Stack>
   );
 }
 
