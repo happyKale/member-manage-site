@@ -38,7 +38,11 @@ function ConfirmModal() {
     await dispatch(
       modify({ type: "", openStatus: false, selectedMemberId: [] })
     );
-    navigate(`/detail/${memberId}`);
+    if (type === "add") {
+      window.location.reload();
+    } else if (type === "modify") {
+      navigate(`/detail/${memberId}`);
+    }
   };
 
   return (
@@ -70,7 +74,7 @@ function ConfirmModal() {
         <Typography style={{ whiteSpace: "pre-wrap", marginTop: "30px" }}>
           {type === "modify"
             ? `홈으로 이동하시겠습니까? 아니면 상세화면에 머무르시겠습니까?`
-            : `홈으로 이동합니다.`}
+            : `홈으로 이동하시겠습니다? 아니면 등록화면에 머무르시겠습니까?`}
         </Typography>
       </DialogContent>
       <DialogActions
@@ -80,7 +84,7 @@ function ConfirmModal() {
           onClick={handleConfirm}
           variant="text"
           style={{
-            width: "120px",
+            width: "110px",
             height: "35px",
             backgroundColor: "#1386d2",
             color: "white",
@@ -88,22 +92,20 @@ function ConfirmModal() {
         >
           홈으로 이동
         </Button>
-        {type === "modify" && (
-          <Button
-            variant="text"
-            style={{
-              width: "80px",
-              height: "35px",
-              backgroundColor: "white",
-              color: "gray",
-              border: "1.5px solid #d3d3d3",
-              fontWeight: "bold",
-            }}
-            onClick={handleStay}
-          >
-            머무르기
-          </Button>
-        )}
+        <Button
+          variant="text"
+          style={{
+            width: "80px",
+            height: "35px",
+            backgroundColor: "white",
+            color: "gray",
+            border: "1.5px solid #d3d3d3",
+            fontWeight: "bold",
+          }}
+          onClick={handleStay}
+        >
+          머무르기
+        </Button>
       </DialogActions>
     </Dialog>
   );
