@@ -21,7 +21,7 @@ function HomeScreen() {
   const dispatch = useDispatch();
 
   const memberList = useSelector((state) => state.member.memberList);
-  const [selectedMemberId, setSelectedMemberId] = useState([]);
+  const [selectedMemberIdList, setSelectedMemberIdList] = useState([]);
 
   useEffect(() => {
     memberRepository.getAll().then((res) => {
@@ -30,13 +30,13 @@ function HomeScreen() {
   }, []);
 
   const handleSelect = (e) => {
-    setSelectedMemberId(e);
+    setSelectedMemberIdList(e);
   };
   const handleRowClick = (e) => {
     navigate(`/detail/${e.id}`);
   };
   const handleRemove = () => {
-    if (selectedMemberId.length === 0) {
+    if (selectedMemberIdList.length === 0) {
       alert("삭제할 직원 명단을 선택하세요.");
     } else {
       dispatch(
@@ -45,7 +45,7 @@ function HomeScreen() {
           openStatus: true,
         })
       );
-      dispatch(modifySelectedIdList([...selectedMemberId]));
+      dispatch(modifySelectedIdList([...selectedMemberIdList]));
     }
   };
 
@@ -81,7 +81,7 @@ function HomeScreen() {
           삭제
         </Button>
       </Stack>
-      <div style={{ height: "500px", margin: "20px 0" }}>
+      <div style={{ height: "520px" }}>
         <DataGrid
           checkboxSelection
           disableSelectionOnClick
