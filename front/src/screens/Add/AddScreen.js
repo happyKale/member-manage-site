@@ -20,6 +20,7 @@ import {
 } from "@mui/material";
 import ArrowBackIosIcon from "@mui/icons-material/ArrowBackIos";
 import SquareIcon from "@mui/icons-material/Square";
+import { checkPhoneNumber } from "../../libs/common";
 
 const MARGINBOTTOM = "20px";
 
@@ -30,6 +31,10 @@ function AddScreen() {
   const positionList = inputOptionData.positionList;
   const memberList = [...useSelector((state) => state.member.memberList)];
   const lastId = memberList?.pop()?.id;
+  const checkPhoneValueIndex = ["phone_1", "phone_2", "phone_3"];
+
+  const [phoneNumber, setPhoneNumber] = useState(["", "", ""]);
+  const [isPhoneFocused, setIsPhoneFocused] = useState(false);
   const [teamButtonActive, setTeamButtonActive] = useState({
     DA팀: false,
     DE팀: false,
@@ -82,6 +87,17 @@ function AddScreen() {
         ...init,
         [e.target.value]: !teamButtonActive[e.target.value],
       });
+    } else if (checkPhoneValueIndex.includes(e.target.name)) {
+      setIsPhoneFocused(true);
+      const index = checkPhoneValueIndex.indexOf(e.target.name);
+      const newPhone = [...phoneNumber];
+      newPhone[index] = e.target.value;
+      setPhoneNumber(newPhone);
+
+      setInputMemberInfo({
+        ...inputMemberInfo,
+        ["phone"]: newPhone.join("-"),
+      });
     } else {
       setInputMemberInfo({
         ...inputMemberInfo,
@@ -113,6 +129,10 @@ function AddScreen() {
   const handleSubmit = () => {
     if (Object.values(requiredInputCheck).includes(false)) {
       alert("필수 값을 모두 입력하세요.");
+      return;
+    } else if (!checkPhoneNumber(inputMemberInfo.phone).status) {
+      alert(checkPhoneNumber(inputMemberInfo.phone).message);
+      return;
     } else {
       memberRepository.add(inputMemberInfo).then((res) => {
         dispatch(add(inputMemberInfo));
@@ -168,7 +188,6 @@ function AddScreen() {
                 onChange={handleChange}
                 placeholder={"홍길동"}
                 inputProps={{ maxLength: 30 }}
-                // helperText={"이름을 입력하세요."}
               />
               <Box style={{ height: "20px", marginTop: "3px" }}>
                 {!requiredInputCheck.name && (
@@ -322,15 +341,51 @@ function AddScreen() {
           </Typography>
           <Stack direction={"column"} style={{ width: "65%" }}>
             <InputLabel style={{ margin: "0 0 5px 0" }}>핸드폰</InputLabel>
-            <TextField
-              fullWidth
-              value={inputMemberInfo.phone}
-              name={"phone"}
-              style={{ marginBottom: MARGINBOTTOM }}
-              onChange={handleChange}
-              placeholder={"010-1234-5678"}
-              inputProps={{ maxLength: 13 }}
-            />
+            <Stack
+              direction={"row"}
+              justifyContent="space-between"
+              style={{ marginBottom: MARGINBOTTOM, width: "55%" }}
+            >
+              <TextField
+                value={phoneNumber[0]}
+                name={"phone_1"}
+                onChange={handleChange}
+                placeholder={"010"}
+                inputProps={{ maxLength: 3 }}
+                style={{ width: "29%" }}
+              />
+              <span style={{ lineHeight: "50px", fontSize: "30px" }}>-</span>
+              <TextField
+                value={phoneNumber[1]}
+                name={"phone_2"}
+                onChange={handleChange}
+                placeholder={"1234"}
+                inputProps={{ maxLength: 4 }}
+                style={{ width: "29%" }}
+                inputRef={(input) =>
+                  isPhoneFocused &&
+                  phoneNumber[0].length === 3 &&
+                  phoneNumber[2].length === 0 &&
+                  input?.focus()
+                }
+              />
+              <span style={{ lineHeight: "50px", fontSize: "30px" }}>-</span>
+              <TextField
+                value={phoneNumber[2]}
+                name={"phone_3"}
+                onChange={handleChange}
+                placeholder={"5678"}
+                inputProps={{ maxLength: 4 }}
+                style={{ width: "29%" }}
+                inputRef={(input) =>
+                  isPhoneFocused &&
+                  phoneNumber[0].length == 3 &&
+                  phoneNumber[1].length == 4 &&
+                  phoneNumber[2].length == 0 &&
+                  input?.focus()
+                }
+              />
+            </Stack>
             <InputLabel style={{ margin: "0 0 5px 0" }}>메일주소</InputLabel>
             <TextField
               fullWidth
