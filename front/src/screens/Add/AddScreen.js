@@ -1,7 +1,7 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
-import { add } from "../../store/memberReducer";
+import { add, load } from "../../store/memberReducer";
 import { modify } from "../../store/modalReducer";
 import { memberRepository } from "../../repositories/member-repository";
 import { inputOptionData } from "../../asset/inputOptionData";
@@ -28,12 +28,8 @@ function AddScreen() {
   const teamList = inputOptionData.teamList;
   const rankList = inputOptionData.rankList;
   const positionList = inputOptionData.positionList;
-  const memberList = useSelector((state) => state.member.memberList);
-  const lastId = Math.max(
-    ...memberList?.map((member) => {
-      return member.id;
-    })
-  );
+  const memberList = [...useSelector((state) => state.member.memberList)];
+  const lastId = memberList?.pop()?.id;
   const [teamButtonActive, setTeamButtonActive] = useState({
     DA팀: false,
     DE팀: false,
@@ -60,6 +56,14 @@ function AddScreen() {
     rank: false,
     position: false,
   });
+
+  useEffect(() => {
+    if (memberList.length == 0) {
+      memberRepository.getAll().then((res) => {
+        dispatch(load({ memberList: Object.values(res.data) }));
+      });
+    }
+  }, []);
 
   const handleChange = (e) => {
     if (e.target.name === "team") {
@@ -164,6 +168,7 @@ function AddScreen() {
                 onChange={handleChange}
                 placeholder={"홍길동"}
                 inputProps={{ maxLength: 30 }}
+                // helperText={"이름을 입력하세요."}
               />
               <Box style={{ height: "20px", marginTop: "3px" }}>
                 {!requiredInputCheck.name && (
