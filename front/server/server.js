@@ -55,8 +55,8 @@ app.patch("/member/:id", (req, res) => {
   });
 });
 
-app.post(`/members/delete`, (req, res) => {
-  const sql = `DELETE FROM member WHERE id in ( ${Object.values(req.body)} )`;
+app.delete(`/members/:id`, (req, res) => {
+  const sql = `DELETE FROM member WHERE id in ( ${req.params.id} )`;
   db.query(sql, (err, data) => {
     if (!err) {
       res.send(data);

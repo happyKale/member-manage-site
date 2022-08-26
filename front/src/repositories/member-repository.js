@@ -16,8 +16,8 @@ export const memberRepository = {
       return res;
     });
   },
-  delete(data) {
-    return API.post(`/members/delete`, data).then((res) => {
+  delete(idList) {
+    return API.delete(`/members/${idList}`).then((res) => {
       return res;
     });
   },

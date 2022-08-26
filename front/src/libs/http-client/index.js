@@ -17,6 +17,10 @@ export const API = {
     const result = await instance.post(url, data);
     return result;
   },
+  delete: async (url) => {
+    const result = await instance.delete(url);
+    return result;
+  },
   patch: async (url, data) => {
     const result = await instance.patch(url, data);
     return result;
