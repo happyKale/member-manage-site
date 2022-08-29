@@ -46,7 +46,10 @@ function HomeScreen() {
     <Stack direction={"column"} sx={styles.container}>
       <Stack direction={"row"} justifyContent={"flex-end"}>
         <Link to={"add"} style={{ textDecoration: "none" }}>
-          <Button vatiant="text" sx={styles.btnPositive}>
+          <Button
+            vatiant="text"
+            sx={{ ...styles.btnPositive, ...styles.btnMargin }}
+          >
             등록
           </Button>
         </Link>
