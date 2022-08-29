@@ -21,6 +21,7 @@ import {
 import ArrowBackIosIcon from "@mui/icons-material/ArrowBackIos";
 import SquareIcon from "@mui/icons-material/Square";
 import { checkPhoneNumber } from "../../libs/common";
+import InputText from "../../components/InputText/InputText";
 
 const MARGINBOTTOM = "20px";
 
@@ -174,32 +175,19 @@ function AddScreen() {
             필수입력사항
           </Typography>
           <Stack direction={"column"} style={{ width: "65%" }}>
-            <Box style={{ marginBottom: `${MARGINBOTTOM}` }}>
-              <InputLabel style={{ margin: "0 0 5px 0" }}>
-                이름<span style={{ color: "red" }}> *</span>
-              </InputLabel>
-              <TextField
-                fullWidth
-                error={requiredInputCheck.name ? false : true}
-                id="input-name"
-                aria-describedby="input-name-helper-text"
-                value={inputMemberInfo.name}
-                name={"name"}
-                onChange={handleChange}
-                placeholder={"홍길동"}
-                inputProps={{ maxLength: 30 }}
-              />
-              <Box style={{ height: "20px", marginTop: "3px" }}>
-                {!requiredInputCheck.name && (
-                  <FormHelperText
-                    id="input-name-helper-text"
-                    style={{ color: "red", height: "20px" }}
-                  >
-                    이름을 입력하세요.
-                  </FormHelperText>
-                )}
-              </Box>
-            </Box>
+            <InputText
+              label={"이름"}
+              name={"name"}
+              placeholder={"홍길동"}
+              inputProps={{ maxLength: 30 }}
+              required
+              requiredCheck={requiredInputCheck}
+              onChange={handleChange}
+              inputMemberInfo={inputMemberInfo}
+              ariaDescribedby={"input-name-helper-text"}
+              helperText={"이름을 입력하세요."}
+              marginBottom={MARGINBOTTOM}
+            />
             <Box style={{ marginBottom: `${MARGINBOTTOM}` }}>
               <InputLabel style={{ margin: "0 0 5px 0" }}>
                 부서 <span style={{ color: "red" }}>*</span>
@@ -208,6 +196,7 @@ function AddScreen() {
                 style={{
                   marginBottom: "3px",
                   height: "45px",
+                  width: "100%",
                 }}
                 id="input-team"
                 aria-describedby="input-team-helper-text"
@@ -220,6 +209,7 @@ function AddScreen() {
                       value={teamName}
                       key={teamName + idx}
                       style={{
+                        width: "20%",
                         backgroundColor: teamButtonActive[teamName]
                           ? "#1976d2"
                           : "white",
@@ -344,7 +334,7 @@ function AddScreen() {
             <Stack
               direction={"row"}
               justifyContent="space-between"
-              style={{ marginBottom: MARGINBOTTOM, width: "55%" }}
+              style={{ marginBottom: MARGINBOTTOM, width: "100%" }}
             >
               <TextField
                 value={phoneNumber[0]}
@@ -354,7 +344,15 @@ function AddScreen() {
                 inputProps={{ maxLength: 3 }}
                 style={{ width: "29%" }}
               />
-              <span style={{ lineHeight: "50px", fontSize: "30px" }}>-</span>
+              <span
+                style={{
+                  lineHeight: "50px",
+                  fontSize: "30px",
+                  fontWeight: "lighter",
+                }}
+              >
+                -
+              </span>
               <TextField
                 value={phoneNumber[1]}
                 name={"phone_2"}
@@ -369,7 +367,15 @@ function AddScreen() {
                   input?.focus()
                 }
               />
-              <span style={{ lineHeight: "50px", fontSize: "30px" }}>-</span>
+              <span
+                style={{
+                  lineHeight: "50px",
+                  fontSize: "30px",
+                  fontWeight: "lighter",
+                }}
+              >
+                -
+              </span>
               <TextField
                 value={phoneNumber[2]}
                 name={"phone_3"}
