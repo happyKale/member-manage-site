@@ -23,8 +23,7 @@ function InputText({
   required,
   requiredCheck,
   onChange,
-  inputMemberInfo,
-  ariaDescribedby,
+  value,
   helperText,
   marginBottom,
 }) {
@@ -39,8 +38,7 @@ function InputText({
       <TextField
         fullWidth
         error={requiredCheck[name] ? false : true}
-        aria-describedby={ariaDescribedby}
-        value={inputMemberInfo[name]}
+        value={value[name]}
         name={name}
         onChange={onChange}
         placeholder={placeholder ?? ""}
