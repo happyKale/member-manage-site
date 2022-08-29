@@ -14,18 +14,13 @@ import {
 } from "@mui/material";
 import { DataGrid } from "@mui/x-data-grid";
 import CloseIcon from "@mui/icons-material/Close";
-
-const COLUMNS = [
-  { field: "name", headerName: "사원명", width: 110 },
-  { field: "team", headerName: "부서", width: 100 },
-  { field: "position", headerName: "직책", width: 100 },
-  { field: "rank", headerName: "직급", width: 100 },
-];
+import { dataGridColumnData } from "./../../asset/dataGridColumnData";
 
 function RemoveModal() {
   const navigate = useNavigate();
   const location = useLocation();
   const dispatch = useDispatch();
+  const COLUMNS = dataGridColumnData.remove;
   const type = location.pathname.split("/")[1];
   const selectedIdList = useSelector((state) => state.member.selectedIdList);
   const memberList = useSelector((state) => state.member.memberList);

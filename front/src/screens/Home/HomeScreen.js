@@ -4,23 +4,15 @@ import { Link, useNavigate } from "react-router-dom";
 import { modify } from "../../store/modalReducer";
 import { memberRepository } from "../../repositories/member-repository";
 import { load, modifySelectedIdList } from "../../store/memberReducer";
+import { dataGridColumnData } from "../../asset/dataGridColumnData";
 import { Button, Stack } from "@mui/material";
 import { DataGrid } from "@mui/x-data-grid";
 import { styles } from "./muiStyles";
 
-const COLUMNS = [
-  { field: "team", headerName: "부서", width: 110 },
-  { field: "rank", headerName: "직급", width: 110 },
-  { field: "position", headerName: "직책", width: 110 },
-  { field: "name", headerName: "사원명", width: 110 },
-  { field: "officeNum", headerName: "사무실번호", width: 160 },
-  { field: "phone", headerName: "핸드폰", width: 160 },
-];
-
 function HomeScreen() {
   const navigate = useNavigate();
   const dispatch = useDispatch();
-
+  const COLUMNS = dataGridColumnData.home;
   const memberList = useSelector((state) => state.member.memberList);
   const [selectedMemberIdList, setSelectedMemberIdList] = useState([]);
 
