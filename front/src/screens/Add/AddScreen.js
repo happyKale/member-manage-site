@@ -8,16 +8,14 @@ import { inputOptionData } from "../../asset/inputOptionData";
 import { checkPhoneNumber } from "../../libs/common";
 import InputText from "../../components/InputText/InputText";
 import InputSelect from "../../components/InputSelect/InputSelect";
+import InputButtonGroup from "./../../components/InputButtonGroup/InputButtonGroup";
 import {
   Button,
-  ButtonGroup,
   TextField,
   InputLabel,
   Typography,
   Stack,
   Divider,
-  FormHelperText,
-  Box,
 } from "@mui/material";
 import ArrowBackIosIcon from "@mui/icons-material/ArrowBackIos";
 import SquareIcon from "@mui/icons-material/Square";
@@ -28,8 +26,8 @@ function AddScreen() {
   const teamList = inputOptionData.teamList;
   const rankList = inputOptionData.rankList;
   const positionList = inputOptionData.positionList;
-  const memberList = [...useSelector((state) => state.member.memberList)];
-  const lastId = memberList?.pop()?.id;
+  const memberList = useSelector((state) => state.member.memberList);
+  const [lastId, setLastId] = useState([...memberList]?.pop()?.id);
   const checkPhoneValueIndex = ["phone_1", "phone_2", "phone_3"];
 
   const [phoneNumber, setPhoneNumber] = useState(["", "", ""]);
@@ -129,8 +127,8 @@ function AddScreen() {
     if (Object.values(requiredInputCheck).includes(false)) {
       alert("필수 값을 모두 입력하세요.");
       return;
-    } else if (!checkPhoneNumber(inputMemberInfo.phone).status) {
-      alert(checkPhoneNumber(inputMemberInfo.phone).message);
+    } else if (!checkPhoneNumber(inputMemberInfo?.phone)?.status) {
+      alert(checkPhoneNumber(inputMemberInfo?.phone)?.message);
       return;
     } else {
       memberRepository.add(inputMemberInfo).then((res) => {
@@ -145,7 +143,7 @@ function AddScreen() {
       <Typography sx={styles.screenTitle}>직원 등록</Typography>
       <Stack
         direction={"column"}
-        sx={styles.boxSection}
+        sx={styles.screenContent}
         divider={<Divider orientation="horizontal" flexItem />}
       >
         <Stack direction={"row"} sx={styles.section}>
@@ -164,59 +162,18 @@ function AddScreen() {
               onChange={handleChange}
               value={inputMemberInfo}
               helperText={"이름을 입력하세요."}
-              sx={styles.marginBottom}
             />
-            <Box sx={styles.marginBottom}>
-              <InputLabel sx={styles.inputLabel}>
-                부서 <span style={{ color: "red" }}>*</span>
-              </InputLabel>
-              <ButtonGroup
-                style={{
-                  marginBottom: "3px",
-                  height: "45px",
-                  width: "100%",
-                }}
-                id="input-team"
-                aria-describedby="input-team-helper-text"
-              >
-                {teamList?.map((teamName, idx) => {
-                  return (
-                    <Button
-                      onClick={handleChange}
-                      name="team"
-                      value={teamName}
-                      key={teamName + idx}
-                      style={{
-                        width: "20%",
-                        backgroundColor: teamButtonActive[teamName]
-                          ? "#1976d2"
-                          : "white",
-                        color: teamButtonActive[teamName]
-                          ? "white"
-                          : requiredInputCheck.team
-                          ? "#1976d2"
-                          : "rgba(0,0,0,0.6)",
-                        border: requiredInputCheck.team
-                          ? "1px solid #1976d2"
-                          : "1px solid red",
-                      }}
-                    >
-                      {teamName}
-                    </Button>
-                  );
-                })}
-              </ButtonGroup>
-              <Box style={{ height: "20px", marginTop: "3px" }}>
-                {!requiredInputCheck.team && (
-                  <FormHelperText
-                    id="input-team-helper-text"
-                    style={{ color: "red", height: "20px" }}
-                  >
-                    부서를 선택하세요.
-                  </FormHelperText>
-                )}
-              </Box>
-            </Box>
+            <InputButtonGroup
+              label={"부서"}
+              require
+              name={"team"}
+              requiredCheck={requiredInputCheck}
+              ariaDescribedby={"input-team-helper-text"}
+              helperText={"부서를 선택하세요."}
+              teamList={teamList}
+              onClick={handleChange}
+              teamButtonActive={teamButtonActive}
+            />
             <Stack
               direction={"row"}
               justifyContent={"space-between"}
@@ -267,7 +224,15 @@ function AddScreen() {
                 inputProps={{ maxLength: 3 }}
                 sx={styles.inputPhone}
               />
-              <span sx={styles.inputPhoneHyphen}>-</span>
+              <span
+                style={{
+                  lineHeight: "50px",
+                  fontSize: "30px",
+                  fontWeight: "lighter",
+                }}
+              >
+                -
+              </span>
               <TextField
                 value={phoneNumber[1]}
                 name={"phone_2"}
@@ -282,7 +247,15 @@ function AddScreen() {
                   input?.focus()
                 }
               />
-              <span sx={styles.inputPhoneHyphen}>-</span>
+              <span
+                style={{
+                  lineHeight: "50px",
+                  fontSize: "30px",
+                  fontWeight: "lighter",
+                }}
+              >
+                -
+              </span>
               <TextField
                 value={phoneNumber[2]}
                 name={"phone_3"}
@@ -299,33 +272,27 @@ function AddScreen() {
                 }
               />
             </Stack>
-            <InputLabel sx={styles.inputLabel}>메일주소</InputLabel>
-            <TextField
-              fullWidth
-              value={inputMemberInfo.email}
+            <InputText
+              label={"메일주소"}
               name={"email"}
-              sx={styles.marginBottom}
               onChange={handleChange}
+              value={inputMemberInfo}
               placeholder={"gdhong@pentasecurity.com"}
               inputProps={{ maxLength: 50 }}
             />
-            <InputLabel sx={styles.inputLabel}>사무실번호</InputLabel>
-            <TextField
-              fullWidth
-              value={inputMemberInfo.officeNum}
+            <InputText
+              label={"사무실번호"}
               name={"officeNum"}
-              sx={styles.marginBottom}
               onChange={handleChange}
+              value={inputMemberInfo}
               placeholder={"02-2125-0000"}
               inputProps={{ maxLength: 13 }}
             />
-            <InputLabel sx={styles.inputLabel}>팩스번호</InputLabel>
-            <TextField
-              fullWidth
-              value={inputMemberInfo.faxNum}
+            <InputText
+              label={"팩스번호"}
               name={"faxNum"}
-              sx={styles.marginBottom}
               onChange={handleChange}
+              value={inputMemberInfo}
               placeholder={"02-780-0000"}
               inputProps={{ maxLength: 13 }}
             />
@@ -337,32 +304,28 @@ function AddScreen() {
             기타사항
           </Typography>
           <Stack direction={"column"} sx={styles.inputContainer}>
-            <InputLabel sx={styles.inputLabel}>생년월일</InputLabel>
-            <TextField
-              fullWidth
+            <InputText
+              label={"생년월일"}
               type={"date"}
-              value={inputMemberInfo.birth}
               name={"birth"}
-              sx={styles.marginBottom}
               onChange={handleChange}
+              value={inputMemberInfo}
             />
-            <InputLabel sx={styles.inputLabel}>담당업무</InputLabel>
-            <TextField
-              fullWidth
-              multiline
-              rows={5}
-              value={inputMemberInfo.task}
+            <InputText
+              label={"담당업무"}
               name={"task"}
-              sx={styles.marginBottom}
-              onChange={handleChange}
               inputProps={{ maxLength: 200 }}
+              onChange={handleChange}
+              value={inputMemberInfo}
+              rows={5}
+              multiline
             />
           </Stack>
         </Stack>
       </Stack>
       <Stack direction={"row"} justifyContent={"space-between"}>
-        <Link to={"/"} style={{ textDecoration: "none" }}>
-          <Button variant="text" sx={styles.btn}>
+        <Link to={"/"}>
+          <Button variant="text" sx={styles.btnSmall}>
             <ArrowBackIosIcon sx={styles.iconArrow} />
             목록
           </Button>
