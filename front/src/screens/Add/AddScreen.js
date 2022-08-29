@@ -21,8 +21,7 @@ import {
 } from "@mui/material";
 import ArrowBackIosIcon from "@mui/icons-material/ArrowBackIos";
 import SquareIcon from "@mui/icons-material/Square";
-
-const MARGINBOTTOM = "20px";
+import { styles } from "./muiStyles";
 
 function AddScreen() {
   const dispatch = useDispatch();
@@ -142,38 +141,19 @@ function AddScreen() {
   };
 
   return (
-    <Stack direction={"column"} style={{ padding: "50px 0" }}>
-      <Typography style={{ fontSize: "20px", fontWeight: "bold" }}>
-        직원 등록
-      </Typography>
+    <Stack direction={"column"} sx={styles.container}>
+      <Typography sx={styles.screenTitle}>직원 등록</Typography>
       <Stack
         direction={"column"}
-        style={{
-          borderTop: "1px solid #e5e5e5",
-          borderBottom: "1px solid #e5e5e5",
-          margin: "30px 0",
-        }}
+        sx={styles.boxSection}
         divider={<Divider orientation="horizontal" flexItem />}
       >
-        <Stack direction={"row"} margin={"20px 0"}>
-          <Typography
-            style={{
-              width: "35%",
-              fontSize: "18px",
-              fontWeight: "bold",
-              color: "#5b5b5b",
-            }}
-          >
-            <SquareIcon
-              style={{
-                fontSize: "12px",
-                marginRight: "5px",
-                paddingBottom: "3px",
-              }}
-            />
+        <Stack direction={"row"} sx={styles.section}>
+          <Typography sx={styles.sectionTitle}>
+            <SquareIcon sx={styles.iconSquareLarge} />
             필수입력사항
           </Typography>
-          <Stack direction={"column"} style={{ width: "65%" }}>
+          <Stack direction={"column"} sx={styles.inputContainer}>
             <InputText
               label={"이름"}
               name={"name"}
@@ -184,10 +164,10 @@ function AddScreen() {
               onChange={handleChange}
               value={inputMemberInfo}
               helperText={"이름을 입력하세요."}
-              marginBottom={MARGINBOTTOM}
+              sx={styles.marginBottom}
             />
-            <Box style={{ marginBottom: `${MARGINBOTTOM}` }}>
-              <InputLabel style={{ margin: "0 0 5px 0" }}>
+            <Box sx={styles.marginBottom}>
+              <InputLabel sx={styles.inputLabel}>
                 부서 <span style={{ color: "red" }}>*</span>
               </InputLabel>
               <ButtonGroup
@@ -240,10 +220,9 @@ function AddScreen() {
             <Stack
               direction={"row"}
               justifyContent={"space-between"}
-              style={{ marginBottom: `${MARGINBOTTOM}` }}
+              sx={styles.marginBottom}
             >
               <InputSelect
-                style={{ width: "46%" }}
                 label={"직책"}
                 require
                 requiredCheck={requiredInputCheck}
@@ -255,7 +234,6 @@ function AddScreen() {
                 helperText={"직책을 선택하세요."}
               />
               <InputSelect
-                style={{ width: "46%" }}
                 label={"직급"}
                 require
                 requiredCheck={requiredInputCheck}
@@ -269,30 +247,17 @@ function AddScreen() {
             </Stack>
           </Stack>
         </Stack>
-        <Stack direction={"row"} margin={"20px 0"}>
-          <Typography
-            style={{
-              width: "35%",
-              fontSize: "18px",
-              fontWeight: "bold",
-              color: "#5b5b5b",
-            }}
-          >
-            <SquareIcon
-              style={{
-                fontSize: "12px",
-                marginRight: "5px",
-                paddingBottom: "3px",
-              }}
-            />
+        <Stack direction={"row"} sx={styles.section}>
+          <Typography sx={styles.sectionTitle}>
+            <SquareIcon sx={styles.iconSquareLarge} />
             연락처
           </Typography>
-          <Stack direction={"column"} style={{ width: "65%" }}>
-            <InputLabel style={{ margin: "0 0 5px 0" }}>핸드폰</InputLabel>
+          <Stack direction={"column"} sx={styles.inputContainer}>
+            <InputLabel sx={styles.inputLabel}>핸드폰</InputLabel>
             <Stack
               direction={"row"}
               justifyContent="space-between"
-              style={{ marginBottom: MARGINBOTTOM, width: "100%" }}
+              sx={styles.inputPhoneSection}
             >
               <TextField
                 value={phoneNumber[0]}
@@ -300,24 +265,16 @@ function AddScreen() {
                 onChange={handleChange}
                 placeholder={"010"}
                 inputProps={{ maxLength: 3 }}
-                style={{ width: "29%" }}
+                sx={styles.inputPhone}
               />
-              <span
-                style={{
-                  lineHeight: "50px",
-                  fontSize: "30px",
-                  fontWeight: "lighter",
-                }}
-              >
-                -
-              </span>
+              <span sx={styles.inputPhoneHyphen}>-</span>
               <TextField
                 value={phoneNumber[1]}
                 name={"phone_2"}
                 onChange={handleChange}
                 placeholder={"1234"}
                 inputProps={{ maxLength: 4 }}
-                style={{ width: "29%" }}
+                sx={styles.inputPhone}
                 inputRef={(input) =>
                   isPhoneFocused &&
                   phoneNumber[0].length === 3 &&
@@ -325,22 +282,14 @@ function AddScreen() {
                   input?.focus()
                 }
               />
-              <span
-                style={{
-                  lineHeight: "50px",
-                  fontSize: "30px",
-                  fontWeight: "lighter",
-                }}
-              >
-                -
-              </span>
+              <span sx={styles.inputPhoneHyphen}>-</span>
               <TextField
                 value={phoneNumber[2]}
                 name={"phone_3"}
                 onChange={handleChange}
                 placeholder={"5678"}
                 inputProps={{ maxLength: 4 }}
-                style={{ width: "29%" }}
+                sx={styles.inputPhone}
                 inputRef={(input) =>
                   isPhoneFocused &&
                   phoneNumber[0].length == 3 &&
@@ -350,74 +299,61 @@ function AddScreen() {
                 }
               />
             </Stack>
-            <InputLabel style={{ margin: "0 0 5px 0" }}>메일주소</InputLabel>
+            <InputLabel sx={styles.inputLabel}>메일주소</InputLabel>
             <TextField
               fullWidth
               value={inputMemberInfo.email}
               name={"email"}
-              style={{ marginBottom: MARGINBOTTOM }}
+              sx={styles.marginBottom}
               onChange={handleChange}
               placeholder={"gdhong@pentasecurity.com"}
               inputProps={{ maxLength: 50 }}
             />
-            <InputLabel style={{ margin: "0 0 5px 0" }}>사무실번호</InputLabel>
+            <InputLabel sx={styles.inputLabel}>사무실번호</InputLabel>
             <TextField
               fullWidth
               value={inputMemberInfo.officeNum}
               name={"officeNum"}
-              style={{ marginBottom: MARGINBOTTOM }}
+              sx={styles.marginBottom}
               onChange={handleChange}
               placeholder={"02-2125-0000"}
               inputProps={{ maxLength: 13 }}
             />
-            <InputLabel style={{ margin: "0 0 5px 0" }}>팩스번호</InputLabel>
+            <InputLabel sx={styles.inputLabel}>팩스번호</InputLabel>
             <TextField
               fullWidth
               value={inputMemberInfo.faxNum}
               name={"faxNum"}
-              style={{ marginBottom: MARGINBOTTOM }}
+              sx={styles.marginBottom}
               onChange={handleChange}
               placeholder={"02-780-0000"}
               inputProps={{ maxLength: 13 }}
             />
           </Stack>
         </Stack>
-        <Stack direction={"row"} margin={"20px 0"}>
-          <Typography
-            style={{
-              width: "35%",
-              fontSize: "18px",
-              fontWeight: "bold",
-              color: "#5b5b5b",
-            }}
-          >
-            <SquareIcon
-              style={{
-                fontSize: "12px",
-                marginRight: "5px",
-                paddingBottom: "3px",
-              }}
-            />
+        <Stack direction={"row"} sx={styles.section}>
+          <Typography sx={styles.sectionTitle}>
+            <SquareIcon sx={styles.iconSquareLarge} />
             기타사항
           </Typography>
-          <Stack direction={"column"} style={{ width: "65%" }}>
-            <InputLabel style={{ margin: "0 0 5px 0" }}>생년월일</InputLabel>
+          <Stack direction={"column"} sx={styles.inputContainer}>
+            <InputLabel sx={styles.inputLabel}>생년월일</InputLabel>
             <TextField
               fullWidth
               type={"date"}
               value={inputMemberInfo.birth}
               name={"birth"}
-              style={{ marginBottom: MARGINBOTTOM }}
+              sx={styles.marginBottom}
               onChange={handleChange}
             />
-            <InputLabel style={{ margin: "0 0 5px 0" }}>담당업무</InputLabel>
+            <InputLabel sx={styles.inputLabel}>담당업무</InputLabel>
             <TextField
               fullWidth
               multiline
               rows={5}
               value={inputMemberInfo.task}
               name={"task"}
-              style={{ marginBottom: MARGINBOTTOM }}
+              sx={styles.marginBottom}
               onChange={handleChange}
               inputProps={{ maxLength: 200 }}
             />
@@ -426,31 +362,12 @@ function AddScreen() {
       </Stack>
       <Stack direction={"row"} justifyContent={"space-between"}>
         <Link to={"/"} style={{ textDecoration: "none" }}>
-          <Button
-            variant="text"
-            style={{
-              width: "80px",
-              height: "35px",
-              backgroundColor: "white",
-              color: "gray",
-              border: "1.5px solid #d3d3d3",
-              fontWeight: "bold",
-            }}
-          >
-            <ArrowBackIosIcon fontSize="14px" />
+          <Button variant="text" sx={styles.btn}>
+            <ArrowBackIosIcon sx={styles.iconArrow} />
             목록
           </Button>
         </Link>
-        <Button
-          variant="text"
-          style={{
-            width: "80px",
-            height: "35px",
-            backgroundColor: "#1386d2",
-            color: "white",
-          }}
-          onClick={handleSubmit}
-        >
+        <Button variant="text" sx={styles.btnPositive} onClick={handleSubmit}>
           등록
         </Button>
       </Stack>
