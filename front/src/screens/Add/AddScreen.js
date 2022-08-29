@@ -5,12 +5,13 @@ import { add, load } from "../../store/memberReducer";
 import { modify } from "../../store/modalReducer";
 import { memberRepository } from "../../repositories/member-repository";
 import { inputOptionData } from "../../asset/inputOptionData";
+import { checkPhoneNumber } from "../../libs/common";
+import InputText from "../../components/InputText/InputText";
+import InputSelect from "../../components/InputSelect/InputSelect";
 import {
   Button,
   ButtonGroup,
   TextField,
-  Select,
-  MenuItem,
   InputLabel,
   Typography,
   Stack,
@@ -20,8 +21,6 @@ import {
 } from "@mui/material";
 import ArrowBackIosIcon from "@mui/icons-material/ArrowBackIos";
 import SquareIcon from "@mui/icons-material/Square";
-import { checkPhoneNumber } from "../../libs/common";
-import InputText from "../../components/InputText/InputText";
 
 const MARGINBOTTOM = "20px";
 
@@ -183,8 +182,7 @@ function AddScreen() {
               required
               requiredCheck={requiredInputCheck}
               onChange={handleChange}
-              inputMemberInfo={inputMemberInfo}
-              ariaDescribedby={"input-name-helper-text"}
+              value={inputMemberInfo}
               helperText={"이름을 입력하세요."}
               marginBottom={MARGINBOTTOM}
             />
@@ -244,70 +242,30 @@ function AddScreen() {
               justifyContent={"space-between"}
               style={{ marginBottom: `${MARGINBOTTOM}` }}
             >
-              <Box style={{ width: "46%" }}>
-                <InputLabel style={{ margin: "0 0 5px 0" }}>
-                  직책 <span style={{ color: "red" }}>*</span>
-                </InputLabel>
-                <Select
-                  fullWidth
-                  error={requiredInputCheck.position ? false : true}
-                  id="input-position"
-                  name="position"
-                  aria-describedby="input-position-helper-text"
-                  value={inputMemberInfo.position}
-                  onChange={handleChange}
-                >
-                  {positionList?.map((position, idx) => {
-                    return (
-                      <MenuItem key={position + idx} value={`${position}`}>
-                        {position}
-                      </MenuItem>
-                    );
-                  })}
-                </Select>
-                <Box style={{ height: "20px", marginTop: "3px" }}>
-                  {!requiredInputCheck.position && (
-                    <FormHelperText
-                      id="input-position-helper-text"
-                      style={{ color: "red", height: "20px" }}
-                    >
-                      직책을 선택하세요.
-                    </FormHelperText>
-                  )}
-                </Box>
-              </Box>
-              <Box style={{ width: "46%" }}>
-                <InputLabel style={{ margin: "0 0 5px 0" }}>
-                  직급 <span style={{ color: "red" }}>*</span>
-                </InputLabel>
-                <Select
-                  fullWidth
-                  error={requiredInputCheck.rank ? false : true}
-                  id="input-rank"
-                  name="rank"
-                  aria-describedby="input-rank-helper-text"
-                  value={inputMemberInfo.rank}
-                  onChange={handleChange}
-                >
-                  {rankList?.map((rank, idx) => {
-                    return (
-                      <MenuItem key={rank + idx} value={`${rank}`}>
-                        {rank}
-                      </MenuItem>
-                    );
-                  })}
-                </Select>
-                <Box style={{ height: "20px", marginTop: "3px" }}>
-                  {!requiredInputCheck.rank && (
-                    <FormHelperText
-                      id="input-rank-helper-text"
-                      style={{ color: "red", height: "20px" }}
-                    >
-                      직급을 선택하세요.
-                    </FormHelperText>
-                  )}
-                </Box>
-              </Box>
+              <InputSelect
+                style={{ width: "46%" }}
+                label={"직책"}
+                require
+                requiredCheck={requiredInputCheck}
+                name={"position"}
+                onChange={handleChange}
+                value={inputMemberInfo}
+                ariaDescribedby={"input-position-helper-text"}
+                itemList={positionList}
+                helperText={"직책을 선택하세요."}
+              />
+              <InputSelect
+                style={{ width: "46%" }}
+                label={"직급"}
+                require
+                requiredCheck={requiredInputCheck}
+                name={"rank"}
+                onChange={handleChange}
+                value={inputMemberInfo}
+                ariaDescribedby={"input-rank-helper-text"}
+                itemList={rankList}
+                helperText={"직급을 선택하세요."}
+              />
             </Stack>
           </Stack>
         </Stack>
