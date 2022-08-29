@@ -6,6 +6,7 @@ import { memberRepository } from "../../repositories/member-repository";
 import { load, modifySelectedIdList } from "../../store/memberReducer";
 import { Button, Stack } from "@mui/material";
 import { DataGrid } from "@mui/x-data-grid";
+import { styles } from "./muiStyles";
 
 const COLUMNS = [
   { field: "team", headerName: "부서", width: 110 },
@@ -50,34 +51,14 @@ function HomeScreen() {
   };
 
   return (
-    <Stack direction={"column"} style={{ padding: "30px 0" }}>
+    <Stack direction={"column"} sx={styles.container}>
       <Stack direction={"row"} justifyContent={"flex-end"}>
         <Link to={"add"} style={{ textDecoration: "none" }}>
-          <Button
-            variant="text"
-            style={{
-              width: "80px",
-              height: "35px",
-              backgroundColor: "#1386d2",
-              marginRight: "15px",
-              color: "white",
-            }}
-          >
+          <Button vatiant="text" sx={styles.btnPositive}>
             등록
           </Button>
         </Link>
-        <Button
-          variant="text"
-          style={{
-            width: "80px",
-            height: "35px",
-            backgroundColor: "white",
-            color: "gray",
-            border: "1.5px solid #d3d3d3",
-            fontWeight: "bold",
-          }}
-          onClick={handleRemove}
-        >
+        <Button variant="text" sx={styles.btn} onClick={handleRemove}>
           삭제
         </Button>
       </Stack>
@@ -91,12 +72,7 @@ function HomeScreen() {
           onSelectionModelChange={handleSelect}
           onRowClick={handleRowClick}
           rowsPerPageOptions={[10]}
-          sx={{
-            "& .MuiDataGrid-cell:hover": {
-              cursor: "pointer",
-            },
-          }}
-          style={{ height: "500px", margin: "20px 0" }}
+          sx={styles.dataGrid}
         />
       </div>
     </Stack>
