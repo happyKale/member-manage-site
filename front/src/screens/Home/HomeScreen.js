@@ -45,7 +45,7 @@ function HomeScreen() {
   return (
     <Stack direction={"column"} sx={styles.container}>
       <Stack direction={"row"} justifyContent={"flex-end"}>
-        <Link to={"add"} style={{ textDecoration: "none" }}>
+        <Link to={"add"}>
           <Button
             vatiant="text"
             sx={{ ...styles.btnPositive, ...styles.btnMargin }}

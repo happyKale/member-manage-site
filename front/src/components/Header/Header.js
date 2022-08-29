@@ -12,7 +12,7 @@ function Header() {
           textAlign: "center",
         }}
       >
-        <Link to={"/"} style={{ textDecoration: "none", color: "black" }}>
+        <Link to={"/"} style={{ color: "black" }}>
           D'Amo 직원 명단 관리 사이트
         </Link>
       </h1>
