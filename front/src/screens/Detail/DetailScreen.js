@@ -14,67 +14,22 @@ import {
 } from "@mui/material";
 import ArrowBackIosIcon from "@mui/icons-material/ArrowBackIos";
 import SquareIcon from "@mui/icons-material/Square";
+import { styles } from "./muiStyles";
 
 const Item = ({ label, content }) => {
   return (
-    <Stack
-      direction="row"
-      spacing={2}
-      style={{
-        border: "1px solid #eef2f5",
-        marginBottom: "10px",
-        borderRadius: "2px",
-      }}
-    >
-      <Box
-        style={{
-          backgroundColor: "#eef2f5",
-          display: "inline-block",
-          width: "25%",
-          borderTopLeftRadius: "4px",
-          borderBottomLeftRadius: "4px",
-        }}
-      >
-        <Typography
-          style={{ lineHeight: "45px", paddingLeft: "15px", fontSize: "14px" }}
-        >
-          {label}
-        </Typography>
+    <Stack direction="row" spacing={2} sx={styles.inputContainer}>
+      <Box sx={styles.inputSectionTitle}>
+        <Typography sx={styles.inputTitle}>{label}</Typography>
       </Box>
-
-      <Box
-        style={{
-          display: "inline-block",
-          width: "75%",
-          borderTopRightRadius: "4px",
-          borderBottomRightRadius: "4px",
-        }}
-      >
+      <Box sx={styles.inputSectionValue}>
         {label !== "담당업무" ? (
-          <Typography
-            style={{
-              lineHeight: "45px",
-              paddingLeft: "10px",
-              fontSize: "14px",
-            }}
-          >
-            {content}
-          </Typography>
+          <Typography sx={styles.inputValueText}>{content}</Typography>
         ) : (
           <TextareaAutosize
             minRows={5}
             readOnly
-            style={{
-              display: "inline-block",
-              fontSize: "14px",
-              width: "100%",
-              padding: "10px 20px 10px 10px",
-              boxSizing: "border-box",
-              border: "none",
-              resize: "none",
-              outline: "none",
-              lineHeight: "30px",
-            }}
+            style={styles.inputValueTextArea}
             value={content ?? ""}
           />
         )}
@@ -105,88 +60,43 @@ function DetailScreen() {
   };
 
   return (
-    <Stack direction={"column"} style={{ padding: "50px 0" }}>
-      <Typography style={{ fontSize: "20px", fontWeight: "bold" }}>
-        직원 정보
-      </Typography>
+    <Stack direction={"column"} sx={styles.container}>
+      <Typography sx={styles.screenTitle}>직원 정보</Typography>
       <Stack
         direction={"column"}
-        style={{
-          borderTop: "1px solid #e5e5e5",
-          borderBottom: "1px solid #e5e5e5",
-          margin: "30px 0",
-        }}
+        sx={styles.boxSection}
         divider={<Divider orientation="horizontal" flexItem />}
       >
-        <Stack direction={"row"} margin={"20px 0"}>
-          <Typography
-            style={{
-              width: "25%",
-              fontSize: "16px",
-              fontWeight: "bold",
-              color: "#5b5b5b",
-            }}
-          >
-            <SquareIcon
-              style={{
-                fontSize: "10px",
-                marginRight: "5px",
-                paddingBottom: "3px",
-              }}
-            />
+        <Stack direction={"row"} sx={styles.section}>
+          <Typography sx={styles.sectionTitle}>
+            <SquareIcon sx={styles.iconSquare} />
             기본 직원 정보
           </Typography>
-          <Stack style={{ width: "75%" }}>
+          <Stack sx={styles.sectionInputBox}>
             <Item label={"이름"} content={memberInfo?.name} />
             <Item label={"부서"} content={memberInfo?.team} />
             <Item label={"직급"} content={memberInfo?.rank} />
             <Item label={"직책"} content={memberInfo?.position} />
           </Stack>
         </Stack>
-        <Stack direction={"row"} margin={"20px 0"}>
-          <Typography
-            style={{
-              width: "25%",
-              fontSize: "16px",
-              fontWeight: "bold",
-              color: "#5b5b5b",
-            }}
-          >
-            <SquareIcon
-              style={{
-                fontSize: "10px",
-                marginRight: "5px",
-                paddingBottom: "3px",
-              }}
-            />
+        <Stack direction={"row"} sx={styles.section}>
+          <Typography sx={styles.sectionTitle}>
+            <SquareIcon sx={styles.iconSquare} />
             직원 연락처
           </Typography>
-          <Stack style={{ width: "75%" }}>
+          <Stack sx={styles.sectionInputBox}>
             <Item label={"핸드폰"} content={memberInfo?.phone} />
             <Item label={"메일주소"} content={memberInfo?.email} />
             <Item label={"사무실번호"} content={memberInfo?.officeNum} />
             <Item label={"팩스번호"} content={memberInfo?.faxNum} />
           </Stack>
         </Stack>
-        <Stack direction={"row"} margin={"20px 0"}>
-          <Typography
-            style={{
-              width: "25%",
-              fontSize: "16px",
-              fontWeight: "bold",
-              color: "#5b5b5b",
-            }}
-          >
-            <SquareIcon
-              style={{
-                fontSize: "10px",
-                marginRight: "5px",
-                paddingBottom: "3px",
-              }}
-            />
+        <Stack direction={"row"} sx={styles.section}>
+          <Typography sx={styles.sectionTitle}>
+            <SquareIcon sx={styles.iconSquare} />
             기타 직원 정보
           </Typography>
-          <Stack style={{ width: "75%" }}>
+          <Stack sx={styles.sectionInputBox}>
             <Item label={"생년월일"} content={memberInfo?.birth} />
             <Item label={"담당업무"} content={memberInfo?.task} />
           </Stack>
@@ -194,19 +104,8 @@ function DetailScreen() {
       </Stack>
       <Stack direction={"row"} justifyContent={"space-between"}>
         <Link to={"/"} style={{ textDecoration: "none" }}>
-          <Button
-            variant="text"
-            style={{
-              width: "80px",
-              height: "35px",
-              backgroundColor: "white",
-              color: "gray",
-              border: "1.5px solid #d3d3d3",
-              padding: "1.5px",
-              fontWeight: "bold",
-            }}
-          >
-            <ArrowBackIosIcon fontSize="14px" />
+          <Button variant="text" sx={styles.btn}>
+            <ArrowBackIosIcon sx={styles.iconArrow} />
             목록
           </Button>
         </Link>
@@ -214,30 +113,12 @@ function DetailScreen() {
           <Link to={`/modify/${params.id}`} style={{ textDecoration: "none" }}>
             <Button
               variant="text"
-              style={{
-                width: "80px",
-                height: "35px",
-                backgroundColor: "#1386d2",
-                marginRight: "15px",
-                color: "white",
-                fontWeight: "bold",
-              }}
+              sx={{ ...styles.btnPositive, ...styles.btnMargin }}
             >
               수정
             </Button>
           </Link>
-          <Button
-            variant="text"
-            style={{
-              width: "80px",
-              height: "35px",
-              backgroundColor: "white",
-              color: "gray",
-              border: "1.5px solid #d3d3d3",
-              fontWeight: "bold",
-            }}
-            onClick={handleRemove}
-          >
+          <Button variant="text" sx={styles.btn} onClick={handleRemove}>
             삭제
           </Button>
         </div>
