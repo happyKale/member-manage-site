@@ -6,9 +6,7 @@ import { modify } from "../../store/modalReducer";
 import { memberRepository } from "../../repositories/member-repository";
 import { inputOptionData } from "../../asset/inputOptionData";
 import { checkPhoneNumber } from "../../libs/common";
-import InputText from "../../components/InputText/InputText";
-import InputSelect from "../../components/InputSelect/InputSelect";
-import InputButtonGroup from "./../../components/InputButtonGroup/InputButtonGroup";
+import { InputText, InputSelect, InputButtonGroup } from "../../components";
 import {
   Button,
   TextField,
@@ -19,7 +17,8 @@ import {
 } from "@mui/material";
 import ArrowBackIosIcon from "@mui/icons-material/ArrowBackIos";
 import SquareIcon from "@mui/icons-material/Square";
-import { styles } from "./muiStyles";
+import { styles as muiStyles } from "./muiStyles";
+import styles from "./addScreen.module.css";
 
 function AddScreen() {
   const dispatch = useDispatch();
@@ -139,19 +138,18 @@ function AddScreen() {
   };
 
   return (
-    <Stack direction={"column"} sx={styles.container}>
-      <Typography sx={styles.screenTitle}>직원 등록</Typography>
+    <Stack sx={muiStyles.container}>
+      <Typography sx={muiStyles.screenTitle}>직원 등록</Typography>
       <Stack
-        direction={"column"}
-        sx={styles.screenContent}
+        sx={muiStyles.screenContent}
         divider={<Divider orientation="horizontal" flexItem />}
       >
-        <Stack direction={"row"} sx={styles.section}>
-          <Typography sx={styles.sectionTitle}>
-            <SquareIcon sx={styles.iconSquareLarge} />
+        <Stack sx={muiStyles.section}>
+          <Typography sx={muiStyles.sectionTitle}>
+            <SquareIcon sx={muiStyles.iconSquareLarge} />
             필수입력사항
           </Typography>
-          <Stack direction={"column"} sx={styles.inputContainer}>
+          <Stack sx={muiStyles.inputContainer}>
             <InputText
               label={"이름"}
               name={"name"}
@@ -175,9 +173,7 @@ function AddScreen() {
               teamButtonActive={teamButtonActive}
             />
             <Stack
-              direction={"row"}
-              justifyContent={"space-between"}
-              sx={styles.marginBottom}
+              sx={{ ...muiStyles.input2Column, ...muiStyles.marginBottom }}
             >
               <InputSelect
                 label={"직책"}
@@ -204,17 +200,17 @@ function AddScreen() {
             </Stack>
           </Stack>
         </Stack>
-        <Stack direction={"row"} sx={styles.section}>
-          <Typography sx={styles.sectionTitle}>
-            <SquareIcon sx={styles.iconSquareLarge} />
+        <Stack sx={muiStyles.section}>
+          <Typography sx={muiStyles.sectionTitle}>
+            <SquareIcon sx={muiStyles.iconSquareLarge} />
             연락처
           </Typography>
-          <Stack direction={"column"} sx={styles.inputContainer}>
-            <InputLabel sx={styles.inputLabel}>핸드폰</InputLabel>
+          <Stack sx={muiStyles.inputContainer}>
+            <InputLabel sx={muiStyles.inputLabel}>핸드폰</InputLabel>
             <Stack
               direction={"row"}
               justifyContent="space-between"
-              sx={styles.inputPhoneSection}
+              sx={muiStyles.inputPhoneSection}
             >
               <TextField
                 value={phoneNumber[0]}
@@ -222,24 +218,16 @@ function AddScreen() {
                 onChange={handleChange}
                 placeholder={"010"}
                 inputProps={{ maxLength: 3 }}
-                sx={styles.inputPhone}
+                sx={muiStyles.inputPhone}
               />
-              <span
-                style={{
-                  lineHeight: "50px",
-                  fontSize: "30px",
-                  fontWeight: "lighter",
-                }}
-              >
-                -
-              </span>
+              <span className={styles.inputPhoneHyphen}>-</span>
               <TextField
                 value={phoneNumber[1]}
                 name={"phone_2"}
                 onChange={handleChange}
                 placeholder={"1234"}
                 inputProps={{ maxLength: 4 }}
-                sx={styles.inputPhone}
+                sx={muiStyles.inputPhone}
                 inputRef={(input) =>
                   isPhoneFocused &&
                   phoneNumber[0].length === 3 &&
@@ -247,22 +235,14 @@ function AddScreen() {
                   input?.focus()
                 }
               />
-              <span
-                style={{
-                  lineHeight: "50px",
-                  fontSize: "30px",
-                  fontWeight: "lighter",
-                }}
-              >
-                -
-              </span>
+              <span className={styles.inputPhoneHyphen}>-</span>
               <TextField
                 value={phoneNumber[2]}
                 name={"phone_3"}
                 onChange={handleChange}
                 placeholder={"5678"}
                 inputProps={{ maxLength: 4 }}
-                sx={styles.inputPhone}
+                sx={muiStyles.inputPhone}
                 inputRef={(input) =>
                   isPhoneFocused &&
                   phoneNumber[0].length == 3 &&
@@ -298,12 +278,12 @@ function AddScreen() {
             />
           </Stack>
         </Stack>
-        <Stack direction={"row"} sx={styles.section}>
-          <Typography sx={styles.sectionTitle}>
-            <SquareIcon sx={styles.iconSquareLarge} />
+        <Stack sx={muiStyles.section}>
+          <Typography sx={muiStyles.sectionTitle}>
+            <SquareIcon sx={muiStyles.iconSquareLarge} />
             기타사항
           </Typography>
-          <Stack direction={"column"} sx={styles.inputContainer}>
+          <Stack sx={muiStyles.inputContainer}>
             <InputText
               label={"생년월일"}
               type={"date"}
@@ -323,14 +303,18 @@ function AddScreen() {
           </Stack>
         </Stack>
       </Stack>
-      <Stack direction={"row"} justifyContent={"space-between"}>
+      <Stack sx={muiStyles.screenFooter}>
         <Link to={"/"}>
-          <Button variant="text" sx={styles.btnSmall}>
-            <ArrowBackIosIcon sx={styles.iconArrow} />
+          <Button variant="text" sx={muiStyles.btnSmall}>
+            <ArrowBackIosIcon sx={muiStyles.iconArrow} />
             목록
           </Button>
         </Link>
-        <Button variant="text" sx={styles.btnPositive} onClick={handleSubmit}>
+        <Button
+          variant="text"
+          sx={muiStyles.btnPositive}
+          onClick={handleSubmit}
+        >
           등록
         </Button>
       </Stack>
