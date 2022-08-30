@@ -6,7 +6,8 @@ import {
   Button,
   FormHelperText,
 } from "@mui/material";
-import { globalMuiStyles as styles } from "../../styles/globalMuiStyles";
+import { styles as muiStyles } from "./muiStyles";
+import styles from "./inputButtonGroup.module.css";
 
 function InputButtonGroup({
   label,
@@ -20,17 +21,17 @@ function InputButtonGroup({
   teamButtonActive,
 }) {
   return (
-    <Box sx={styles.marginBottom}>
-      <InputLabel sx={styles.inputLabel}>
+    <Box sx={muiStyles.marginBottom}>
+      <InputLabel sx={muiStyles.inputLabel}>
         {label}
-        {require && <span style={{ color: "red" }}>*</span>}
+        {require ? (
+          <span className={styles.labelRequireMark}> *</span>
+        ) : (
+          <span className={styles.labelOptionalMark}>(선택)</span>
+        )}
       </InputLabel>
       <ButtonGroup
-        style={{
-          marginBottom: "3px",
-          height: "45px",
-          width: "100%",
-        }}
+        sx={muiStyles.buttonGroup}
         aria-describedby={ariaDescribedby}
       >
         {teamList?.map((teamName, idx) => {
@@ -60,12 +61,9 @@ function InputButtonGroup({
           );
         })}
       </ButtonGroup>
-      <Box style={{ height: "20px", marginTop: "3px" }}>
+      <Box sx={muiStyles.boxhelpertext}>
         {!requiredCheck[name] && (
-          <FormHelperText
-            id={ariaDescribedby}
-            style={{ color: "red", height: "20px" }}
-          >
+          <FormHelperText id={ariaDescribedby} sx={muiStyles.helperText}>
             {helperText}
           </FormHelperText>
         )}
