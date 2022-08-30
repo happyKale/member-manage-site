@@ -6,9 +6,10 @@ import {
   Box,
   FormHelperText,
 } from "@mui/material";
+import { styles as muiStyles } from "./muiStyles";
+import styles from "./inputSelect.module.css";
 
 function InputSelect({
-  style,
   label,
   require,
   requiredCheck,
@@ -20,17 +21,21 @@ function InputSelect({
   helperText,
 }) {
   return (
-    <Box style={style}>
-      <InputLabel style={{ margin: "0 0 5px 0" }}>
+    <Box sx={muiStyles.container}>
+      <InputLabel sx={muiStyles.inputLabel}>
         {label}
-        {require && <span style={{ color: "red" }}> *</span>}
+        {require ? (
+          <span className={styles.labelRequireMark}> *</span>
+        ) : (
+          <span className={styles.labelOptionalMark}>(선택)</span>
+        )}
       </InputLabel>
       <Select
         fullWidth
         error={requiredCheck[name] ? false : true}
         name={name}
         aria-describedby={ariaDescribedby}
-        value={value[name]}
+        value={(value && value[name]) || ""}
         onChange={onChange}
       >
         {itemList?.map((item, idx) => {
@@ -41,12 +46,9 @@ function InputSelect({
           );
         })}
       </Select>
-      <Box style={{ height: "20px", marginTop: "3px" }}>
+      <Box sx={muiStyles.boxHelperText}>
         {!requiredCheck[name] && (
-          <FormHelperText
-            id={ariaDescribedby}
-            style={{ color: "red", height: "20px" }}
-          >
+          <FormHelperText id={ariaDescribedby} sx={muiStyles.helperText}>
             {helperText}
           </FormHelperText>
         )}
