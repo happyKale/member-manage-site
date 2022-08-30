@@ -5,9 +5,7 @@ import { load, modify as memberModify } from "../../store/memberReducer";
 import { modify as modalModify } from "../../store/modalReducer";
 import { memberRepository } from "../../repositories/member-repository";
 import { inputOptionData } from "../../asset/inputOptionData";
-import InputText from "../../components/InputText/InputText";
-import InputSelect from "../../components/InputSelect/InputSelect";
-import InputButtonGroup from "./../../components/InputButtonGroup/InputButtonGroup";
+import { InputText, InputSelect, InputButtonGroup } from "../../components";
 import {
   Button,
   TextField,
@@ -18,7 +16,7 @@ import {
 } from "@mui/material";
 import ArrowBackIosIcon from "@mui/icons-material/ArrowBackIos";
 import SquareIcon from "@mui/icons-material/Square";
-import { styles } from "./muiStyles";
+import { styles as muiStyles } from "./muiStyles";
 
 function ModifyScreen() {
   const params = useParams();
@@ -111,19 +109,18 @@ function ModifyScreen() {
   };
 
   return (
-    <Stack direction={"column"} style={{ padding: "50px 0" }}>
-      <Typography sx={styles.screenTitle}>직원 수정</Typography>
+    <Stack sx={muiStyles.screenContainer}>
+      <Typography sx={muiStyles.screenTitle}>직원 수정</Typography>
       <Stack
-        direction={"column"}
-        sx={styles.screenContent}
+        sx={muiStyles.screenContent}
         divider={<Divider orientation="horizontal" flexItem />}
       >
-        <Stack direction={"row"} sx={styles.section}>
-          <Typography sx={styles.sectionTitle}>
-            <SquareIcon sx={styles.iconSquareLarge} />
+        <Stack sx={muiStyles.section}>
+          <Typography sx={muiStyles.sectionTitle}>
+            <SquareIcon sx={muiStyles.iconSquareLarge} />
             필수입력사항
           </Typography>
-          <Stack sx={styles.inputContainer}>
+          <Stack sx={muiStyles.inputContainer}>
             <InputText
               label={"이름"}
               name={"name"}
@@ -147,9 +144,7 @@ function ModifyScreen() {
               teamButtonActive={teamButtonActive}
             />
             <Stack
-              direction={"row"}
-              justifyContent={"space-between"}
-              sx={styles.marginBottom}
+              sx={{ ...muiStyles.input2Column, ...muiStyles.marginBottom }}
             >
               <InputSelect
                 label={"직책"}
@@ -176,13 +171,13 @@ function ModifyScreen() {
             </Stack>
           </Stack>
         </Stack>
-        <Stack direction={"row"} sx={styles.section}>
-          <Typography sx={styles.sectionTitle}>
-            <SquareIcon sx={styles.iconSquareLarge} />
+        <Stack sx={muiStyles.section}>
+          <Typography sx={muiStyles.sectionTitle}>
+            <SquareIcon sx={muiStyles.iconSquareLarge} />
             연락처
           </Typography>
-          <Stack sx={styles.inputContainer}>
-            <InputLabel sx={styles.inputLabel}>핸드폰</InputLabel>
+          <Stack sx={muiStyles.inputContainer}>
+            <InputLabel sx={muiStyles.inputLabel}>핸드폰</InputLabel>
             <TextField
               fullWidth
               value={inputMemberInfo?.phone || ""}
@@ -218,12 +213,12 @@ function ModifyScreen() {
             />
           </Stack>
         </Stack>
-        <Stack direction={"row"} sx={styles.section}>
-          <Typography sx={styles.sectionTitle}>
-            <SquareIcon sx={styles.iconSquareLarge} />
+        <Stack sx={muiStyles.section}>
+          <Typography sx={muiStyles.sectionTitle}>
+            <SquareIcon sx={muiStyles.iconSquareLarge} />
             기타사항
           </Typography>
-          <Stack sx={styles.inputContainer}>
+          <Stack sx={muiStyles.inputContainer}>
             <InputText
               label={"생년월일"}
               type={"date"}
@@ -243,14 +238,18 @@ function ModifyScreen() {
           </Stack>
         </Stack>
       </Stack>
-      <Stack direction={"row"} justifyContent={"space-between"}>
+      <Stack sx={muiStyles.screenFooter}>
         <Link to={`/detail/${params.id}`}>
-          <Button variant="text" sx={styles.btnLarge}>
-            <ArrowBackIosIcon sx={styles.iconArrow} />
+          <Button variant="text" sx={muiStyles.btnLarge}>
+            <ArrowBackIosIcon sx={muiStyles.iconArrow} />
             이전화면
           </Button>
         </Link>
-        <Button variant="text" sx={styles.btnPositive} onClick={handleSubmit}>
+        <Button
+          variant="text"
+          sx={muiStyles.btnPositive}
+          onClick={handleSubmit}
+        >
           저장
         </Button>
       </Stack>
