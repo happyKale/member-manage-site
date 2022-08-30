@@ -28,13 +28,6 @@ function AddScreen() {
 
   const [phoneNumber, setPhoneNumber] = useState(["", "", ""]);
   const [isPhoneFocused, setIsPhoneFocused] = useState(false);
-  const [teamButtonActive, setTeamButtonActive] = useState({
-    DA팀: false,
-    DE팀: false,
-    DK팀: false,
-    DP팀: false,
-    DX팀: false,
-  });
   const [inputMemberInfo, setInputMemberInfo] = useState({
     id: lastId + 1,
     name: "",
@@ -63,23 +56,12 @@ function AddScreen() {
     }
   }, []);
 
-  const handleChange = (e) => {
+  const handleChange = (e, value) => {
     if (e.target.name === "team") {
       setIsPhoneFocused(false);
       setInputMemberInfo({
         ...inputMemberInfo,
-        team: inputMemberInfo.team == e.target.value ? "" : e.target.value,
-      });
-      const init = {
-        DA팀: false,
-        DE팀: false,
-        DK팀: false,
-        DP팀: false,
-        DX팀: false,
-      };
-      setTeamButtonActive({
-        ...init,
-        [e.target.value]: !teamButtonActive[e.target.value],
+        team: value,
       });
     } else if (checkPhoneValueIndex.includes(e.target.name)) {
       setIsPhoneFocused(true);
@@ -164,12 +146,12 @@ function AddScreen() {
               label={"부서"}
               require
               name={"team"}
+              value={inputMemberInfo}
               requiredCheck={requiredInputCheck}
               ariaDescribedby={"input-team-helper-text"}
               helperText={"부서를 선택하세요."}
               teamList={teamList}
-              onClick={handleChange}
-              teamButtonActive={teamButtonActive}
+              onChange={handleChange}
             />
             <Stack
               sx={{ ...muiStyles.input2Column, ...muiStyles.marginBottom }}
