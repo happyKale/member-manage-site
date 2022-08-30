@@ -124,7 +124,7 @@ function AddScreen() {
 
   const handleSubmit = () => {
     if (Object.values(requiredInputCheck).includes(false)) {
-      alert("필수 값을 모두 입력하세요.");
+      dispatch(modify({ type: "alert", openStatus: true }));
       return;
     } else if (!checkPhoneNumber(inputMemberInfo?.phone)?.status) {
       alert(checkPhoneNumber(inputMemberInfo?.phone)?.message);
