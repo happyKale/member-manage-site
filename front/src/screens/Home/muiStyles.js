@@ -11,9 +11,12 @@ export const styles = {
     justifyContent: "flex-end",
   },
   dataGrid: {
-    height: "500px",
-    margin: "20px 0",
-    "& .MuiDataGrid-cell:hover": {
+    height: "630.5px",
+    margin: "10px 0",
+  },
+  dataGridCell: {
+    fontSize: "20px",
+    "&:hover": {
       cursor: "pointer",
     },
   },

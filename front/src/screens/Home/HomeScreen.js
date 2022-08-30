@@ -7,6 +7,8 @@ import { load, modifySelectedIdList } from "../../store/memberReducer";
 import { dataGridColumnData } from "../../asset/dataGridColumnData";
 import { Button, Stack } from "@mui/material";
 import { DataGrid } from "@mui/x-data-grid";
+import TextSnippetOutlinedIcon from "@mui/icons-material/TextSnippetOutlined";
+import SettingsOutlinedIcon from "@mui/icons-material/SettingsOutlined";
 import { styles as muiStyles } from "./muiStyles";
 
 function HomeScreen() {
@@ -14,6 +16,27 @@ function HomeScreen() {
   const dispatch = useDispatch();
   const COLUMNS = dataGridColumnData.home;
   const memberList = useSelector((state) => state.member.memberList);
+  const rows = memberList?.map((member) => {
+    return {
+      ...member,
+      detail: (
+        <TextSnippetOutlinedIcon
+          onClick={() => {
+            navigate(`/detail/${member.id}`);
+          }}
+          sx={muiStyles.dataGridCell}
+        />
+      ),
+      modify: (
+        <SettingsOutlinedIcon
+          onClick={() => {
+            navigate(`/modify/${member.id}`);
+          }}
+          sx={muiStyles.dataGridCell}
+        />
+      ),
+    };
+  });
   const [selectedMemberIdList, setSelectedMemberIdList] = useState([]);
 
   useEffect(() => {
@@ -25,9 +48,7 @@ function HomeScreen() {
   const handleSelect = (e) => {
     setSelectedMemberIdList(e);
   };
-  const handleRowClick = (e) => {
-    navigate(`/detail/${e.id}`);
-  };
+
   const handleRemove = () => {
     if (selectedMemberIdList.length === 0) {
       dispatch(modify({ type: "alert", openStatus: true }));
@@ -57,10 +78,9 @@ function HomeScreen() {
           checkboxSelection
           disableSelectionOnClick
           pageSize={10}
-          rows={memberList}
+          rows={rows}
           columns={COLUMNS}
           onSelectionModelChange={handleSelect}
-          onRowClick={handleRowClick}
           rowsPerPageOptions={[10]}
           sx={muiStyles.dataGrid}
         />
