@@ -3,13 +3,7 @@ import { TextField, InputLabel, Stack } from "@mui/material";
 import { styles as muiStyles } from "./muiStyles";
 import styles from "./inputPhone.module.css";
 
-function InputPhone({
-  label,
-  require,
-  phoneNumberInfo,
-  onChange,
-  isPhoneFocused,
-}) {
+function InputPhone({ label, require, value, onChange, isPhoneFocused }) {
   return (
     <>
       <InputLabel sx={muiStyles.inputLabel}>
@@ -22,7 +16,7 @@ function InputPhone({
       </InputLabel>
       <Stack sx={muiStyles.inputPhoneSection}>
         <TextField
-          value={phoneNumberInfo[0]}
+          value={(value && value?.[0]) || ""}
           name={"phone_1"}
           onChange={onChange}
           placeholder={"010"}
@@ -31,7 +25,7 @@ function InputPhone({
         />
         <span className={styles.inputPhoneHyphen}>-</span>
         <TextField
-          value={phoneNumberInfo[1]}
+          value={(value && value?.[1]) || ""}
           name={"phone_2"}
           onChange={onChange}
           placeholder={"1234"}
@@ -39,14 +33,14 @@ function InputPhone({
           sx={muiStyles.inputPhone}
           inputRef={(input) =>
             isPhoneFocused &&
-            phoneNumberInfo[0].length === 3 &&
-            phoneNumberInfo[2].length === 0 &&
+            value?.[0]?.length === 3 &&
+            value?.[2]?.length === 0 &&
             input?.focus()
           }
         />
         <span className={styles.inputPhoneHyphen}>-</span>
         <TextField
-          value={phoneNumberInfo[2]}
+          value={(value && value?.[2]) || ""}
           name={"phone_3"}
           onChange={onChange}
           placeholder={"5678"}
@@ -54,9 +48,9 @@ function InputPhone({
           sx={muiStyles.inputPhone}
           inputRef={(input) =>
             isPhoneFocused &&
-            phoneNumberInfo[0].length == 3 &&
-            phoneNumberInfo[1].length == 4 &&
-            phoneNumberInfo[2].length == 0 &&
+            value?.[0]?.length == 3 &&
+            value?.[1]?.length == 4 &&
+            value?.[2]?.length == 0 &&
             input?.focus()
           }
         />
