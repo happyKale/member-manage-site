@@ -34,19 +34,10 @@ function ModifyScreen() {
     rank: true,
     position: true,
   });
-  const [teamButtonActive, setTeamButtonActive] = useState({});
 
   useEffect(() => {
     memberRepository.getOne(params.id).then((res) => {
       dispatch(load({ selectedMemberInfo: res.data }));
-      setTeamButtonActive({
-        DA팀: false,
-        DE팀: false,
-        DK팀: false,
-        DP팀: false,
-        DX팀: false,
-        [res.data["team"]]: true,
-      });
 
       const numList = res.data.phone.split("-");
       setPhoneNumber([numList[0], numList[1], numList[2]]);
@@ -57,23 +48,12 @@ function ModifyScreen() {
     setInputMemberInfo(memberInfo);
   }, [memberInfo]);
 
-  const handleChange = (e) => {
+  const handleChange = (e, value) => {
     if (e.target.name === "team") {
       setIsPhoneFocused(false);
       setInputMemberInfo({
         ...inputMemberInfo,
-        team: inputMemberInfo.team == e.target.value ? "" : e.target.value,
-      });
-      const init = {
-        DA팀: false,
-        DE팀: false,
-        DK팀: false,
-        DP팀: false,
-        DX팀: false,
-      };
-      setTeamButtonActive({
-        ...init,
-        [e.target.value]: !teamButtonActive[e.target.value],
+        team: value,
       });
     } else if (checkPhoneValueIndex.includes(e.target.name)) {
       setIsPhoneFocused(true);
@@ -154,12 +134,12 @@ function ModifyScreen() {
               label={"부서"}
               require
               name={"team"}
+              value={inputMemberInfo}
               requiredCheck={requiredInputCheck}
               ariaDescribedby={"input-team-helper-text"}
               helperText={"부서를 선택하세요."}
               teamList={teamList}
-              onClick={handleChange}
-              teamButtonActive={teamButtonActive}
+              onChange={handleChange}
             />
             <Stack
               sx={{ ...muiStyles.input2Column, ...muiStyles.marginBottom }}
