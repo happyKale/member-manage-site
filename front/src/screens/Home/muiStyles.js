@@ -4,9 +4,11 @@ export const styles = {
   ...globalMuiStyles,
   container: {
     padding: "30px 0",
+    flexDirection: "column",
   },
-  boxDataGrid: {
-    height: "520px",
+  boxButton: {
+    flexDirection: "row",
+    justifyContent: "flex-end",
   },
   dataGrid: {
     height: "500px",
