@@ -5,3 +5,4 @@ export { default as ConfirmModal } from "./ConfirmModal/ConfirmModal";
 export { default as InputText } from "./InputText/InputText";
 export { default as InputSelect } from "./InputSelect/InputSelect";
 export { default as InputButtonGroup } from "./InputButtonGroup/InputButtonGroup";
+export { default as AlertModal } from "./AlertModal/AlertModal";
