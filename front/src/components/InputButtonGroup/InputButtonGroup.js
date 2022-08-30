@@ -1,9 +1,9 @@
 import React from "react";
 import {
-  ButtonGroup,
+  ToggleButtonGroup,
   InputLabel,
   Box,
-  Button,
+  ToggleButton,
   FormHelperText,
 } from "@mui/material";
 import { styles as muiStyles } from "./muiStyles";
@@ -17,8 +17,8 @@ function InputButtonGroup({
   helperText,
   name,
   teamList,
-  onClick,
-  teamButtonActive,
+  onChange,
+  value,
 }) {
   return (
     <Box sx={muiStyles.marginBottom}>
@@ -30,37 +30,28 @@ function InputButtonGroup({
           <span className={styles.labelOptionalMark}>(선택)</span>
         )}
       </InputLabel>
-      <ButtonGroup
+      <ToggleButtonGroup
+        value={value?.[name]}
+        exclusive
         sx={muiStyles.buttonGroup}
+        onChange={onChange}
         aria-describedby={ariaDescribedby}
       >
         {teamList?.map((teamName, idx) => {
           return (
-            <Button
-              onClick={onClick}
+            <ToggleButton
               name={name}
               value={teamName}
               key={teamName + idx}
-              style={{
-                width: "20%",
-                backgroundColor: teamButtonActive[teamName]
-                  ? "#1976d2"
-                  : "white",
-                color: teamButtonActive[teamName]
-                  ? "white"
-                  : requiredCheck[name]
-                  ? "#1976d2"
-                  : "rgba(0,0,0,0.6)",
-                border: requiredCheck[name]
-                  ? "1px solid #1976d2"
-                  : "1px solid #d32f2f",
-              }}
+              sx={
+                requiredCheck?.[name] ? muiStyles.button : muiStyles.errorButton
+              }
             >
               {teamName}
-            </Button>
+            </ToggleButton>
           );
         })}
-      </ButtonGroup>
+      </ToggleButtonGroup>
       <Box sx={muiStyles.boxhelpertext}>
         {!requiredCheck[name] && (
           <FormHelperText id={ariaDescribedby} sx={muiStyles.helperText}>
