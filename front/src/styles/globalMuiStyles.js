@@ -2,7 +2,11 @@ export const globalMuiStyles = {
   marginBottom: {
     marginBottom: "20px",
   },
-  // 화면 소제목
+  // 화면
+  screenContainer: {
+    padding: "50px 0",
+    flexDirection: "column",
+  },
   screenTitle: {
     fontSize: "20px",
     fontWeight: "bold",
@@ -11,6 +15,11 @@ export const globalMuiStyles = {
     borderTop: "1px solid #e5e5e5",
     borderBottom: "1px solid #e5e5e5",
     margin: "30px 0",
+    flexDirection: "column",
+  },
+  screenFooter: {
+    flexDirection: "row",
+    justifyContent: "space-between",
   },
 
   // input
@@ -19,11 +28,17 @@ export const globalMuiStyles = {
   },
   inputContainer: {
     width: "65%",
+    flexDirection: "column",
+  },
+  input2Column: {
+    flexDirection: "row",
+    justifyContent: "space-between",
   },
 
   //section
   section: {
     margin: "20px 0",
+    flexDirection: "row",
   },
   sectionTitle: {
     width: "35%",
