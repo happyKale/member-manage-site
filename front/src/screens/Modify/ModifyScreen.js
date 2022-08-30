@@ -5,15 +5,13 @@ import { load, modify as memberModify } from "../../store/memberReducer";
 import { modify as modalModify } from "../../store/modalReducer";
 import { memberRepository } from "../../repositories/member-repository";
 import { inputOptionData } from "../../asset/inputOptionData";
-import { InputText, InputSelect, InputButtonGroup } from "../../components";
 import {
-  Button,
-  TextField,
-  InputLabel,
-  Typography,
-  Stack,
-  Divider,
-} from "@mui/material";
+  InputText,
+  InputSelect,
+  InputButtonGroup,
+  InputPhone,
+} from "../../components";
+import { Button, Typography, Stack, Divider } from "@mui/material";
 import ArrowBackIosIcon from "@mui/icons-material/ArrowBackIos";
 import SquareIcon from "@mui/icons-material/Square";
 import { styles as muiStyles } from "./muiStyles";
@@ -25,6 +23,10 @@ function ModifyScreen() {
   const rankList = inputOptionData.rankList;
   const positionList = inputOptionData.positionList;
   const memberInfo = useSelector((state) => state.member.selectedMemberInfo);
+  const checkPhoneValueIndex = ["phone_1", "phone_2", "phone_3"];
+
+  const [phoneNumber, setPhoneNumber] = useState(["", "", ""]);
+  const [isPhoneFocused, setIsPhoneFocused] = useState(false);
   const [inputMemberInfo, setInputMemberInfo] = useState({ ...memberInfo });
   const [requiredInputCheck, setRequiredInputCheck] = useState({
     name: true,
@@ -45,6 +47,9 @@ function ModifyScreen() {
         DX팀: false,
         [res.data["team"]]: true,
       });
+
+      const numList = res.data.phone.split("-");
+      setPhoneNumber([numList[0], numList[1], numList[2]]);
     });
   }, []);
 
@@ -54,6 +59,7 @@ function ModifyScreen() {
 
   const handleChange = (e) => {
     if (e.target.name === "team") {
+      setIsPhoneFocused(false);
       setInputMemberInfo({
         ...inputMemberInfo,
         team: inputMemberInfo.team == e.target.value ? "" : e.target.value,
@@ -69,7 +75,19 @@ function ModifyScreen() {
         ...init,
         [e.target.value]: !teamButtonActive[e.target.value],
       });
+    } else if (checkPhoneValueIndex.includes(e.target.name)) {
+      setIsPhoneFocused(true);
+      const index = checkPhoneValueIndex.indexOf(e.target.name);
+      const newPhone = [...phoneNumber];
+      newPhone[index] = e.target.value;
+      setPhoneNumber(newPhone);
+
+      setInputMemberInfo({
+        ...inputMemberInfo,
+        ["phone"]: newPhone.join("-"),
+      });
     } else {
+      setIsPhoneFocused(false);
       setInputMemberInfo({
         ...inputMemberInfo,
         [e.target.name]: e.target.value,
@@ -177,15 +195,11 @@ function ModifyScreen() {
             연락처
           </Typography>
           <Stack sx={muiStyles.inputContainer}>
-            <InputLabel sx={muiStyles.inputLabel}>핸드폰</InputLabel>
-            <TextField
-              fullWidth
-              value={inputMemberInfo?.phone || ""}
-              name={"phone"}
-              style={{ marginBottom: "30px" }}
+            <InputPhone
+              label={"핸드폰"}
+              value={phoneNumber}
               onChange={handleChange}
-              placeholder={"010-1234-5678"}
-              inputProps={{ maxLength: 13 }}
+              isPhoneFocused={isPhoneFocused}
             />
             <InputText
               label={"메일주소"}
