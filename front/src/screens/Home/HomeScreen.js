@@ -30,14 +30,9 @@ function HomeScreen() {
   };
   const handleRemove = () => {
     if (selectedMemberIdList.length === 0) {
-      alert("삭제할 직원 명단을 선택하세요.");
+      dispatch(modify({ type: "alert", openStatus: true }));
     } else {
-      dispatch(
-        modify({
-          type: "remove",
-          openStatus: true,
-        })
-      );
+      dispatch(modify({ type: "remove", openStatus: true }));
       dispatch(modifySelectedIdList([...selectedMemberIdList]));
     }
   };
