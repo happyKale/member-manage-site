@@ -14,22 +14,22 @@ import {
 } from "@mui/material";
 import ArrowBackIosIcon from "@mui/icons-material/ArrowBackIos";
 import SquareIcon from "@mui/icons-material/Square";
-import { styles } from "./muiStyles";
+import { styles as muiStyles } from "./muiStyles";
 
 const Item = ({ label, content }) => {
   return (
-    <Stack direction="row" spacing={2} sx={styles.inputContainer}>
-      <Box sx={styles.inputSectionTitle}>
-        <Typography sx={styles.inputTitle}>{label}</Typography>
+    <Stack sx={muiStyles.inputContainer}>
+      <Box sx={muiStyles.inputSectionTitle}>
+        <Typography sx={muiStyles.inputTitleText}>{label}</Typography>
       </Box>
-      <Box sx={styles.inputSectionValue}>
+      <Box sx={muiStyles.inputSectionValue}>
         {label !== "담당업무" ? (
-          <Typography sx={styles.inputValueText}>{content}</Typography>
+          <Typography sx={muiStyles.inputValueText}>{content}</Typography>
         ) : (
           <TextareaAutosize
             minRows={5}
             readOnly
-            style={styles.inputValueTextArea}
+            style={muiStyles.inputValueTextArea}
             value={content ?? ""}
           />
         )}
@@ -60,65 +60,64 @@ function DetailScreen() {
   };
 
   return (
-    <Stack direction={"column"} sx={styles.container}>
-      <Typography sx={styles.screenTitle}>직원 정보</Typography>
+    <Stack sx={muiStyles.screenContainer}>
+      <Typography sx={muiStyles.screenTitle}>직원 정보</Typography>
       <Stack
-        direction={"column"}
-        sx={styles.boxSection}
+        sx={muiStyles.boxSection}
         divider={<Divider orientation="horizontal" flexItem />}
       >
-        <Stack direction={"row"} sx={styles.section}>
-          <Typography sx={styles.sectionTitle}>
-            <SquareIcon sx={styles.iconSquare} />
+        <Stack sx={muiStyles.section}>
+          <Typography sx={muiStyles.sectionTitle}>
+            <SquareIcon sx={muiStyles.iconSquareSmall} />
             기본 직원 정보
           </Typography>
-          <Stack sx={styles.sectionInputBox}>
+          <Stack sx={muiStyles.sectionInputBox}>
             <Item label={"이름"} content={memberInfo?.name} />
             <Item label={"부서"} content={memberInfo?.team} />
             <Item label={"직급"} content={memberInfo?.rank} />
             <Item label={"직책"} content={memberInfo?.position} />
           </Stack>
         </Stack>
-        <Stack direction={"row"} sx={styles.section}>
-          <Typography sx={styles.sectionTitle}>
-            <SquareIcon sx={styles.iconSquare} />
+        <Stack sx={muiStyles.section}>
+          <Typography sx={muiStyles.sectionTitle}>
+            <SquareIcon sx={muiStyles.iconSquareSmall} />
             직원 연락처
           </Typography>
-          <Stack sx={styles.sectionInputBox}>
+          <Stack sx={muiStyles.sectionInputBox}>
             <Item label={"핸드폰"} content={memberInfo?.phone} />
             <Item label={"메일주소"} content={memberInfo?.email} />
             <Item label={"사무실번호"} content={memberInfo?.officeNum} />
             <Item label={"팩스번호"} content={memberInfo?.faxNum} />
           </Stack>
         </Stack>
-        <Stack direction={"row"} sx={styles.section}>
-          <Typography sx={styles.sectionTitle}>
-            <SquareIcon sx={styles.iconSquare} />
+        <Stack sx={muiStyles.section}>
+          <Typography sx={muiStyles.sectionTitle}>
+            <SquareIcon sx={muiStyles.iconSquareSmall} />
             기타 직원 정보
           </Typography>
-          <Stack sx={styles.sectionInputBox}>
+          <Stack sx={muiStyles.sectionInputBox}>
             <Item label={"생년월일"} content={memberInfo?.birth} />
             <Item label={"담당업무"} content={memberInfo?.task} />
           </Stack>
         </Stack>
       </Stack>
-      <Stack direction={"row"} justifyContent={"space-between"}>
-        <Link to={"/"} style={{ textDecoration: "none" }}>
-          <Button variant="text" sx={styles.btn}>
-            <ArrowBackIosIcon sx={styles.iconArrow} />
+      <Stack sx={muiStyles.screenFooter}>
+        <Link to={"/"}>
+          <Button variant="text" sx={muiStyles.btnSmall}>
+            <ArrowBackIosIcon sx={muiStyles.iconArrow} />
             목록
           </Button>
         </Link>
         <div>
-          <Link to={`/modify/${params.id}`} style={{ textDecoration: "none" }}>
+          <Link to={`/modify/${params.id}`}>
             <Button
               variant="text"
-              sx={{ ...styles.btnPositive, ...styles.btnMargin }}
+              sx={{ ...muiStyles.btnPositive, ...muiStyles.btnMargin }}
             >
               수정
             </Button>
           </Link>
-          <Button variant="text" sx={styles.btn} onClick={handleRemove}>
+          <Button variant="text" sx={muiStyles.btnSmall} onClick={handleRemove}>
             삭제
           </Button>
         </div>
