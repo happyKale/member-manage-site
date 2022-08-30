@@ -7,7 +7,7 @@ import { load, modifySelectedIdList } from "../../store/memberReducer";
 import { dataGridColumnData } from "../../asset/dataGridColumnData";
 import { Button, Stack } from "@mui/material";
 import { DataGrid } from "@mui/x-data-grid";
-import { styles } from "./muiStyles";
+import { styles as muiStyles } from "./muiStyles";
 
 function HomeScreen() {
   const navigate = useNavigate();
@@ -43,21 +43,21 @@ function HomeScreen() {
   };
 
   return (
-    <Stack direction={"column"} sx={styles.container}>
-      <Stack direction={"row"} justifyContent={"flex-end"}>
+    <Stack sx={muiStyles.container}>
+      <Stack sx={muiStyles.boxButton}>
         <Link to={"add"}>
           <Button
             vatiant="text"
-            sx={{ ...styles.btnPositive, ...styles.btnMargin }}
+            sx={{ ...muiStyles.btnPositive, ...muiStyles.btnMargin }}
           >
             등록
           </Button>
         </Link>
-        <Button variant="text" sx={styles.btn} onClick={handleRemove}>
+        <Button variant="text" sx={muiStyles.btnSmall} onClick={handleRemove}>
           삭제
         </Button>
       </Stack>
-      <div style={{ height: "520px" }}>
+      <div>
         <DataGrid
           checkboxSelection
           disableSelectionOnClick
@@ -67,7 +67,7 @@ function HomeScreen() {
           onSelectionModelChange={handleSelect}
           onRowClick={handleRowClick}
           rowsPerPageOptions={[10]}
-          sx={styles.dataGrid}
+          sx={muiStyles.dataGrid}
         />
       </div>
     </Stack>
