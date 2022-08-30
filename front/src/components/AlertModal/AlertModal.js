@@ -49,7 +49,7 @@ function AlertModal() {
           variant="text"
           sx={muiStyles.btnPositive}
         >
-          확인
+          닫기
         </Button>
       </DialogActions>
     </Dialog>
