@@ -2,16 +2,11 @@ import { globalMuiStyles } from "../../styles/globalMuiStyles";
 
 export const styles = {
   ...globalMuiStyles,
-  container: {
-    padding: "50px 0",
-  },
   boxSection: {
     borderTop: "1px solid #e5e5e5",
     borderBottom: "1px solid #e5e5e5",
     margin: "30px 0",
-  },
-  section: {
-    margin: "20px 0",
+    flexDirection: "column",
   },
   sectionTitle: {
     width: "25%",
@@ -26,6 +21,7 @@ export const styles = {
     border: "1px solid #eef2f5",
     marginBottom: "10px",
     borderRadius: "2px",
+    flexDirection: "row",
   },
   inputSectionTitle: {
     backgroundColor: "#eef2f5",
@@ -34,16 +30,18 @@ export const styles = {
     borderTopLeftRadius: "4px",
     borderBottomLeftRadius: "4px",
   },
-  inputTitle: {
+  inputTitleText: {
     lineHeight: "45px",
     paddingLeft: "15px",
     fontSize: "14px",
+    fontWeight: "500",
   },
   inputSectionValue: {
     display: "inline-block",
     width: "75%",
     borderTopRightRadius: "4px",
     borderBottomRightRadius: "4px",
+    paddingLeft: "15px",
   },
   inputValueText: {
     lineHeight: "45px",
