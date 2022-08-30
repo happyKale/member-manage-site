@@ -99,7 +99,7 @@ function ModifyScreen() {
 
   const handleSubmit = () => {
     if (Object.values(requiredInputCheck).includes(false)) {
-      alert("필수 값을 모두 입력하세요.");
+      dispatch(modalModify({ type: "alert", openStatus: true }));
     } else {
       memberRepository.update(params.id, inputMemberInfo).then((res) => {
         dispatch(memberModify(inputMemberInfo));
