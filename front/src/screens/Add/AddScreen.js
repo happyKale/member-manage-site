@@ -6,19 +6,16 @@ import { modify } from "../../store/modalReducer";
 import { memberRepository } from "../../repositories/member-repository";
 import { inputOptionData } from "../../asset/inputOptionData";
 import { checkPhoneNumber } from "../../libs/common";
-import { InputText, InputSelect, InputButtonGroup } from "../../components";
 import {
-  Button,
-  TextField,
-  InputLabel,
-  Typography,
-  Stack,
-  Divider,
-} from "@mui/material";
+  InputText,
+  InputSelect,
+  InputButtonGroup,
+  InputPhone,
+} from "../../components";
+import { Button, Typography, Stack, Divider } from "@mui/material";
 import ArrowBackIosIcon from "@mui/icons-material/ArrowBackIos";
 import SquareIcon from "@mui/icons-material/Square";
 import { styles as muiStyles } from "./muiStyles";
-import styles from "./addScreen.module.css";
 
 function AddScreen() {
   const dispatch = useDispatch();
@@ -68,6 +65,7 @@ function AddScreen() {
 
   const handleChange = (e) => {
     if (e.target.name === "team") {
+      setIsPhoneFocused(false);
       setInputMemberInfo({
         ...inputMemberInfo,
         team: inputMemberInfo.team == e.target.value ? "" : e.target.value,
@@ -95,6 +93,7 @@ function AddScreen() {
         ["phone"]: newPhone.join("-"),
       });
     } else {
+      setIsPhoneFocused(false);
       setInputMemberInfo({
         ...inputMemberInfo,
         [e.target.name]: e.target.value,
@@ -206,52 +205,12 @@ function AddScreen() {
             연락처
           </Typography>
           <Stack sx={muiStyles.inputContainer}>
-            <InputLabel sx={muiStyles.inputLabel}>핸드폰</InputLabel>
-            <Stack
-              direction={"row"}
-              justifyContent="space-between"
-              sx={muiStyles.inputPhoneSection}
-            >
-              <TextField
-                value={phoneNumber[0]}
-                name={"phone_1"}
-                onChange={handleChange}
-                placeholder={"010"}
-                inputProps={{ maxLength: 3 }}
-                sx={muiStyles.inputPhone}
-              />
-              <span className={styles.inputPhoneHyphen}>-</span>
-              <TextField
-                value={phoneNumber[1]}
-                name={"phone_2"}
-                onChange={handleChange}
-                placeholder={"1234"}
-                inputProps={{ maxLength: 4 }}
-                sx={muiStyles.inputPhone}
-                inputRef={(input) =>
-                  isPhoneFocused &&
-                  phoneNumber[0].length === 3 &&
-                  phoneNumber[2].length === 0 &&
-                  input?.focus()
-                }
-              />
-              <span className={styles.inputPhoneHyphen}>-</span>
-              <TextField
-                value={phoneNumber[2]}
-                name={"phone_3"}
-                onChange={handleChange}
-                placeholder={"5678"}
-                inputProps={{ maxLength: 4 }}
-                sx={muiStyles.inputPhone}
-                inputRef={(input) =>
-                  isPhoneFocused &&
-                  phoneNumber[0].length == 3 &&
-                  phoneNumber[1].length == 4 &&
-                  phoneNumber[2].length == 0 &&
-                  input?.focus()
-                }
-              />
-            </Stack>
+            <InputPhone
+              label={"핸드폰"}
+              phoneNumberInfo={phoneNumber}
+              onChange={handleChange}
+              isPhoneFocused={isPhoneFocused}
+            />
             <InputText
               label={"메일주소"}
               name={"email"}
