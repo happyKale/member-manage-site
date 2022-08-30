@@ -1,10 +1,10 @@
-import { Container } from "@mui/system";
 import React from "react";
 import { useSelector } from "react-redux";
 import { Route, Routes } from "react-router-dom";
-import { ConfirmModal, Header, RemoveModal } from "./components";
+import { AlertModal, ConfirmModal, Header, RemoveModal } from "./components";
 import { HomeScreen, DetailScreen, AddScreen, ModifyScreen } from "./screens";
 import { ThemeProvider, createTheme } from "@mui/material";
+import { Container } from "@mui/system";
 
 const theme = createTheme({
   typography: {
@@ -32,6 +32,8 @@ function App() {
           <RemoveModal />
         ) : modalInfo.type === "confirm" && modalInfo.openStatus ? (
           <ConfirmModal />
+        ) : modalInfo.type === "alert" && modalInfo.openStatus ? (
+          <AlertModal />
         ) : (
           ""
         )}
