@@ -1,6 +1,8 @@
 import React from "react";
 import { TextField, InputLabel, Box } from "@mui/material";
 import { makeStyles } from "@material-ui/core/styles";
+import { styles as muiStyles } from "./muiStyles";
+import styles from "./inputText.module.css";
 
 const helperTextStyles = makeStyles((theme) => ({
   root: {
@@ -25,21 +27,34 @@ function InputText({
   onChange,
   value,
   helperText,
-  marginBottom,
+  multiline,
+  rows,
+  type,
 }) {
   const helperTestClasses = helperTextStyles();
 
   return (
-    <Box style={{ marginBottom: `${marginBottom}` }}>
-      <InputLabel style={{ margin: "0 0 5px 0" }}>
+    <Box sx={muiStyles.marginBottom}>
+      <InputLabel sx={muiStyles.inputLabel}>
         {label}
-        {required && <span style={{ color: "red" }}> *</span>}
+        {required ? (
+          <span className={styles.labelRequireMark}> *</span>
+        ) : (
+          <span className={styles.labelOptionalMark}>(선택)</span>
+        )}
       </InputLabel>
       <TextField
         fullWidth
-        error={requiredCheck[name] ? false : true}
-        value={value[name]}
-        name={name}
+        type={type ?? ""}
+        error={
+          requiredCheck && requiredCheck[name]
+            ? false
+            : requiredCheck
+            ? true
+            : false
+        }
+        value={(value && value[name]) || ""}
+        name={name ?? ""}
         onChange={onChange}
         placeholder={placeholder ?? ""}
         inputProps={inputProps}
@@ -47,6 +62,8 @@ function InputText({
         FormHelperTextProps={{
           classes: helperTestClasses,
         }}
+        multiline={multiline ?? false}
+        rows={rows ?? ""}
       />
     </Box>
   );
