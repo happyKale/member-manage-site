@@ -25,6 +25,7 @@ export const globalMuiStyles = {
   // input
   inputLabel: {
     margin: "0 0 5px 0",
+    fontWeight: "500",
   },
   inputContainer: {
     width: "65%",
@@ -92,5 +93,22 @@ export const globalMuiStyles = {
   },
   iconArrow: {
     fontSize: "14px",
+  },
+
+  //modal
+  dialogTitle: {
+    display: "flex",
+    justifyContent: "space-between",
+    borderBottom: "1px solid #e5e5e5",
+    padding: "10px 20px",
+    fontWeight: "bold",
+    color: "gray",
+  },
+  dialogContentTitle: {
+    fontWeight: "bold",
+  },
+  dialogActions: {
+    padding: "10px 20px 10px",
+    borderTop: "1px solid #e5e5e5",
   },
 };
