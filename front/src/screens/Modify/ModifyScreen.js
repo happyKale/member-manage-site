@@ -39,8 +39,12 @@ function ModifyScreen() {
     memberRepository.getOne(params.id).then((res) => {
       dispatch(load({ selectedMemberInfo: res.data }));
 
-      const numList = res.data.phone.split("-");
-      setPhoneNumber([numList[0], numList[1], numList[2]]);
+      if (res.data.phone === "") {
+        setPhoneNumber(["", "", ""]);
+      } else {
+        const numList = res.data.phone.split("-");
+        setPhoneNumber([numList[0], numList[1], numList[2]]);
+      }
     });
   }, []);
 
