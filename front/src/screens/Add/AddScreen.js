@@ -119,7 +119,7 @@ function AddScreen() {
   };
 
   return (
-    <Stack sx={muiStyles.container}>
+    <Stack sx={muiStyles.screenContainer}>
       <Typography sx={muiStyles.screenTitle}>직원 등록</Typography>
       <Stack
         sx={muiStyles.screenContent}
@@ -189,7 +189,7 @@ function AddScreen() {
           <Stack sx={muiStyles.inputContainer}>
             <InputPhone
               label={"핸드폰"}
-              phoneNumberInfo={phoneNumber}
+              value={phoneNumber}
               onChange={handleChange}
               isPhoneFocused={isPhoneFocused}
             />
