@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { Link, useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { load, modify as memberModify } from "../../store/memberReducer";
 import { modify as modalModify } from "../../store/modalReducer";
@@ -19,6 +19,7 @@ import { styles as muiStyles } from "./muiStyles";
 function ModifyScreen() {
   const params = useParams();
   const dispatch = useDispatch();
+  const navigate = useNavigate();
   const teamList = inputOptionData.teamList;
   const rankList = inputOptionData.rankList;
   const positionList = inputOptionData.positionList;
@@ -237,12 +238,16 @@ function ModifyScreen() {
         </Stack>
       </Stack>
       <Stack sx={muiStyles.screenFooter}>
-        <Link to={`/detail/${params.id}`}>
-          <Button variant="text" sx={muiStyles.btnLarge}>
-            <ArrowBackIosIcon sx={muiStyles.iconArrow} />
-            이전화면
-          </Button>
-        </Link>
+        <Button
+          variant="text"
+          sx={muiStyles.btnLarge}
+          onClick={() => {
+            navigate(-1);
+          }}
+        >
+          <ArrowBackIosIcon sx={muiStyles.iconArrow} />
+          이전화면
+        </Button>
         <Button
           variant="text"
           sx={muiStyles.btnPositive}
