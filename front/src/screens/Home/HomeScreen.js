@@ -40,9 +40,11 @@ function HomeScreen() {
   const [selectedMemberIdList, setSelectedMemberIdList] = useState([]);
 
   useEffect(() => {
-    memberRepository.getAll().then((res) => {
-      dispatch(load({ memberList: Object.values(res.data) }));
-    });
+    if (memberList.length === 0) {
+      memberRepository.getAll().then((res) => {
+        dispatch(load({ memberList: Object.values(res.data) }));
+      });
+    }
   }, []);
 
   const handleSelect = (e) => {

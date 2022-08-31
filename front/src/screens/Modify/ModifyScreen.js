@@ -37,16 +37,25 @@ function ModifyScreen() {
   });
 
   useEffect(() => {
-    memberRepository.getOne(params.id).then((res) => {
-      dispatch(load({ selectedMemberInfo: res.data }));
+    if (Object.values(memberInfo).length === 0) {
+      memberRepository.getOne(params.id).then((res) => {
+        dispatch(load({ selectedMemberInfo: res.data }));
 
-      if (res.data.phone === "") {
+        if (res.data.phone === "") {
+          setPhoneNumber(["", "", ""]);
+        } else {
+          const numList = res.data.phone.split("-");
+          setPhoneNumber([numList[0], numList[1], numList[2]]);
+        }
+      });
+    } else {
+      if (memberInfo.phone === "") {
         setPhoneNumber(["", "", ""]);
       } else {
-        const numList = res.data.phone.split("-");
+        const numList = memberInfo.phone.split("-");
         setPhoneNumber([numList[0], numList[1], numList[2]]);
       }
-    });
+    }
   }, []);
 
   useEffect(() => {

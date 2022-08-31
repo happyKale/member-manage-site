@@ -44,9 +44,11 @@ function DetailScreen() {
   const memberInfo = useSelector((state) => state.member.selectedMemberInfo);
 
   useEffect(() => {
-    memberRepository.getOne(params.id).then((res) => {
-      dispatch(load({ selectedMemberInfo: res.data }));
-    });
+    if (Object.values(memberInfo).length === 0) {
+      memberRepository.getOne(params.id).then((res) => {
+        dispatch(load({ selectedMemberInfo: res.data }));
+      });
+    }
   }, []);
 
   const handleRemove = () => {
