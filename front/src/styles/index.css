@@ -19,3 +19,13 @@ code {
 a {
   text-decoration: none;
 }
+
+.labelRequireMark {
+  color: red;
+}
+.labelOptionalMark {
+  color: #a3a3a3;
+  font-weight: 400;
+  margin-left: 4px;
+  font-size: 13px;
+}
