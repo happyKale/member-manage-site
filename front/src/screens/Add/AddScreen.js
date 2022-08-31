@@ -23,7 +23,7 @@ function AddScreen() {
   const rankList = inputOptionData.rankList;
   const positionList = inputOptionData.positionList;
   const memberList = useSelector((state) => state.member.memberList);
-  const [lastId, setLastId] = useState([...memberList]?.pop()?.id);
+  const [lastId, setLastId] = useState(0);
   const checkPhoneValueIndex = ["phone_1", "phone_2", "phone_3"];
 
   const [phoneNumber, setPhoneNumber] = useState(["", "", ""]);
@@ -55,6 +55,14 @@ function AddScreen() {
       });
     }
   }, []);
+
+  useEffect(() => {
+    setLastId([...memberList]?.pop()?.id);
+    setInputMemberInfo({
+      ...inputMemberInfo,
+      id: [...memberList]?.pop()?.id + 1,
+    });
+  }, [memberList]);
 
   const handleChange = (e, value) => {
     if (e.target.name === "team") {
