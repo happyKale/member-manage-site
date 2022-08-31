@@ -34,7 +34,7 @@ function InputPhone({ label, require, value, onChange, isPhoneFocused }) {
           inputRef={(input) =>
             isPhoneFocused &&
             value?.[0]?.length === 3 &&
-            value?.[2]?.length === 0 &&
+            value?.[2] === "" &&
             input?.focus()
           }
         />
@@ -48,9 +48,9 @@ function InputPhone({ label, require, value, onChange, isPhoneFocused }) {
           sx={muiStyles.inputPhone}
           inputRef={(input) =>
             isPhoneFocused &&
-            value?.[0]?.length == 3 &&
-            value?.[1]?.length == 4 &&
-            value?.[2]?.length == 0 &&
+            value?.[0]?.length === 3 &&
+            value?.[1]?.length === 4 &&
+            value?.[2] === "" &&
             input?.focus()
           }
         />
