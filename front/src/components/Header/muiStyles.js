@@ -4,7 +4,7 @@ export const styles = {
   ...globalMuiStyles,
   container: {
     flexDirection: "row",
-    height: "80px",
+    height: "60px",
   },
   title: {
     alignItems: "center",

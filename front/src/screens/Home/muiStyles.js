@@ -3,7 +3,7 @@ import { globalMuiStyles } from "../../styles/globalMuiStyles";
 export const styles = {
   ...globalMuiStyles,
   container: {
-    padding: "30px 0",
+    padding: "30px",
     flexDirection: "column",
   },
   boxButton: {
@@ -16,6 +16,7 @@ export const styles = {
   },
   dataGridCell: {
     fontSize: "20px",
+    color: "gray",
     "&:hover": {
       cursor: "pointer",
     },
