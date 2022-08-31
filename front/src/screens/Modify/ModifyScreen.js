@@ -115,7 +115,18 @@ function ModifyScreen() {
     } else {
       memberRepository.update(params.id, inputMemberInfo).then((res) => {
         dispatch(memberModify(inputMemberInfo));
-        dispatch(modalModify({ type: "confirm", openStatus: true }));
+        dispatch(
+          modalModify({
+            type: "confirm",
+            openStatus: true,
+            content: {
+              title: "직원 명단 수정 확인",
+              contentTitle: "직원 명단이 수정되었습니다.",
+              contentText:
+                "홈으로 이동하시겠습니까? 아니면 상세화면에 머무르시겠습니까?",
+            },
+          })
+        );
       });
     }
   };

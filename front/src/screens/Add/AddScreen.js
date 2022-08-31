@@ -130,7 +130,18 @@ function AddScreen() {
     } else {
       memberRepository.add(inputMemberInfo).then((res) => {
         dispatch(add(inputMemberInfo));
-        dispatch(modify({ type: "confirm", openStatus: true }));
+        dispatch(
+          modify({
+            type: "confirm",
+            openStatus: true,
+            content: {
+              title: "직원 명단 등록 확인",
+              contentTitle: "직원 명단이 등록되었습니다.",
+              contentText:
+                "홈으로 이동하시겠습니다? 아니면 등록화면에 머무르시겠습니까?",
+            },
+          })
+        );
       });
     }
   };

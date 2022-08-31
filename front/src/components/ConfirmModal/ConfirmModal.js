@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { useLocation, useNavigate } from "react-router-dom";
 import { modify } from "../../store/modalReducer";
 import { modifySelectedIdList } from "../../store/memberReducer";
@@ -18,12 +18,13 @@ function ConfirmModal() {
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const location = useLocation();
+  const content = useSelector((state) => state.modal.content);
   const type = location.pathname.split("/")[1];
   const [open, setOpen] = useState(true);
 
   const handleClose = () => {
     setOpen(false);
-    dispatch(modify({ type: "", openStatus: false }));
+    dispatch(modify({ type: "", openStatus: false, content: {} }));
     dispatch(modifySelectedIdList([]));
     navigate(`/`);
   };
@@ -48,21 +49,17 @@ function ConfirmModal() {
   return (
     <Dialog open={open} onClose={handleClose}>
       <DialogTitle onClose={handleClose} sx={muiStyles.dialogTitle}>
-        {type === "modify" ? "직원 명단 수정 확인" : "직원 명단 등록 확인"}
+        {content?.title}
         <Button onClick={handleClose}>
           <CloseIcon />
         </Button>
       </DialogTitle>
       <DialogContent sx={muiStyles.dialogContent}>
         <Typography sx={muiStyles.dialogContentTitle}>
-          {type === "modify"
-            ? "직원 명단이 수정되었습니다."
-            : "직원 명단이 등록되었습니다."}
+          {content?.contentTitle}
         </Typography>
         <Typography sx={muiStyles.dialogContentText}>
-          {type === "modify"
-            ? `홈으로 이동하시겠습니까? 아니면 상세화면에 머무르시겠습니까?`
-            : `홈으로 이동하시겠습니다? 아니면 등록화면에 머무르시겠습니까?`}
+          {content?.contentText}
         </Typography>
       </DialogContent>
       <DialogActions sx={muiStyles.dialogActions}>
