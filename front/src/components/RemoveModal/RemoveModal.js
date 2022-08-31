@@ -45,7 +45,7 @@ function RemoveModal() {
 
   const handleClose = () => {
     setOpen(false);
-    dispatch(modify({ type: "", openStatus: false }));
+    dispatch(modify({ type: "", openStatus: false, content: {} }));
     dispatch(modifySelectedIdList([]));
   };
 

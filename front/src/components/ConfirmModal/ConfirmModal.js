@@ -37,7 +37,7 @@ function ConfirmModal() {
   const handleStay = () => {
     const memberId = location.pathname.split("/").pop();
     setOpen(false);
-    dispatch(modify({ type: "", openStatus: false }));
+    dispatch(modify({ type: "", openStatus: false, content: {} }));
     dispatch(modifySelectedIdList([]));
     if (type === "add") {
       window.location.reload();
