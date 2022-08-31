@@ -3,30 +3,17 @@ import { useSelector } from "react-redux";
 import { Route, Routes } from "react-router-dom";
 import { AlertModal, ConfirmModal, Header, RemoveModal } from "./components";
 import { HomeScreen, DetailScreen, AddScreen, ModifyScreen } from "./screens";
-import { ThemeProvider, createTheme } from "@mui/material";
+import { ThemeProvider } from "@mui/material";
 import { Container } from "@mui/system";
-
-const theme = createTheme({
-  typography: {
-    fontFamily: "Spoqa Han Sans Neo",
-  },
-});
+import { theme } from "./styles/muiStyles";
+import { styles as muiStyles } from "./styles/muiStyles";
 
 function App() {
   const modalInfo = useSelector((state) => state.modal);
 
   return (
     <div className="App">
-      <Container
-        style={{
-          maxWidth: "1000px",
-          padding: "50px",
-          backgroundColor: "white",
-          margin: "80px auto",
-          borderRadius: "15px",
-          minWidth: "600px",
-        }}
-      >
+      <Container maxWidth={false} sx={muiStyles.container}>
         <Header />
         {modalInfo.type == "remove" && modalInfo.openStatus ? (
           <RemoveModal />
