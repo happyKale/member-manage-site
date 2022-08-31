@@ -38,9 +38,9 @@ function InputText({
       <InputLabel sx={muiStyles.inputLabel}>
         {label}
         {required ? (
-          <span className={styles.labelRequireMark}> *</span>
+          <span className={"labelRequireMark"}> *</span>
         ) : (
-          <span className={styles.labelOptionalMark}>(선택)</span>
+          <span className={"labelOptionalMark"}>(선택)</span>
         )}
       </InputLabel>
       <TextField

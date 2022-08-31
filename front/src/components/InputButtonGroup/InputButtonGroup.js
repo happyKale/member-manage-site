@@ -7,7 +7,6 @@ import {
   FormHelperText,
 } from "@mui/material";
 import { styles as muiStyles } from "./muiStyles";
-import styles from "./inputButtonGroup.module.css";
 
 function InputButtonGroup({
   label,
@@ -25,9 +24,9 @@ function InputButtonGroup({
       <InputLabel sx={muiStyles.inputLabel}>
         {label}
         {require ? (
-          <span className={styles.labelRequireMark}> *</span>
+          <span className={"labelRequireMark"}> *</span>
         ) : (
-          <span className={styles.labelOptionalMark}>(선택)</span>
+          <span className={"labelOptionalMark"}>(선택)</span>
         )}
       </InputLabel>
       <ToggleButtonGroup
