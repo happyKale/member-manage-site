@@ -54,6 +54,11 @@ function DetailScreen() {
       modify({
         type: "remove",
         openStatus: true,
+        content: {
+          title: "직원 명단 삭제",
+          contentTitle: "선택된 직원 명단 개수",
+          contentText: "아래 직원 명단을 삭제하시겠습니까?",
+        },
       })
     );
     dispatch(modifySelectedIdList([Number(params.id)]));

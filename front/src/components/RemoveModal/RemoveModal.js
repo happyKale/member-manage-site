@@ -39,6 +39,7 @@ function RemoveModal() {
       };
     }
   });
+  const content = useSelector((state) => state.modal.content);
 
   const [open, setOpen] = useState(true);
 
@@ -61,17 +62,17 @@ function RemoveModal() {
   return (
     <Dialog open={open} onClose={handleClose}>
       <DialogTitle onClose={handleClose} sx={muiStyles.dialogTitle}>
-        직원 명단 삭제
+        {content?.title}
         <Button onClick={handleClose}>
           <CloseIcon />
         </Button>
       </DialogTitle>
       <DialogContent sx={muiStyles.dialogContent}>
         <Typography sx={muiStyles.dialogContentTitle}>
-          선택된 직원 명단 개수: {selectedIdList?.length}
+          {content?.contentTitle}: {selectedIdList?.length}
         </Typography>
         <Typography sx={muiStyles.dialogContentText}>
-          아래 직원 명단을 삭제하시겠습니까?
+          {content?.contentText}
         </Typography>
         <DataGrid
           headerHeight={40}

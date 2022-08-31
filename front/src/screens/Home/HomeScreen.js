@@ -51,9 +51,28 @@ function HomeScreen() {
 
   const handleRemove = () => {
     if (selectedMemberIdList.length === 0) {
-      dispatch(modify({ type: "alert", openStatus: true }));
+      dispatch(
+        modify({
+          type: "alert",
+          openStatus: true,
+          content: {
+            title: "삭제할 직원 명단 확인",
+            contentTitle: "삭제할 직원 명단을 선택하세요.",
+          },
+        })
+      );
     } else {
-      dispatch(modify({ type: "remove", openStatus: true }));
+      dispatch(
+        modify({
+          type: "remove",
+          openStatus: true,
+          content: {
+            title: "직원 명단 삭제",
+            contentTitle: "선택된 직원 명단 개수",
+            contentText: "아래 직원 명단을 삭제하시겠습니까?",
+          },
+        })
+      );
       dispatch(modifySelectedIdList([...selectedMemberIdList]));
     }
   };
