@@ -3,6 +3,11 @@ import { createSlice } from "@reduxjs/toolkit";
 const initialState = {
   type: "",
   openStatus: false,
+  content: {
+    title: "",
+    contentTitle: "",
+    contentText: "",
+  },
 };
 
 export const modalSlice = createSlice({
@@ -11,7 +16,14 @@ export const modalSlice = createSlice({
   reducers: {
     modify: (state, action) => {
       Object.keys(action.payload).map((key) => {
-        state[`${key}`] = action.payload[`${key}`];
+        if (key === "content") {
+          state[`${key}`] = {
+            ...state[`${key}`],
+            ...action.payload[`${key}`],
+          };
+        } else {
+          state[`${key}`] = action.payload[`${key}`];
+        }
       });
     },
   },
