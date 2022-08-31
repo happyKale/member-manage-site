@@ -102,7 +102,16 @@ function ModifyScreen() {
 
   const handleSubmit = () => {
     if (Object.values(requiredInputCheck).includes(false)) {
-      dispatch(modalModify({ type: "alert", openStatus: true }));
+      dispatch(
+        modalModify({
+          type: "alert",
+          openStatus: true,
+          content: {
+            title: "직원 명단 항목 확인",
+            contentTitle: "필수 항목을 모두 입력하세요.",
+          },
+        })
+      );
     } else {
       memberRepository.update(params.id, inputMemberInfo).then((res) => {
         dispatch(memberModify(inputMemberInfo));
