@@ -2,9 +2,9 @@ export const globalMuiStyles = {
   marginBottom: {
     marginBottom: "20px",
   },
-  // 화면
+  // screen
   screenContainer: {
-    padding: "50px 0",
+    padding: "50px 30px",
     flexDirection: "column",
   },
   screenTitle: {
@@ -48,7 +48,7 @@ export const globalMuiStyles = {
     color: "#5b5b5b",
   },
 
-  // 버튼
+  // button
   btnSmall: {
     width: "80px",
     height: "35px",
@@ -80,7 +80,7 @@ export const globalMuiStyles = {
     marginRight: "15px",
   },
 
-  // 아이콘
+  // icon
   iconSquareSmall: {
     fontSize: "10px",
     marginRight: "5px",
