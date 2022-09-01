@@ -161,7 +161,7 @@ function AddScreen() {
           <Stack sx={muiStyles.inputContainer}>
             <InputText
               label={"이름"}
-              name={"name"}
+              valueKey={"name"}
               placeholder={"홍길동"}
               inputProps={{ maxLength: 30 }}
               required
@@ -173,7 +173,7 @@ function AddScreen() {
             <InputButtonGroup
               label={"부서"}
               require
-              name={"team"}
+              valueKey={"team"}
               value={inputMemberInfo}
               requiredCheck={requiredInputCheck}
               ariaDescribedby={"input-team-helper-text"}
@@ -188,7 +188,7 @@ function AddScreen() {
                 label={"직책"}
                 require
                 requiredCheck={requiredInputCheck}
-                name={"position"}
+                valueKey={"position"}
                 onChange={handleChange}
                 value={inputMemberInfo}
                 ariaDescribedby={"input-position-helper-text"}
@@ -199,7 +199,7 @@ function AddScreen() {
                 label={"직급"}
                 require
                 requiredCheck={requiredInputCheck}
-                name={"rank"}
+                valueKey={"rank"}
                 onChange={handleChange}
                 value={inputMemberInfo}
                 ariaDescribedby={"input-rank-helper-text"}
@@ -223,7 +223,7 @@ function AddScreen() {
             />
             <InputText
               label={"메일주소"}
-              name={"email"}
+              valueKey={"email"}
               onChange={handleChange}
               value={inputMemberInfo}
               placeholder={"gdhong@pentasecurity.com"}
@@ -231,7 +231,7 @@ function AddScreen() {
             />
             <InputText
               label={"사무실번호"}
-              name={"officeNum"}
+              valueKey={"officeNum"}
               onChange={handleChange}
               value={inputMemberInfo}
               placeholder={"02-2125-0000"}
@@ -239,7 +239,7 @@ function AddScreen() {
             />
             <InputText
               label={"팩스번호"}
-              name={"faxNum"}
+              valueKey={"faxNum"}
               onChange={handleChange}
               value={inputMemberInfo}
               placeholder={"02-780-0000"}
@@ -256,13 +256,13 @@ function AddScreen() {
             <InputText
               label={"생년월일"}
               type={"date"}
-              name={"birth"}
+              valueKey={"birth"}
               onChange={handleChange}
               value={inputMemberInfo}
             />
             <InputText
               label={"담당업무"}
-              name={"task"}
+              valueKey={"task"}
               inputProps={{ maxLength: 200 }}
               onChange={handleChange}
               value={inputMemberInfo}

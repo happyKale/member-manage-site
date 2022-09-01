@@ -19,7 +19,7 @@ const helperTextStyles = makeStyles((theme) => ({
 
 function InputText({
   label,
-  name,
+  valueKey,
   placeholder,
   inputProps,
   required,
@@ -47,14 +47,14 @@ function InputText({
         fullWidth
         type={type ?? ""}
         error={
-          requiredCheck && requiredCheck[name]
+          requiredCheck && requiredCheck[valueKey]
             ? false
             : requiredCheck
             ? true
             : false
         }
-        value={(value && value[name]) || ""}
-        name={name ?? ""}
+        value={(value && value[valueKey]) || ""}
+        name={valueKey ?? ""}
         onChange={onChange}
         placeholder={placeholder ?? ""}
         inputProps={inputProps}

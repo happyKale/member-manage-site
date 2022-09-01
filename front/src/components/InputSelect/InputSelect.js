@@ -12,7 +12,7 @@ function InputSelect({
   label,
   require,
   requiredCheck,
-  name,
+  valueKey,
   onChange,
   value,
   ariaDescribedby,
@@ -31,10 +31,10 @@ function InputSelect({
       </InputLabel>
       <Select
         fullWidth
-        error={requiredCheck[name] ? false : true}
-        name={name}
+        error={requiredCheck[valueKey] ? false : true}
+        name={valueKey}
         aria-describedby={ariaDescribedby}
-        value={(value && value[name]) || ""}
+        value={(value && value[valueKey]) || ""}
         onChange={onChange}
       >
         {itemList?.map((item, idx) => {
@@ -46,7 +46,7 @@ function InputSelect({
         })}
       </Select>
       <Box sx={muiStyles.boxHelperText}>
-        {!requiredCheck[name] && (
+        {!requiredCheck[valueKey] && (
           <FormHelperText id={ariaDescribedby} sx={muiStyles.helperText}>
             {helperText}
           </FormHelperText>

@@ -14,7 +14,7 @@ function InputButtonGroup({
   requiredCheck,
   ariaDescribedby,
   helperText,
-  name,
+  valueKey,
   teamList,
   onChange,
   value,
@@ -30,7 +30,7 @@ function InputButtonGroup({
         )}
       </InputLabel>
       <ToggleButtonGroup
-        value={value?.[name]}
+        value={value?.[valueKey]}
         exclusive
         sx={muiStyles.buttonGroup}
         onChange={onChange}
@@ -39,11 +39,13 @@ function InputButtonGroup({
         {teamList?.map((teamName, idx) => {
           return (
             <ToggleButton
-              name={name}
+              name={valueKey}
               value={teamName}
               key={teamName + idx}
               sx={
-                requiredCheck?.[name] ? muiStyles.button : muiStyles.errorButton
+                requiredCheck?.[valueKey]
+                  ? muiStyles.button
+                  : muiStyles.errorButton
               }
             >
               {teamName}
@@ -52,7 +54,7 @@ function InputButtonGroup({
         })}
       </ToggleButtonGroup>
       <Box sx={muiStyles.boxhelpertext}>
-        {!requiredCheck[name] && (
+        {!requiredCheck[valueKey] && (
           <FormHelperText id={ariaDescribedby} sx={muiStyles.helperText}>
             {helperText}
           </FormHelperText>
