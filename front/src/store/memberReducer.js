@@ -1,35 +1,30 @@
 import { createSlice } from "@reduxjs/toolkit";
 
-const initialState = {
-  memberList: [],
-  selectedMemberInfo: {},
-  selectedIdList: [],
-};
-
 export const memberSlice = createSlice({
   name: "memeber",
-  initialState,
+  initialState: {
+    memberList: [],
+    selectedMemberInfo: {},
+    selectedIdList: [],
+  },
   reducers: {
-    load: (state, action) => {
+    load(state, action) {
       if (action.payload.memberList) {
         state.memberList = action.payload.memberList;
       }
       if (action.payload.selectedMemberInfo) {
         state.selectedMemberInfo = action.payload.selectedMemberInfo;
       }
-      return state;
     },
-    add: (state, action) => {
+    add(state, action) {
       state.memberList.push(action.payload);
-      return state;
     },
-    remove: (state, action) => {
+    remove(state, action) {
       state.memberList = state.memberList.filter(
         (member) => !action.payload.selectedMemberId.includes(member.id)
       );
-      return state;
     },
-    modify: (state, action) => {
+    modify(state, action) {
       let num = 0;
       state.selectedMemberInfo = action.payload;
       if (state.memberList.length !== 0) {
@@ -42,10 +37,9 @@ export const memberSlice = createSlice({
       } else {
         state.memberList.push(state.selectedMemberInfo);
       }
-      return state;
     },
     modifySelectedIdList: (state, action) => {
-      state.selectedIdList = [...action.payload];
+      state.selectedIdList = action.payload;
     },
   },
 });
