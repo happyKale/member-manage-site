@@ -44,7 +44,7 @@ function DetailScreen() {
   const memberInfo = useSelector((state) => state.member.selectedMemberInfo);
 
   useEffect(() => {
-    if (Object.values(memberInfo).length === 0) {
+    if (memberInfo?.id !== Number(params.id)) {
       memberRepository.getOne(params.id).then((res) => {
         dispatch(load({ selectedMemberInfo: res.data }));
       });
